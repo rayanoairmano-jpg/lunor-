@@ -1,6 +1,31 @@
-# Lunoré — Bijoux Homme
+# Lunoré
 
-Nouvelle vitrine pour la boutique Lunoré : un site statique (HTML/CSS/JS, aucune étape de build)
+## Fichiers
+
+| Fichier | Contenu |
+|---|---|
+| `index.html` | **Version nuit** du site Lunoré (40 bijoux femme et homme, synchronisés avec la boutique Shopify) |
+| `version-jour.html` | Version ivoire d'origine, gardée pour comparer |
+| `concept-bague-3d.html` | Concept homme avec bague 3D WebGL (voir plus bas) |
+
+### Version nuit (`index.html`)
+
+Un seul fichier, sans build. Même contenu, même catalogue et même panier que la version jour, posés sur un ciel animé :
+
+- **Ciel étoilé en canvas** fixe derrière toute la page : trois profondeurs d'étoiles qui scintillent
+  et glissent en parallaxe avec la souris et le défilement.
+- **Étoiles filantes** de temps en temps, et une à chaque clic dans le ciel du hero (« faire un vœu »).
+- **La Grande Ourse** qui se trace au chargement ; le nom de chaque étoile apparaît au survol.
+- **Poussière d'étoiles** qui suit le curseur.
+- **Lune réelle** : « Ce soir : premier croissant · lune éclairée à 7 % » est calculé à partir de la date du jour.
+- Lune et arches en parallaxe au défilement avec GSAP ScrollTrigger.
+- `prefers-reduced-motion` respecté : ciel fixe, sans filantes ni traînée.
+
+---
+
+## Concept bague 3D (`concept-bague-3d.html`)
+
+Concept de vitrine homme : un site statique (HTML/CSS/JS, aucune étape de build)
 pensé comme une vitrine de savoir-faire front-end.
 
 ## Ce qu'il y a dedans

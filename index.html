@@ -2,267 +2,1418 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lunoré — Bijoux Homme</title>
-<meta name="description" content="Lunoré, bijoux pour homme : chevalières, bagues, chaînes et bracelets en argent 925, vermeil or 18k et acier 316L. Gravure offerte.">
-<meta name="theme-color" content="#0b0d12">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lunoré, la nuit</title>
+<meta name="description" content="Lunoré : bijoux fantaisie dorés et argentés pour femme et homme, colliers, créoles, bagues, bracelets et parures à moins de 35 €. Expédiés depuis la France en 2 à 7 jours.">
+<meta name="theme-color" content="#0B0F1C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preconnect" href="https://cdn.shopify.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+/* Lunoré — feuille de style
+   Version nuit : mêmes polices et même or champagne que la boutique, posés sur un ciel
+   étoilé animé (canvas #night). Le croissant de lune reste la signature. */
+:root{
+  /* Nuit : ciel bleu d'encre, or champagne pour la lumière, texte clair de lune */
+  --bg:#0B0F1C;         /* fond, nuit profonde */
+  --bg-2:#10162A;       /* horizon */
+  --panel:#141A2E;      /* cartes */
+  --surface:#1A2138;    /* surfaces douces */
+  --surface-2:#273050;
+  --champagne:#C8B993;  /* bandeau d'annonce, inchangé */
+  --gold:#C9AE72;       /* accent décoratif */
+  --gold-ink:#DCC48E;   /* or lisible sur fond nuit */
+  --glow:rgba(236,214,160,.38);
+  --on-gold:#1B1A18;    /* texte posé sur l'or */
+  --fg:#EEE8DA;
+  --fg-2:#AEB0BC;
+  --fg-3:#7E8396;
+  --line:rgba(238,232,218,.11);
+  --line-2:rgba(238,232,218,.22);
+  --display:"Cormorant","Cormorant Garamond",Georgia,serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gutter:clamp(16px,4vw,56px);
+  --max:1320px;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --radius:2px;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:96px}
+body{margin:0;background:radial-gradient(120% 70% at 70% -10%,#1C2546 0%,transparent 60%),radial-gradient(90% 60% at 0% 100%,#141A33 0%,transparent 70%),var(--bg);background-attachment:fixed;color:var(--fg);font:400 15px/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+input,select{font:inherit;color:inherit}
+:focus-visible{outline:1.5px solid var(--gold-ink);outline-offset:3px}
+::selection{background:var(--champagne);color:var(--on-gold)}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+em{font-style:italic}
+
+.eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);font-weight:500;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--gold)}
+.title{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,4.6vw,3.9rem);line-height:1.04;letter-spacing:-.01em;margin:0}
+.title em{color:var(--gold-ink)}
+.lead{color:var(--fg-2);max-width:52ch;margin:18px 0 0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 28px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border:1px solid var(--fg);transition:background .35s var(--ease),color .35s var(--ease),border-color .35s}
+.btn--dark{background:var(--fg);color:var(--bg)}
+.btn--dark:hover{background:var(--gold-ink);border-color:var(--gold-ink);box-shadow:0 0 28px var(--glow)}
+.btn--line:hover{background:var(--fg);color:var(--bg)}
+.btn--block{width:100%}
+.link{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border-bottom:1px solid currentColor;padding-bottom:3px}
+
+/* ---------- Bandeau + en-tête ---------- */
+.announce{position:relative;z-index:2;background:var(--champagne);color:var(--on-gold);text-align:center;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:9px var(--gutter)}
+.nav{position:sticky;top:0;z-index:40;background:rgba(11,15,28,.72);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.is-scrolled{border-bottom-color:var(--line)}
+.nav__in{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);height:76px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.nav__links{display:flex;gap:28px;font-size:.84rem}
+.nav__links a{position:relative;padding:6px 0}
+.nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav__links a:hover::after{transform:scaleX(1)}
+.logo{display:flex;flex-direction:column;align-items:center;line-height:1}
+.logo__moon{width:18px;height:18px;margin-bottom:3px}
+.logo__word{font-family:var(--display);font-size:1.9rem;letter-spacing:.2em;font-weight:500;padding-left:.2em}
+.nav__right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
+.nav__cart{display:flex;align-items:center;gap:8px;font-size:.84rem}
+.nav__count{min-width:22px;height:22px;border-radius:11px;background:var(--fg);color:var(--bg);font-size:.7rem;display:inline-grid;place-items:center;padding:0 6px;transition:transform .3s var(--ease)}
+.nav__count.bump{transform:scale(1.25)}
+.nav__burger{display:none;width:40px;height:40px;align-items:center;justify-content:flex-start}
+.nav__burger span{display:block;width:22px;height:1px;background:var(--fg);box-shadow:0 7px 0 var(--fg),0 -7px 0 var(--fg)}
+.mnav{display:none}
+@media (max-width:900px){
+  .nav__in{grid-template-columns:auto 1fr auto;height:64px}
+  .nav__links{display:none}
+  .nav__burger{display:flex}
+  .logo{grid-column:2}
+  .logo__word{font-size:1.55rem}
+  .nav__cart .txt{display:none}
+  .announce{font-size:.64rem;letter-spacing:.1em}
+  .hero__facts{gap:22px}
+  .hero__facts strong{font-size:1.6rem}
+  .mnav{display:block;position:fixed;inset:0;z-index:60;background:var(--bg);padding:90px var(--gutter) 40px;transform:translateY(-100%);transition:transform .5s var(--ease);visibility:hidden}
+  .mnav.is-open{transform:none;visibility:visible}
+  .mnav a{display:block;font-family:var(--display);font-size:2.2rem;padding:10px 0;border-bottom:1px solid var(--line)}
+  .mnav__close{position:absolute;top:14px;right:var(--gutter);font-size:2rem;width:44px;height:44px}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;padding:clamp(40px,7vw,96px) 0 clamp(56px,8vw,110px)}
+.hero__grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,80px);align-items:center}
+.hero__sky{display:none}
+.hero__sky i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.35;animation:twinkle 4s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.08}}
+.hero__title{font-family:var(--display);font-weight:400;font-size:clamp(2.8rem,6.6vw,5.6rem);line-height:.98;letter-spacing:-.015em;margin:0}
+.hero__title em{color:var(--gold-ink)}
+.hero__title .ln{display:block;overflow:hidden}
+.hero__title .ln span{display:inline-block;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards}
+.hero__title .ln:nth-child(2) span{animation-delay:.12s}
+.hero__title .ln:nth-child(3) span{animation-delay:.24s}
+@keyframes rise{to{transform:none}}
+.hero__lead{color:var(--fg-2);font-size:1.02rem;max-width:44ch;margin:26px 0 34px}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero__facts{display:flex;gap:32px;margin-top:44px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap}
+.hero__facts div{display:flex;flex-direction:column}
+.hero__facts strong{font-family:var(--display);font-size:2rem;font-weight:500;line-height:1}
+.hero__facts span{font-size:.74rem;color:var(--fg-2);letter-spacing:.06em;margin-top:6px}
+
+.hero__art{position:relative;aspect-ratio:1/1.02;max-width:600px;justify-self:end;width:100%}
+.hero__moon{position:absolute;width:62%;top:-4%;right:-6%;opacity:.95}
+.arch{position:absolute;overflow:hidden;border-radius:999px 999px var(--radius) var(--radius);background:var(--surface);box-shadow:0 30px 60px -30px rgba(80,60,20,.35)}
+.arch img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.arch:hover img{transform:scale(1.05)}
+.arch--a{left:0;bottom:0;width:48%;height:78%}
+.arch--b{right:4%;bottom:8%;width:44%;height:62%}
+.arch__tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:var(--panel);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;white-space:nowrap}
+.hero__seal{position:absolute;left:40%;top:6%;width:112px;height:112px;animation:spin 28s linear infinite}
+.hero__seal text{font-size:9.5px;letter-spacing:2.6px;fill:var(--gold-ink);text-transform:uppercase;font-family:var(--body)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:900px){
+  .hero__grid{grid-template-columns:1fr}
+  .hero__art{justify-self:center;max-width:460px;margin-top:8px}
+  .hero__seal{width:88px;height:88px;left:42%}
+}
+
+/* ---------- Bandeau défilant ---------- */
+.marquee{position:relative;border-block:1px solid var(--line);overflow:hidden;background:rgba(20,26,46,.55)}
+.marquee__track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.marquee span{font-family:var(--display);font-size:1.3rem;font-style:italic;padding:16px 28px;white-space:nowrap}
+.marquee i{font-style:normal;color:var(--gold);align-self:center}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+.section{padding:clamp(72px,10vw,140px) 0}
+.section__head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(32px,4vw,56px)}
+
+/* Univers Femme / Homme */
+.worlds{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,32px)}
+.world{position:relative;display:grid;grid-template-rows:auto 1fr;background:var(--panel);border:1px solid var(--line);transition:border-color .3s}
+.world:hover{border-color:var(--line-2)}
+.world__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface)}
+.world__media img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.world:hover .world__media img{transform:scale(1.04)}
+.world__count{position:absolute;top:16px;left:16px;background:var(--panel);padding:6px 12px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.world__body{padding:clamp(22px,3vw,36px);display:flex;flex-direction:column;gap:18px}
+.world__body h3{font-family:var(--display);font-weight:400;font-size:clamp(2rem,3.4vw,2.8rem);line-height:1;margin:0}
+.world__body p{margin:0;color:var(--fg-2)}
+.ranges{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.ranges li{border-top:1px solid var(--line)}
+.ranges button{width:100%;display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;font-size:.9rem;text-align:left;transition:color .2s,padding .3s var(--ease)}
+.ranges button:hover{color:var(--gold-ink);padding-left:6px}
+.ranges b{font-weight:400;font-family:var(--display);font-size:1.15rem;color:var(--fg-3)}
+.bar{display:flex;height:4px;gap:2px;margin-top:2px}
+.bar span{background:var(--champagne)}
+.bar span:nth-child(2n){background:var(--surface-2)}
+.bar span:nth-child(3n){background:var(--gold)}
+.world__foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:6px}
+.world__price{font-size:.8rem;color:var(--fg-2)}
+@media (max-width:820px){.worlds{grid-template-columns:1fr}}
+@media (max-width:420px){.ranges{grid-template-columns:1fr}}
+
+/* ---------- Boutique ---------- */
+.shop{background:linear-gradient(180deg,rgba(20,26,46,.35),rgba(20,26,46,.75) 12%,rgba(20,26,46,.75) 88%,rgba(20,26,46,.35));border-block:1px solid var(--line)}
+.filters{display:grid;gap:18px;margin-bottom:28px}
+.seg{display:inline-flex;border:1px solid var(--fg);width:max-content;max-width:100%}
+.seg button{padding:12px 22px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;display:flex;gap:8px;align-items:baseline;transition:background .25s,color .25s}
+.seg button small{font-size:.72rem;opacity:.6;letter-spacing:0}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.frow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line-2);border-radius:999px;padding:8px 15px;font-size:.84rem;display:inline-flex;gap:7px;align-items:baseline;transition:border-color .2s,background .2s}
+.chip small{color:var(--fg-3);font-size:.74rem}
+.chip:hover{border-color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--surface);border-color:var(--gold)}
+.chip[disabled]{opacity:.35;pointer-events:none}
+.chip--x{background:var(--surface);border-color:var(--gold)}
+.selects{display:flex;gap:12px;flex-wrap:wrap}
+.select{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--fg-2);letter-spacing:.06em}
+.select select{appearance:none;-webkit-appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23EEE8DA'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid var(--line-2);padding:9px 30px 9px 12px;font-size:.84rem;color:var(--fg);border-radius:0;cursor:pointer}
+.result{font-size:.84rem;color:var(--fg-2);margin:0 0 18px}
+.result strong{color:var(--fg);font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px) clamp(12px,1.6vw,22px)}
+@media (max-width:1080px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{display:flex;flex-direction:column;gap:12px;cursor:pointer;animation:fadeUp .6s var(--ease) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
+.card__media{position:relative;aspect-ratio:1/1;background:var(--surface);overflow:hidden}
+.card__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
+.card__media img.alt{opacity:0}
+.card:hover .card__media img.alt{opacity:1}
+.card:hover .card__media img{transform:scale(1.04)}
+.card__badge{position:absolute;top:10px;left:10px;background:var(--panel);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;z-index:2}
+.card__add{position:absolute;left:10px;right:10px;bottom:10px;z-index:2;height:42px;background:var(--panel);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transform:translateY(calc(100% + 12px));transition:transform .45s var(--ease),background .25s,color .25s}
+.card:hover .card__add,.card:focus-within .card__add{transform:none}
+.card__add:hover{background:var(--fg);color:var(--bg)}
+@media (hover:none){.card__add{display:none}}
+.card__meta{display:flex;flex-direction:column;gap:3px}
+.card__kicker{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+.card__name{font-family:var(--display);font-size:1.22rem;line-height:1.15;font-weight:500}
+.card__sub{font-size:.8rem;color:var(--fg-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.card__price{font-size:.9rem;margin-top:3px}
+.card__price s{color:var(--fg-3);margin-left:6px;font-size:.82rem}
+.fallback{position:absolute;inset:0;display:grid;place-items:center}
+.fallback svg{width:34%;opacity:.5}
+.more{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:44px}
+.more p{margin:0;font-size:.8rem;color:var(--fg-2)}
+.more .track{width:200px;height:1px;background:var(--line)}
+.more .track span{display:block;height:100%;background:var(--fg);transition:width .4s var(--ease)}
+.empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--fg-2)}
+.empty b{display:block;font-family:var(--display);font-size:1.8rem;font-weight:400;color:var(--fg);margin-bottom:6px}
+
+/* ---------- Idées cadeaux ---------- */
+.gift{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,5vw,80px);align-items:start}
+.gift__panel{background:var(--panel);border:1px solid var(--line);padding:clamp(22px,3vw,36px)}
+.q{border:0;margin:0 0 22px;padding:0}
+.q legend{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);margin-bottom:10px}
+.gift__res{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.gift__res .card__name{font-size:1.08rem}
+.gift__note{font-size:.84rem;color:var(--fg-2);margin:18px 0 0;min-height:1.4em}
+@media (max-width:900px){.gift{grid-template-columns:1fr}}
+@media (max-width:520px){.gift__res{grid-template-columns:repeat(2,1fr)}.gift__res>:nth-child(3){display:none}}
+
+/* ---------- Matières ---------- */
+.materials{background:rgba(26,33,56,.55)}
+.mats{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line-2)}
+.mat{padding:28px 22px 30px 0;border-right:1px solid var(--line);text-align:left;display:flex;flex-direction:column;gap:10px;transition:background .3s}
+.mat+.mat{padding-left:22px}
+.mat:last-child{border-right:0}
+.mat:hover{background:rgba(255,253,249,.5)}
+.mat strong{font-family:var(--display);font-size:3rem;font-weight:400;line-height:1}
+.mat h3{margin:0;font-size:.95rem;font-weight:500}
+.mat p{margin:0;font-size:.84rem;color:var(--fg-2)}
+.mat span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-top:auto}
+@media (max-width:980px){.mats{grid-template-columns:repeat(2,1fr)}.mat,.mat+.mat{padding:24px 16px;border-bottom:1px solid var(--line)}.mat:nth-child(2n){border-right:0}}
+
+/* ---------- Guide des tailles ---------- */
+.sizes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:center}
+.howto{counter-reset:s;list-style:none;padding:0;margin:28px 0 0;display:grid;gap:16px}
+.howto li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;color:var(--fg-2)}
+.howto li::before{content:counter(s,upper-roman);font-family:var(--display);font-size:1.3rem;color:var(--gold-ink);line-height:1.2}
+.sizer{background:var(--panel);border:1px solid var(--line);padding:clamp(22px,3vw,40px);display:grid;gap:22px}
+.sizer__ring{position:relative;width:min(260px,70%);margin:0 auto;aspect-ratio:1}
+.sizer__ring svg{width:100%;height:100%;overflow:visible}
+.sizer__circle{fill:none;stroke:url(#gold);stroke-width:12;transition:r .25s var(--ease)}
+.sizer__diam{stroke:var(--fg-3);stroke-dasharray:3 4;stroke-width:1}
+.sizer__read{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.sizer__read b{font-family:var(--display);font-size:2rem;font-weight:500;line-height:1}
+.sizer__read small{font-size:.7rem;color:var(--fg-2);letter-spacing:.08em}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:1px;background:var(--line-2);margin:10px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--panel);border:1px solid var(--fg);cursor:grab}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--panel);border:1px solid var(--fg);cursor:grab}
+.sizer label{font-size:.84rem;color:var(--fg-2)}
+.sizer label strong{color:var(--fg)}
+.sizer__out{display:grid;grid-template-columns:repeat(3,1fr);margin:0;border-top:1px solid var(--line)}
+.sizer__out div{padding-top:14px}
+.sizer__out dt{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+.sizer__out dd{margin:4px 0 0;font-family:var(--display);font-size:1.7rem}
+.sizer__tip{margin:0;font-size:.84rem;color:var(--fg-2);background:var(--surface);padding:12px 14px}
+@media (max-width:900px){.sizes{grid-template-columns:1fr}}
+
+/* ---------- Engagements + FAQ ---------- */
+.promise{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-block:1px solid var(--line)}
+.promise div{padding:30px 22px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.promise div:last-child{border-right:0}
+.promise svg{width:28px;height:28px;stroke:var(--gold-ink);fill:none;stroke-width:1.2;margin-bottom:8px}
+.promise h3{margin:0;font-family:var(--display);font-size:1.35rem;font-weight:500}
+.promise p{margin:0;font-size:.84rem;color:var(--fg-2)}
+@media (max-width:900px){.promise{grid-template-columns:1fr 1fr}.promise div:nth-child(2){border-right:0}.promise div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,5vw,80px);margin-top:clamp(72px,9vw,120px)}
+.faq details{border-top:1px solid var(--line-2)}
+.faq details:last-child{border-bottom:1px solid var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:20px 0;font-family:var(--display);font-size:1.35rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--body);font-weight:300;transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 22px;color:var(--fg-2);max-width:60ch}
+@media (max-width:900px){.faq{grid-template-columns:1fr}}
+
+/* ---------- Pied de page ---------- */
+.footer{position:relative;z-index:1;background:linear-gradient(180deg,transparent,rgba(16,22,42,.9) 40%);padding:clamp(56px,8vw,96px) 0 28px;margin-top:clamp(72px,10vw,140px)}
+.footer__grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px}
+.footer__word{font-family:var(--display);font-size:clamp(3rem,7vw,5.6rem);letter-spacing:.14em;line-height:.9;font-weight:400}
+.footer p{color:var(--fg-2);font-size:.88rem;margin:14px 0 0;max-width:34ch}
+.footer h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin:0 0 14px}
+.footer__col a,.footer__col button{display:block;font-size:.9rem;color:var(--fg-2);padding:4px 0;text-align:left}
+.footer__col a:hover,.footer__col button:hover{color:var(--fg)}
+.footer__moon{display:flex;align-items:center;gap:12px;font-size:.88rem;color:var(--fg-2)}
+.footer__moon svg{width:34px;height:34px;flex:none}
+.footer__legal{border-top:1px solid var(--line-2);margin-top:48px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.76rem;color:var(--fg-3)}
+@media (max-width:900px){.footer__grid{grid-template-columns:1fr 1fr}.footer__grid>:first-child{grid-column:1/-1}}
+
+/* ---------- Aperçu produit ---------- */
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:clamp(0px,3vw,40px)}
+.modal__bg,.drawer__bg{position:absolute;inset:0;background:rgba(3,5,12,.66);animation:fade .35s both}
+@keyframes fade{from{opacity:0}}
+.modal__panel{position:relative;background:var(--bg);width:min(1080px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1.05fr 1fr;animation:pop .5s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(24px)}}
+.x{position:absolute;top:12px;right:12px;z-index:3;width:42px;height:42px;font-size:1.6rem;font-weight:300;background:var(--bg);border-radius:50%}
+.qv__media{background:var(--surface);position:relative;display:flex;flex-direction:column}
+.qv__main{aspect-ratio:1;position:relative;overflow:hidden}
+.qv__main img{width:100%;height:100%;object-fit:cover}
+.qv__thumbs{display:flex;gap:8px;padding:10px;overflow-x:auto}
+.qv__thumbs button{flex:none;width:62px;height:62px;border:1px solid transparent;opacity:.65;transition:opacity .2s,border-color .2s;background:var(--panel)}
+.qv__thumbs button[aria-pressed="true"]{border-color:var(--fg);opacity:1}
+.qv__thumbs img{width:100%;height:100%;object-fit:cover}
+.qv__info{padding:clamp(24px,3.4vw,48px);display:flex;flex-direction:column;gap:16px}
+.qv__info h2{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.05;margin:0}
+.qv__sub{margin:-6px 0 0;color:var(--fg-2);font-size:.9rem}
+.qv__price{font-size:1.2rem;margin:0}
+.qv__desc{margin:0;color:var(--fg-2)}
+.qv__opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{border:1px solid var(--line-2);padding:9px 14px;font-size:.84rem;transition:border-color .2s,background .2s}
+.opt[aria-pressed="true"]{border-color:var(--fg);background:var(--panel)}
+.opt[disabled]{opacity:.35;text-decoration:line-through}
+.qty{display:inline-flex;border:1px solid var(--line-2);height:50px;flex:none}
+.qty button{width:42px;font-size:1.1rem}
+.qty output{width:34px;display:grid;place-items:center}
+.qv__buy{display:flex;gap:10px}
+.qv__buy .btn{flex:1}
+.qv__list{list-style:none;margin:6px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:8px;font-size:.84rem;color:var(--fg-2)}
+.qv__list li{display:flex;gap:10px}
+.qv__list li::before{content:"✦";color:var(--gold)}
+.qv__shop{font-size:.8rem;color:var(--fg-2);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:800px){.modal{padding:0;align-items:end}.modal__panel{grid-template-columns:1fr;max-height:94vh}}
+
+/* ---------- Panier ---------- */
+.drawer{position:fixed;inset:0;z-index:90;visibility:hidden}
+.drawer.is-open{visibility:visible}
+.drawer__bg{animation:none;opacity:0;transition:opacity .35s}
+.drawer.is-open .drawer__bg{opacity:1}
+.drawer__panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--bg);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .5s var(--ease)}
+.drawer.is-open .drawer__panel{transform:none}
+.drawer__head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line)}
+.drawer__head h2{font-family:var(--display);font-weight:400;font-size:1.8rem;margin:0}
+.drawer__head .x{position:static}
+.gauge{padding:16px 24px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--fg-2)}
+.items{list-style:none;margin:0;padding:8px 24px;overflow:auto;flex:1}
+.item{display:grid;grid-template-columns:76px 1fr auto;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.item img{width:76px;height:76px;object-fit:cover;background:var(--surface)}
+.item h4{margin:0;font-family:var(--display);font-size:1.1rem;font-weight:500;line-height:1.15}
+.item small{display:block;color:var(--fg-2);font-size:.78rem;margin-top:2px}
+.item .qty{height:34px;margin-top:8px}
+.item .qty button{width:30px}
+.item .qty output{width:24px;font-size:.84rem}
+.item__r{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;font-size:.9rem}
+.item__r button{font-size:.74rem;color:var(--fg-3);text-decoration:underline}
+.items .empty{padding:60px 0}
+.drawer__foot{padding:20px 24px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:grid;gap:12px;background:var(--panel)}
+.drawer__total{display:flex;justify-content:space-between;font-size:1rem}
+.drawer__total strong{font-weight:500}
+.drawer__note{font-size:.76rem;color:var(--fg-3);margin:0;text-align:center}
+
+.toast{position:fixed;left:50%;bottom:24px;z-index:100;transform:translate(-50%,20px);opacity:0;background:var(--fg);color:var(--bg);padding:12px 20px;font-size:.84rem;transition:opacity .3s,transform .4s var(--ease);pointer-events:none;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero__title .ln span{transform:none}}
+
+/* ================= Nuit ================= */
+#night{position:fixed;inset:0;z-index:0;pointer-events:none;display:block}
+main,.marquee{position:relative;z-index:1}
+.nav{z-index:40}
+.card__media,.world__media,.qv__main{background:radial-gradient(90% 80% at 50% 35%,#222A45,var(--panel) 75%)}
+.fallback svg{width:30%;opacity:.55;filter:drop-shadow(0 0 18px var(--glow))}
+.card__media{box-shadow:0 0 0 1px var(--line);transition:box-shadow .5s var(--ease)}
+.card:hover .card__media{box-shadow:0 0 0 1px rgba(220,196,142,.45),0 18px 50px -18px rgba(220,196,142,.35)}
+.card__media::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .5s;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(255,240,200,.16),transparent 45%)}
+.card:hover .card__media::after{opacity:1}
+.card__badge,.world__count,.arch__tag{background:rgba(11,15,28,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--fg)}
+.card__add{background:var(--fg);color:var(--bg)}
+.card__add:hover{background:var(--gold-ink);color:var(--on-gold)}
+.world{background:rgba(20,26,46,.7)}
+.world:hover{border-color:rgba(220,196,142,.4);box-shadow:0 30px 70px -40px rgba(220,196,142,.35)}
+.gift__panel,.sizer{background:rgba(20,26,46,.72)}
+.sizer__circle{filter:drop-shadow(0 0 14px var(--glow))}
+.mat strong{color:var(--gold-ink);text-shadow:0 0 30px var(--glow)}
+.modal__panel,.drawer__panel{background:var(--bg-2)}
+.drawer__foot{background:var(--panel)}
+.x{background:var(--panel)}
+.mnav{background:var(--bg)}
+.select select{background-color:transparent}
+.select option{background:var(--panel)}
+.seg{border-color:var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.chip[aria-pressed="true"],.chip--x{background:rgba(220,196,142,.14)}
+.title em,.hero__title em{text-shadow:0 0 34px var(--glow)}
+.footer__word{background:linear-gradient(180deg,var(--fg),rgba(238,232,218,.12));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* hero : lune lumineuse, halo, horizon */
+.hero{isolation:isolate;cursor:crosshair}
+.hero a,.hero button{cursor:pointer}
+.hero::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-1px;height:40%;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 100% at 50% 100%,rgba(201,174,114,.10),transparent 70%)}
+.hero__halo{position:absolute;width:86%;aspect-ratio:1;top:-28%;right:-26%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(236,214,160,.22) 0%,rgba(236,214,160,.07) 32%,transparent 62%);animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.06);opacity:.8}}
+.hero__moon{filter:drop-shadow(0 0 24px rgba(236,214,160,.55)) drop-shadow(0 0 70px rgba(236,214,160,.25))}
+.arch{box-shadow:0 0 0 1px var(--line),0 40px 80px -40px rgba(0,0,0,.8),0 0 60px -20px rgba(220,196,142,.25)}
+.tonight{display:inline-flex;align-items:center;gap:12px;margin-top:22px;padding:8px 16px 8px 8px;border:1px solid var(--line);border-radius:999px;font-size:.8rem;color:var(--fg-2);background:rgba(11,15,28,.5)}
+.tonight svg{width:28px;height:28px;flex:none;filter:drop-shadow(0 0 8px var(--glow))}
+.tonight b{color:var(--fg);font-weight:500}
+.wish{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3);pointer-events:none;white-space:nowrap;animation:hint 3s ease-in-out infinite}
+@keyframes hint{50%{color:var(--gold-ink)}}
+@media (max-width:900px){.hero__halo{width:70%;top:-14%;right:-10%}.wish{display:none}}
+@media (prefers-reduced-motion:reduce){.hero__halo{animation:none}}
+</style>
 </head>
 <body>
+<canvas id="night" aria-hidden="true"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E9D9AE"/><stop offset=".5" stop-color="#B49A62"/><stop offset="1" stop-color="#E2CC94"/>
+    </linearGradient>
+    <radialGradient id="moonfill" cx=".38" cy=".35" r=".75">
+      <stop offset="0" stop-color="#F3E6C2"/><stop offset=".6" stop-color="#D6BE86"/><stop offset="1" stop-color="#B9995B"/>
+    </radialGradient>
+  </defs>
+</svg>
 
-<!-- ============ Préchargement : une lunaison complète ============ -->
-<div class="loader" id="loader" aria-hidden="true">
-  <svg class="loader__moon" viewBox="-50 -50 100 100"><circle r="44" class="moon-dark"/><path class="moon-lit" id="loader-phase" d=""/></svg>
-  <div class="loader__count"><span id="loader-num">00</span><small>%</small></div>
-  <div class="loader__word">Lunoré</div>
-</div>
+<div class="announce">Expédié depuis la France · Retours sous 14 jours</div>
 
-<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
-<div class="grain" aria-hidden="true"></div>
-
-<!-- ============ En-tête ============ -->
 <header class="nav" id="nav">
-  <a class="nav__logo" href="#top" aria-label="Lunoré, accueil">
-    <svg class="nav__phase" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="moon-dark"/><path class="moon-lit" id="nav-phase" d=""/></svg>
-    <span>Lunoré</span>
-  </a>
-  <nav class="nav__links" aria-label="Navigation principale">
-    <a href="#collection" data-magnetic>Collection</a>
-    <a href="#lignes" data-magnetic>Lignes</a>
-    <a href="#atelier" data-magnetic>Atelier</a>
-    <a href="#tailles" data-magnetic>Guide des tailles</a>
-  </nav>
-  <button class="nav__cart" id="cart-open" type="button" data-magnetic aria-label="Ouvrir le panier">
-    Panier <span class="nav__count" id="cart-count">0</span>
-  </button>
+  <div class="nav__in">
+    <button class="nav__burger" id="burger" type="button" aria-label="Ouvrir le menu"><span></span></button>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#boutique" data-go="femme">Femme</a>
+      <a href="#boutique" data-go="homme">Homme</a>
+      <a href="#cadeaux">Idées cadeaux</a>
+      <a href="#tailles">Guide des tailles</a>
+    </nav>
+    <a class="logo" href="#top" aria-label="Lunoré, accueil">
+      <svg class="logo__moon" viewBox="-50 -50 100 100" aria-hidden="true"><path class="phase" fill="url(#moonfill)"/><circle r="46" fill="none" stroke="#B49A62" stroke-width="3" opacity=".5"/></svg>
+      <span class="logo__word">LUNORÉ</span>
+    </a>
+    <div class="nav__right">
+      <button class="nav__cart" id="cart-open" type="button" aria-label="Ouvrir le panier"><span class="txt">Panier</span> <span class="nav__count" id="cart-count">0</span></button>
+    </div>
+  </div>
 </header>
+
+<div class="mnav" id="mnav" aria-hidden="true">
+  <button class="mnav__close" type="button" data-mnav-close aria-label="Fermer le menu">×</button>
+  <a href="#boutique" data-go="femme" data-mnav-close>Bijoux femme</a>
+  <a href="#boutique" data-go="homme" data-mnav-close>Bijoux homme</a>
+  <a href="#cadeaux" data-mnav-close>Idées cadeaux</a>
+  <a href="#tailles" data-mnav-close>Guide des tailles</a>
+  <a href="#faq" data-mnav-close>Questions fréquentes</a>
+</div>
 
 <main id="top">
 
   <!-- ============ Hero ============ -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__canvas" id="hero-canvas" aria-label="Bague Lunoré en 3D, faites-la tourner"></div>
-    <div class="hero__inner">
-      <p class="eyebrow hero__eyebrow"><span class="dot"></span> Collection Homme · Automne–Hiver 2026</p>
-      <h1 class="hero__title" id="hero-title">
-        <span class="line"><span>Forgés</span></span>
-        <span class="line"><span><em>pour</em> la nuit.</span></span>
-      </h1>
-      <p class="hero__lead">Chevalières, chaînes et bracelets en argent 925, vermeil or 18k et acier 316L. Dessinés à Paris, gravés à la commande.</p>
-      <div class="hero__actions">
-        <a class="btn btn--light" href="#collection" data-magnetic><span>Découvrir la collection</span></a>
-        <a class="btn btn--ghost" href="#tailles" data-magnetic><span>Trouver ma taille</span></a>
-      </div>
-    </div>
-
-    <div class="hero__metal" role="group" aria-label="Métal de la bague 3D">
-      <span class="mono">Métal</span>
-      <button type="button" class="swatch is-active" data-hero-metal="argent" aria-pressed="true"><i style="background:linear-gradient(135deg,#f4f5f7,#9da3ae 55%,#e6e8ec)"></i>Argent</button>
-      <button type="button" class="swatch" data-hero-metal="or" aria-pressed="false"><i style="background:linear-gradient(135deg,#fbe7b5,#c99a45 55%,#f2d590)"></i>Or</button>
-      <button type="button" class="swatch" data-hero-metal="noir" aria-pressed="false"><i style="background:linear-gradient(135deg,#6b6f78,#1d1f25 55%,#4a4e57)"></i>Noir</button>
-    </div>
-
-    <dl class="hero__specs mono">
-      <div><dt>Titre</dt><dd>925 ‰</dd></div>
-      <div><dt>Bague Orbite</dt><dd>6 mm · 5,2 g</dd></div>
-      <div><dt>Gravure</dt><dd>Offerte</dd></div>
-    </dl>
-    <p class="hero__hint mono" aria-hidden="true">Glisse pour faire tourner ↔</p>
-  </section>
-
-  <!-- ============ Bandeau d'engagements ============ -->
-  <div class="marquee" aria-label="Nos engagements">
-    <div class="marquee__track">
-      <span>Livraison offerte dès 80 €</span><i>☾</i>
-      <span>Gravure offerte</span><i>☾</i>
-      <span>Garantie 2 ans</span><i>☾</i>
-      <span>Retours sous 30 jours</span><i>☾</i>
-      <span>Poinçon 925 sur chaque pièce argent</span><i>☾</i>
-      <span>Livraison offerte dès 80 €</span><i>☾</i>
-      <span>Gravure offerte</span><i>☾</i>
-      <span>Garantie 2 ans</span><i>☾</i>
-      <span>Retours sous 30 jours</span><i>☾</i>
-      <span>Poinçon 925 sur chaque pièce argent</span><i>☾</i>
-    </div>
-  </div>
-
-  <!-- ============ Collection ============ -->
-  <section class="section collection" id="collection" aria-labelledby="col-title">
-    <div class="section__head">
-      <p class="eyebrow">Bijoux homme · <span id="col-total">12</span> pièces</p>
-      <h2 class="section__title reveal" id="col-title">La collection</h2>
-    </div>
-
-    <div class="toolbar">
-      <div class="chips" id="filters" role="tablist" aria-label="Filtrer par catégorie"></div>
-      <label class="sort mono" for="sort">Trier
-        <select id="sort">
-          <option value="featured">Sélection</option>
-          <option value="asc">Prix croissant</option>
-          <option value="desc">Prix décroissant</option>
-          <option value="name">Nom A–Z</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="grid" id="grid" aria-live="polite"></div>
-  </section>
-
-  <!-- ============ Les lignes (défilement horizontal) ============ -->
-  <section class="lines" id="lignes" aria-labelledby="lines-title">
-    <div class="lines__pin">
-      <div class="lines__intro">
-        <p class="eyebrow">Quatre lignes, quatre phases</p>
-        <h2 class="section__title" id="lines-title">Une lune<br><em>par caractère.</em></h2>
-        <p class="lines__lead">Chaque ligne suit une phase de la lune, de l’acier noir le plus discret au vermeil le plus franc.</p>
-      </div>
-      <div class="lines__track" id="lines-track"></div>
-    </div>
-  </section>
-
-  <!-- ============ Atelier ============ -->
-  <section class="section atelier" id="atelier" aria-labelledby="atelier-title">
-    <div class="atelier__grid">
-      <div class="atelier__copy">
-        <p class="eyebrow">L’atelier</p>
-        <h2 class="section__title reveal" id="atelier-title">Du croquis<br>au <em>poinçon.</em></h2>
-        <p>Chaque pièce passe par les mêmes quatre étapes, dans cet ordre. Rien n’est sous-traité à une chaîne de montage.</p>
-        <div class="stats">
-          <div><strong class="mono" data-count="925">0</strong><span>millièmes d’argent pur dans chaque pièce argent</span></div>
-          <div><strong class="mono" data-count="11" data-suffix=" h">0</strong><span>de travail en moyenne pour une chevalière</span></div>
-          <div><strong class="mono" data-count="30" data-suffix=" j">0</strong><span>pour changer d’avis, retour gratuit</span></div>
+    <div class="hero__sky" id="sky" aria-hidden="true"></div>
+    <div class="wrap hero__grid">
+      <div>
+        <p class="eyebrow">Bijoux femme &amp; homme · Expédiés depuis la France</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="ln"><span>Des bijoux</span></span>
+          <span class="ln"><span>qui brillent <em>comme</em></span></span>
+          <span class="ln"><span><em>une nuit étoilée.</em></span></span>
+        </h1>
+        <p class="hero__lead">Créoles pavées, parures dorées, mailles cubaines et bracelets en pierres naturelles : chaque bijou Lunoré est choisi pour son éclat et son petit prix. À offrir, ou à garder pour soi.</p>
+        <div class="hero__cta">
+          <a class="btn btn--dark" href="#boutique" data-go="femme">Bijoux femme</a>
+          <a class="btn btn--line" href="#boutique" data-go="homme">Bijoux homme</a>
+        </div>
+        <p class="tonight"><svg viewBox="-50 -50 100 100" aria-hidden="true"><circle r="46" fill="#273050"/><path class="phase-real" fill="url(#moonfill)"/></svg><span>Ce soir : <b id="tonight-name">…</b> · lune éclairée à <b id="tonight-pct">…</b></span></p>
+        <div class="hero__facts">
+          <div><strong data-stat="total">40</strong><span>bijoux en boutique</span></div>
+          <div><strong data-stat="min">19,90 €</strong><span>à partir de</span></div>
+          <div><strong>2–7 j</strong><span>livraison suivie</span></div>
         </div>
       </div>
-      <ol class="steps">
-        <li><span class="mono">I</span><div><h3>Dessin</h3><p>Croquis à la main, puis modélisation 3D au dixième de millimètre pour valider les volumes portés.</p></div></li>
-        <li><span class="mono">II</span><div><h3>Fonte à cire perdue</h3><p>Le modèle en cire est coulé en argent ou en acier. La cire fond, le métal prend exactement sa place.</p></div></li>
-        <li><span class="mono">III</span><div><h3>Polissage</h3><p>Brossé, martelé ou poli miroir, selon la ligne. Trois passages de pâte, du plus gros grain au plus fin.</p></div></li>
-        <li><span class="mono">IV</span><div><h3>Contrôle et poinçon</h3><p>Pesée, mesure de la taille et poinçon 925 frappé à l’intérieur de l’anneau. Puis gravure, si tu l’as demandée.</p></div></li>
-      </ol>
+
+      <div class="hero__art" aria-hidden="true">
+        <div class="hero__halo"></div>
+        <svg class="hero__moon" viewBox="-50 -50 100 100"><path class="phase-hero" fill="url(#moonfill)"/></svg>
+        <a class="arch arch--a" href="#boutique" data-go="femme" tabindex="-1">
+          <img id="hero-img-a" alt="" data-handle="creoles-dorees-pavees-zircons-femme">
+          <span class="arch__tag">Femme</span>
+        </a>
+        <a class="arch arch--b" href="#boutique" data-go="homme" tabindex="-1">
+          <img id="hero-img-b" alt="" data-handle="bracelet-homme-cuir-tresse-multicouche">
+          <span class="arch__tag">Homme</span>
+        </a>
+        <svg class="hero__seal" viewBox="0 0 120 120">
+          <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <circle cx="60" cy="60" r="58" fill="#141A2E" stroke="rgba(220,196,142,.35)"/>
+          <text><textPath href="#circ">Idées cadeaux · moins de 35 € · </textPath></text>
+          <path d="M60 46a14 14 0 1 0 10 24 11 11 0 1 1 -10 -24z" fill="url(#moonfill)"/>
+        </svg>
+      </div>
+    </div>
+    <p class="wish" aria-hidden="true">✦ Clique dans le ciel pour faire un vœu</p>
+  </section>
+
+  <div class="marquee" aria-label="Nos engagements">
+    <div class="marquee__track" id="marquee"></div>
+  </div>
+
+  <!-- ============ Deux univers ============ -->
+  <section class="section" id="univers" aria-labelledby="worlds-title">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <p class="eyebrow">Nos collections</p>
+          <h2 class="title reveal" id="worlds-title">Deux univers,<br><em>une même lumière.</em></h2>
+        </div>
+        <p class="lead reveal">Chaque gamme est rangée par type de bijou. Choisissez une ligne pour l’ouvrir directement dans la boutique.</p>
+      </div>
+      <div class="worlds" id="worlds"></div>
+    </div>
+  </section>
+
+  <!-- ============ Boutique ============ -->
+  <section class="section shop" id="boutique" aria-labelledby="shop-title">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <p class="eyebrow">La boutique</p>
+          <h2 class="title" id="shop-title">Tous les <em>bijoux</em></h2>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="seg" id="seg" role="group" aria-label="Pour qui"></div>
+        <div class="frow">
+          <div class="chips" id="cats" role="group" aria-label="Type de bijou"></div>
+          <div class="selects">
+            <label class="select">Prix
+              <select id="price">
+                <option value="all">Tous</option>
+                <option value="20">Moins de 20 €</option>
+                <option value="25">Moins de 25 €</option>
+                <option value="35">Moins de 35 €</option>
+              </select>
+            </label>
+            <label class="select">Trier
+              <select id="sort">
+                <option value="featured">Sélection</option>
+                <option value="asc">Prix croissant</option>
+                <option value="desc">Prix décroissant</option>
+                <option value="name">Nom A–Z</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <p class="result" id="result" aria-live="polite"></p>
+      <div class="grid" id="grid"></div>
+      <div class="more" id="more"></div>
+    </div>
+  </section>
+
+  <!-- ============ Idées cadeaux ============ -->
+  <section class="section" id="cadeaux" aria-labelledby="gift-title">
+    <div class="wrap gift">
+      <div>
+        <p class="eyebrow">Bijoux de Noël</p>
+        <h2 class="title reveal" id="gift-title">Le cadeau juste,<br><em>en trois questions.</em></h2>
+        <p class="lead">Toute la boutique est sous les 35 €. Dites-nous pour qui, quel style et quel budget : on vous propose les trois bijoux qui correspondent le mieux.</p>
+        <div class="gift__panel" style="margin-top:32px">
+          <fieldset class="q"><legend>Pour qui ?</legend><div class="chips" data-q="who"></div></fieldset>
+          <fieldset class="q"><legend>Quel style ?</legend><div class="chips" data-q="style"></div></fieldset>
+          <fieldset class="q" style="margin:0"><legend>Quel budget ?</legend><div class="chips" data-q="budget"></div></fieldset>
+        </div>
+      </div>
+      <div>
+        <div class="gift__res" id="gift-res" aria-live="polite"></div>
+        <p class="gift__note" id="gift-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Matières ============ -->
+  <section class="section materials" aria-labelledby="mat-title">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <p class="eyebrow">Les matières</p>
+          <h2 class="title reveal" id="mat-title">Ce qui fait <em>briller</em></h2>
+        </div>
+        <p class="lead reveal">Chaque fiche précise la matière et les conseils d’entretien. Cliquez sur une matière pour voir les bijoux concernés.</p>
+      </div>
+      <div class="mats" id="mats"></div>
     </div>
   </section>
 
   <!-- ============ Guide des tailles ============ -->
-  <section class="section sizes" id="tailles" aria-labelledby="sizes-title">
-    <div class="sizes__grid">
+  <section class="section" id="tailles" aria-labelledby="sizes-title">
+    <div class="wrap sizes">
       <div>
         <p class="eyebrow">Guide des tailles</p>
-        <h2 class="section__title reveal" id="sizes-title">Trouve ta taille<br><em>en 30 secondes.</em></h2>
-        <ol class="sizes__how">
-          <li>Enroule une bande de papier autour de la base du doigt, en fin de journée.</li>
-          <li>Marque l’endroit où elle se rejoint et mesure la longueur en millimètres.</li>
-          <li>Reporte cette mesure ci-contre. La taille française est égale au tour de doigt.</li>
+        <h2 class="title reveal" id="sizes-title">Trouver sa taille<br><em>de bague.</em></h2>
+        <ol class="howto">
+          <li>Enroulez une bande de papier autour de la base du doigt, de préférence en fin de journée.</li>
+          <li>Marquez l’endroit où elle se rejoint, puis mesurez la longueur en millimètres.</li>
+          <li>Reportez la mesure ci-contre : la taille française correspond au tour de doigt.</li>
         </ol>
       </div>
       <div class="sizer">
         <div class="sizer__ring" aria-hidden="true">
-          <svg viewBox="-110 -110 220 220"><circle id="sizer-circle" r="60" class="sizer__circle"/><line id="sizer-diam" x1="-60" x2="60" y1="0" y2="0" class="sizer__diam"/></svg>
-          <div class="sizer__readout"><span class="mono" id="sizer-diam-val">18,1 mm</span><small>diamètre intérieur</small></div>
+          <svg viewBox="-110 -110 220 220"><circle id="ring" r="60" class="sizer__circle"/><line id="diam" x1="-60" x2="60" class="sizer__diam"/></svg>
+          <div class="sizer__read"><b id="r-diam">17,0 mm</b><small>diamètre intérieur</small></div>
         </div>
-        <label class="sizer__label mono" for="sizer-range">Tour de doigt : <strong id="sizer-circ-val">57 mm</strong></label>
-        <input type="range" id="sizer-range" min="44" max="76" step="1" value="57">
+        <label for="range">Tour de doigt : <strong id="r-circ">54 mm</strong></label>
+        <input type="range" id="range" min="44" max="66" step="1" value="54">
         <dl class="sizer__out">
-          <div><dt>Taille FR</dt><dd class="mono" id="out-fr">57</dd></div>
-          <div><dt>Taille US</dt><dd class="mono" id="out-us">8</dd></div>
-          <div><dt>Taille UK</dt><dd class="mono" id="out-uk">P</dd></div>
+          <div><dt>Taille FR</dt><dd id="r-fr">54</dd></div>
+          <div><dt>Taille US</dt><dd id="r-us">7</dd></div>
+          <div><dt>Chez Lunoré</dt><dd id="r-ln">54</dd></div>
         </dl>
-        <p class="sizer__tip">Entre deux tailles ? Prends la plus grande pour un anneau large (6 mm et plus).</p>
+        <p class="sizer__tip" id="r-tip"></p>
       </div>
     </div>
   </section>
 
-  <!-- ============ Newsletter ============ -->
-  <section class="section club" aria-labelledby="club-title">
-    <div class="club__inner">
-      <svg class="club__moon" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="moon-dark"/><path class="moon-lit" id="club-phase" d=""/></svg>
-      <h2 class="section__title" id="club-title">Le Cercle <em>Lunoré</em></h2>
-      <p>Les nouvelles pièces arrivent à chaque nouvelle lune. Inscris-toi pour les voir 48 h avant tout le monde, et reçois −10 % sur ta première commande.</p>
-      <form class="club__form" id="club-form" novalidate>
-        <label class="sr-only" for="club-email">Adresse e-mail</label>
-        <input id="club-email" type="email" placeholder="ton@email.com" autocomplete="email" required>
-        <button class="btn btn--light" type="submit"><span>M’inscrire</span></button>
-      </form>
-      <p class="club__msg mono" id="club-msg" role="status"></p>
+  <!-- ============ Engagements + FAQ ============ -->
+  <section class="section" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="promise">
+        <div><svg viewBox="0 0 32 32"><path d="M3 9h17v13H3zM20 13h5l4 4v5h-9"/><circle cx="9" cy="24" r="2.5"/><circle cx="24" cy="24" r="2.5"/></svg><h3>Expédié depuis la France</h3><p>Livré en 2 à 7 jours ouvrés, avec numéro de suivi.</p></div>
+        <div><svg viewBox="0 0 32 32"><path d="M6 12a10 10 0 1 1 1 9M6 5v7h7"/></svg><h3>Retours sous 14 jours</h3><p>Vous avez 14 jours pour changer d’avis.</p></div>
+        <div><svg viewBox="0 0 32 32"><rect x="5" y="14" width="22" height="14" rx="1"/><path d="M10 14V9a6 6 0 0 1 12 0v5"/></svg><h3>Paiement sécurisé</h3><p>Carte bancaire ou PayPal.</p></div>
+        <div><svg viewBox="0 0 32 32"><rect x="4" y="12" width="24" height="16"/><path d="M2 8h28v4H2zM16 8v20M16 8c-3-6-9-4-7 0M16 8c3-6 9-4 7 0"/></svg><h3>Moins de 35 €</h3><p>Des pièces faciles à offrir, pour les fêtes comme au quotidien.</p></div>
+      </div>
+
+      <div class="faq">
+        <div>
+          <p class="eyebrow">Questions fréquentes</p>
+          <h2 class="title reveal" id="faq-title">Avant de <em>commander</em></h2>
+          <p class="lead">Une autre question ? Notre service client vous répond depuis la page Contact de la boutique.</p>
+        </div>
+        <div>
+          <details open><summary>Quels sont les délais de livraison ?</summary><p>Nos bijoux sont expédiés depuis la France et livrés en 2 à 7 jours ouvrés. Un numéro de suivi vous est communiqué dès l’expédition.</p></details>
+          <details><summary>Puis-je retourner un bijou ?</summary><p>Oui, vous disposez de 14 jours après réception pour changer d’avis.</p></details>
+          <details><summary>Quels moyens de paiement acceptez-vous ?</summary><p>Le paiement est sécurisé, par carte bancaire ou PayPal.</p></details>
+          <details><summary>En quelles matières sont vos bijoux ?</summary><p>Selon les modèles : acier inoxydable 316L (qui ne noircit pas), plaqué argent 925, zircons et cristaux, pierres naturelles, cuir et corde tressés. Chaque fiche produit précise la matière et les conseils d’entretien.</p></details>
+          <details><summary>Comment entretenir mes bijoux ?</summary><p>Évitez le contact avec l’eau, le parfum et les produits cosmétiques, et rangez chaque bijou à l’abri de l’humidité. Les conseils propres à chaque modèle figurent sur sa fiche.</p></details>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <div class="footer__brand">
-    <span class="footer__word">Lunoré</span>
-    <p>Bijoux pour homme, dessinés à Paris.</p>
-  </div>
-  <div class="footer__cols">
-    <div><h3>Boutique</h3><a href="#collection">Bagues</a><a href="#collection">Chevalières</a><a href="#collection">Chaînes</a><a href="#collection">Bracelets</a></div>
-    <div><h3>Aide</h3><a href="#tailles">Guide des tailles</a><a href="#atelier">Entretien de l’argent</a><a href="#top">Livraison & retours</a></div>
-    <div><h3>Prochaine collection</h3><p class="mono" id="next-moon">Nouvelle lune dans …</p></div>
-  </div>
-  <p class="footer__legal mono">© 2026 Lunoré · Paiement sécurisé · Livraison en France et en Europe</p>
-</footer>
-
-<!-- ============ Fiche produit (aperçu rapide) ============ -->
-<div class="modal" id="modal" hidden>
-  <div class="modal__backdrop" data-close></div>
-  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="qv-title">
-    <button class="modal__close" type="button" data-close aria-label="Fermer">×</button>
-    <div class="qv__media">
-      <div class="qv__visual" id="qv-visual"></div>
-      <div class="qv__engrave" id="qv-engrave" hidden></div>
-      <div class="qv__tabs" id="qv-tabs" hidden>
-        <button type="button" class="is-active" data-view="visual">Pièce</button>
-        <button type="button" data-view="engrave">Gravure</button>
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__word">LUNORÉ</div>
+        <p>Bijoux fantaisie dorés et argentés pour femme et homme, expédiés depuis la France.</p>
+      </div>
+      <div class="footer__col"><h3>Femme</h3><div id="foot-f"></div></div>
+      <div class="footer__col"><h3>Homme</h3><div id="foot-h"></div></div>
+      <div class="footer__col">
+        <h3>Ce soir</h3>
+        <div class="footer__moon"><svg viewBox="-50 -50 100 100" aria-hidden="true"><circle r="46" fill="#273050"/><path class="phase" fill="url(#moonfill)"/></svg><span id="moon-txt"></span></div>
+        <h3 style="margin-top:24px">Aide</h3>
+        <a href="#tailles">Guide des tailles</a><a href="#faq">Livraison &amp; retours</a>
       </div>
     </div>
+    <div class="footer__legal"><span>© 2026 Lunoré</span><span>Paiement sécurisé · Carte bancaire &amp; PayPal</span></div>
+  </div>
+</footer>
+
+<!-- ============ Aperçu produit ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__bg" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="qv-title">
+    <button class="x" type="button" data-close aria-label="Fermer">×</button>
+    <div class="qv__media">
+      <div class="qv__main" id="qv-main"></div>
+      <div class="qv__thumbs" id="qv-thumbs"></div>
+    </div>
     <div class="qv__info">
-      <p class="eyebrow" id="qv-cat"></p>
+      <p class="eyebrow" id="qv-cat" style="margin:0"></p>
       <h2 id="qv-title"></h2>
-      <p class="qv__price mono" id="qv-price"></p>
+      <p class="qv__sub" id="qv-sub"></p>
+      <p class="qv__price" id="qv-price"></p>
       <p class="qv__desc" id="qv-desc"></p>
-      <fieldset class="qv__field"><legend>Métal · <span id="qv-metal-label"></span></legend><div class="qv__metals" id="qv-metals"></div></fieldset>
-      <fieldset class="qv__field" id="qv-size-field"><legend id="qv-size-legend">Taille</legend><div class="qv__sizes" id="qv-sizes"></div></fieldset>
-      <div class="qv__field" id="qv-engrave-field" hidden>
-        <label for="qv-engrave-input">Gravure intérieure <small>(offerte, 22 caractères max.)</small></label>
-        <input id="qv-engrave-input" type="text" maxlength="22" placeholder="Ex. M.D · 14.02.2026">
+      <div id="qv-options"></div>
+      <div class="qv__buy">
+        <div class="qty"><button type="button" data-q="-1" aria-label="Retirer un">−</button><output id="qv-qty">1</output><button type="button" data-q="1" aria-label="Ajouter un">+</button></div>
+        <button class="btn btn--dark" id="qv-add" type="button">Ajouter au panier</button>
       </div>
-      <dl class="qv__specs mono" id="qv-specs"></dl>
-      <button class="btn btn--light btn--block" id="qv-add" type="button"><span>Ajouter au panier</span></button>
-      <p class="qv__error mono" id="qv-error" role="alert"></p>
+      <a class="qv__shop" id="qv-link" target="_blank" rel="noopener">Voir la fiche complète sur la boutique</a>
+      <ul class="qv__list"><li>Expédié depuis la France en 2 à 7 jours</li><li>Retours sous 14 jours</li><li>Paiement sécurisé, carte ou PayPal</li></ul>
     </div>
   </div>
 </div>
 
 <!-- ============ Panier ============ -->
-<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawer-title">
-  <div class="drawer__backdrop" data-drawer-close></div>
-  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
-    <div class="drawer__head">
-      <h2 id="drawer-title">Ton panier</h2>
-      <button type="button" class="modal__close" data-drawer-close aria-label="Fermer le panier">×</button>
-    </div>
-    <div class="ship">
-      <p class="mono" id="ship-text"></p>
-      <div class="ship__bar"><span id="ship-bar"></span></div>
-    </div>
-    <ul class="drawer__items" id="cart-items"></ul>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__bg" data-dclose></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="d-title">
+    <div class="drawer__head"><h2 id="d-title">Votre panier</h2><button class="x" type="button" data-dclose aria-label="Fermer le panier">×</button></div>
+    <div class="gauge" id="gauge">Expédié depuis la France · livré en 2 à 7 jours ouvrés</div>
+    <ul class="items" id="items"></ul>
     <div class="drawer__foot">
-      <div class="drawer__total"><span>Sous-total</span><strong class="mono" id="cart-total">0 €</strong></div>
-      <button class="btn btn--light btn--block" id="checkout" type="button"><span>Passer commande</span></button>
-      <p class="drawer__note mono" id="checkout-note">Taxes incluses. Livraison calculée à l’étape suivante.</p>
+      <div class="drawer__total"><span>Sous-total</span><strong id="total">0,00 €</strong></div>
+      <button class="btn btn--dark btn--block" id="checkout" type="button">Passer commande</button>
+      <p class="drawer__note">Paiement sécurisé sur la boutique Lunoré. Livraison calculée à l’étape suivante.</p>
     </div>
   </div>
 </aside>
 
-<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="assets/js/catalog.js"></script>
-<script src="assets/js/visuals.js"></script>
-<script src="assets/js/hero3d.js"></script>
-<script src="assets/js/app.js"></script>
+<script>
+/* ================= LUNORÉ — catalogue =================
+   Copie du catalogue Shopify (octobre 2026) : 40 bijoux, 20 femme / 20 homme.
+   Au chargement, la page relit la boutique en direct (/products.json) pour mettre à jour
+   prix, photos, variantes et nouveaux produits : les compteurs suivent tout seuls.
+   Si un domaine personnalisé est branché sur la boutique, remplacer SHOP ci-dessous. */
+const SHOP = "https://vz42tv-wj.myshopify.com";
+const CDN = "https://cdn.shopify.com/s/files/1/1053/3466/9654/files/";
+
+const CATS = [
+  { key: "colliers",  label: "Colliers",           one: "Collier" },
+  { key: "boucles",   label: "Boucles d’oreilles", one: "Boucles d’oreilles" },
+  { key: "bagues",    label: "Bagues",             one: "Bague" },
+  { key: "bracelets", label: "Bracelets",          one: "Bracelet" },
+  { key: "parures",   label: "Parures & ensembles", one: "Parure" }
+];
+const GENDERS = { all: "Tout", f: "Femme", h: "Homme" };
+
+/* [handle, titre Shopify, genre, catégorie, prix, photo 1, photo 2, description, options] */
+const RAW = [
+ ["lot-7-bracelets-joncs-dores-femme","Lot de 7 Bracelets Joncs Dorés Ciselés – Femme","f","bracelets",27.90,"Sbca1d4b032594ef3b22efa011ebf6276n","S7702f592cdcd49d0bacb667c7489ef4cf","Un ensemble de 7 joncs dorés aux motifs ciselés différents, à superposer pour un effet accumulation."],
+ ["bracelet-jonc-manchette-dore-zircons","Bracelet Jonc Manchette Doré Géométrique Serti de Zircons – Femme","f","bracelets",29.90,"S9aafe0d7dac44a57b8c2b821f4d5219an","Se9b2c74744c94af0bef9a83995d6c114r","Un jonc manchette doré ouvert, terminé par deux pierres géométriques serties de zircons."],
+ ["parure-coeur-collier-boucles-zircons","Parure Cœur Collier et Boucles d'Oreilles – Zircons, Finition Argent 925","f","parures",29.90,"S450d4c5307e04066956ba989cdd9aff8Z","HTB1EKtnB5CYBuNkHFCcq6AHtVXaV","Une parure complète : un pendentif cœur ajouré et des boucles d'oreilles assorties, chacun serti d'un zircon."],
+ ["boucles-oreilles-creoles-ovales-dorees","Boucles d'Oreilles Créoles Ovales Dorées Lisses – Femme","f","boucles",22.90,"S268e9377d62647cdb8b9f8b3abfaf163w","S01c538c7e2094fdeb5130478134f77d23","Des créoles ovales au fini lisse et brillant. Un basique chic qui se porte du matin au soir."],
+ ["boucles-oreilles-creoles-epaisses-dorees","Boucles d'Oreilles Créoles Épaisses Dorées – Femme","f","boucles",22.90,"Sa4c8bdb25ce2477fbfd0cf091260ea63A","S044e726a655f4179bbdfbfc8b475cfc34","Des créoles épaisses et bombées à la finition dorée, tendance et faciles à porter."],
+ ["creoles-serties-cristaux-argent","Créoles Serties de Cristaux – Couleur Argent, Femme","f","boucles",22.90,"S7fae3ed8f2b24a1d8ce3f4e659e1a71ay","Sa1a790094abf40f7afc8ab2c547834fc7","Des créoles argentées serties de cristaux sur toute la face avant."],
+ ["collier-point-de-lumiere-zircon","Collier Point de Lumière Zircon – Acier Inoxydable, Doré ou Argenté","f","colliers",19.90,"Sb172555db5a543a286d6ac9cc9e30e6cF","S5b61d698e1a24eb392f7399d1321d09a1","Un zircon solitaire sur une chaîne fine : le point de lumière, bijou délicat et intemporel."],
+ ["collier-perle-fine-plaque-argent-925","Collier Perle Fine – Plaqué Argent 925, Femme","f","colliers",24.90,"S3e1701f522dd4810aade14675841c5d7s","Sa06f3e1a79874bbc9714c1d1567e08bal","Une perle unique qui semble flotter sur une chaîne serpent très fine."],
+ ["collier-coeur-dore-minimaliste","Collier Cœur Doré Minimaliste – Femme","f","colliers",22.90,"S0f146bc4a5724c11a46f322e59d297b9L","S78be8a2d331a41878fbd2e1f7424c801n","Un petit cœur doré bombé sur une chaîne fine."],
+ ["collier-medaille-lune-etoile-doree","Collier Médaille Lune et Étoile Dorée – Zircon Bleu, Femme","f","colliers",24.90,"Sd37b297b8a6e4f92b85ae77f00ea27d3b","Se16f857611f64f00a0585e1b72000631k","Une médaille dorée gravée d'un croissant de lune et d'une étoile, rehaussée d'un zircon bleu."],
+ ["collier-coeur-ocean-cristal-irise","Collier Cœur de l'Océan en Cristal Irisé – Chaîne Dorée, Femme","f","colliers",24.90,"S6649b093751440618a69d2dade3a6a55D","Sbc0262356b7e405a9a000da862d158a8A","Un pendentif cœur en cristal irisé aux reflets violets, serti dans une monture dorée."],
+ ["lot-6-bagues-dorees-serties-femme","Lot de 6 Bagues Dorées Serties de Pierres – Femme","f","bagues",24.90,"S2a1be937a7c54fee8241d637694b466dN","Sca638ca50c6041509262ab34cb4f7ff1E","Un ensemble de 6 bagues dorées aux finitions variées, serties de pierres colorées, à porter seules ou superposées."],
+ ["bague-ouverte-doree-vague-acier","Bague Ouverte Dorée Effet Vague – Acier Inoxydable, Ne Noircit Pas","f","bagues",22.90,"S033d83622da048c191364da0a81fffba5","S65eef1a405f045e8a1daa53f3ed21d96N","Une bague ouverte au dessin ondulé, en acier inoxydable doré."],
+ ["bague-ajustable-maille-torsadee-doree-zircons","Bague Ajustable Maille Torsadée Dorée Sertie de Zircons – Femme","f","bagues",22.90,"Hdb2125b3ce1a4af6a72ff9396763892eb","H24b733e03d23422da63e3046d0e6003fu","Une bague en maille torsadée dorée, sertie de petits zircons."],
+ ["bague-solitaire-zircons-plaque-argent-925","Bague Solitaire Sertie de Zircons – Plaqué Argent 925, Femme","f","bagues",27.90,"Sfe25fcca9b614e2f9695398916ddbe86r","S1d8494d7544b48419059f3f042f086d97","Une bague solitaire au zircon central taillé, épaulé de petites pierres sur l'anneau.",{name:"Taille",values:["49 (US 5)","52 (US 6)","54 (US 7)","57 (US 8)","59 (US 9)"]}],
+ ["creoles-fines-zircons-plaque-argent-925","Créoles Fines Serties de Zircons – Plaqué Argent 925, Femme","f","boucles",19.90,"Se5a1b247ec714531912c23d64694da342","S35e04de1c6d54b2492c589bec69a0111x","De petites créoles délicates serties d'une ligne de zircons qui captent la lumière."],
+ ["lot-3-paires-boucles-oreilles-dorees-etoile-de-mer","Lot de 3 Paires de Boucles d'Oreilles Dorées – Étoile de Mer, Coquillage et Créoles","f","boucles",24.90,"S0bf034327eb94138b3d026ea94229a6eB","Sb2deea7c2eeb4c3890390f6d7a0f44441","Un lot de 3 paires de boucles d'oreilles dorées aux motifs marins : étoile de mer, coquillage et formes texturées."],
+ ["creoles-dorees-pavees-zircons-femme","Boucles d'Oreilles Créoles Dorées Pavées de Zircons – Femme","f","boucles",24.90,"S2bf4223b236d42db8f99a922bf844052M","Sa44994e11f2149659d12d916d0089f09W","Des créoles dorées pavées de zircons qui captent la lumière : un bijou chic pour sublimer toutes vos tenues."],
+ ["parure-collier-bracelet-croises-acier-316l","Parure Collier et Bracelet Croisés 3 en 1 – Acier Inoxydable 316L, Ne Noircit Pas","f","parures",34.90,"Sce4103edc95a4163a57ccfe3d5560570k","S71f8307bfb294907b4eece876446d851e","Une parure moderne avec un collier et un bracelet à mailles croisées, pour un effet 3 en 1 lumineux au quotidien comme en soirée."],
+ ["parure-collier-bracelet-torsades-or-argent","Parure Collier et Bracelet Torsadés Or et Argent – Acier Inoxydable 316L, Ne Noircit Pas","f","parures",34.90,"Sae80947ade0b443eaa00fb0878923f1bQ","Sc2d00615f8c54a7ebda54b6f1c6b3a30o","Une parure élégante qui associe un collier et un bracelet torsadés à mailles nouées, dans un mélange or et argent."],
+
+ ["bracelet-homme-mantra-oeil-de-tigre","Bracelet Homme Mantra en Œil de Tigre – Perles Naturelles et Métal Argenté","h","bracelets",22.90,"S8abd330271664664b68b317ec7224629X","S81bb5ae676a2476c9b356ff08c9f504fp","Des perles d'œil de tigre ponctuées de perles métalliques gravées d'un mantra.",{name:"Pierre",values:["Œil de tigre","Œil de tigre rouge"]}],
+ ["creoles-homme-runes-vikings-acier-noir","Créoles Homme Runes Vikings – Acier Inoxydable Noir","h","boucles",19.90,"Sf24a952ddd584c3eb5d21d9b303a67ecZ","S30de478e1c5e4c6ba9353ce3c7e068eeU","Des créoles noires gravées de runes vikings, en acier inoxydable."],
+ ["bracelet-homme-corde-tressee-marin","Bracelet Homme Corde Tressée Style Marin – Bleu Marine","h","bracelets",19.90,"Sc797c901b94b4e2d87a25cdc3eb2c373g","Sb639e02c99c840a1bc0a2961449667928","Un bracelet en corde tressée au style marin, avec fermoir métallique en forme de manille."],
+ ["bracelet-homme-boheme-corde-tressee-vert","Bracelet Homme Bohème en Corde Tressée – Fermoir Magnétique, Vert","h","bracelets",19.90,"Sb6e183083b344171a679db0d6e94d0202","S8953d88c9cd847268f45046489c46944w","Un bracelet en corde tressée aux motifs ethniques, double tour, avec fermoir magnétique."],
+ ["ensemble-homme-chaines-bracelet-acier","Ensemble Homme Chaînes et Bracelet en Acier Inoxydable – Style Minimaliste","h","parures",29.90,"S4d25708d865841d3970a56b8cd6bf9728","Sa4680f5ef9534f738f7a9483549573f8P","Un ensemble de chaînes et bracelet en acier inoxydable, à porter ensemble ou séparément."],
+ ["parure-homme-collier-bracelet-maille-figaro","Parure Homme Collier et Bracelet Maille Figaro – Couleur Argent, 50 cm et 20 cm","h","parures",27.90,"S91effba0cd474da6bde845209cad083d9","S3e81d23f100c4660a5d6d5ac5bdc7985I","Une parure en maille figaro, l'alternance classique de maillons longs et courts."],
+ ["collier-croix-crucifix-dore-homme","Collier Croix Crucifix Doré Homme – Acier Inoxydable","h","colliers",24.90,"S75a65e7f6c1841d39f8bc1dcdc70ab36S","S6b1199ee4b934062802a63a25cc49a6eM","Un pendentif croix crucifix doré sur chaîne assortie."],
+ ["lot-2-colliers-homme-pendentif-pointe","Lot de 2 Colliers Homme Superposés – Chaînes et Pendentif Pointe en Acier","h","colliers",24.90,"Sdcbc36c74445497a86b14999429581abl","S8aa935984ebb4d4592ef63a2679fc209O","Deux chaînes en acier à superposer, dont une avec un pendentif pointe."],
+ ["lot-2-colliers-homme-croix-acier","Lot de 2 Colliers Homme Superposés – Chaîne et Pendentif Croix en Acier","h","colliers",24.90,"S01add7aaee3c4953aa3b2902401ed4d1u","Sbc5666f02ccb4dc1ba7f8309fb219da2A","Deux colliers à superposer : une chaîne torsadée et une chaîne fine avec pendentif croix."],
+ ["collier-croix-zircons-chaine-acier","Collier Croix Sertie de Zircons – Pendentif Brillant, Chaîne Acier","h","colliers",22.90,"S8cad5e3145044bed88c7fd67bbd0034dZ","S0e4ea10b84474b39b958d9706ac1d1a2x","Un pendentif croix entièrement serti de zircons, qui brille à chaque mouvement, sur une chaîne fine en acier."],
+ ["lot-4-bracelets-homme-perles-noires-dore","Lot de 4 Bracelets Homme Perles Noires et Doré – Style Minimaliste","h","bracelets",22.90,"Sfe41a1f767fc4719b4c853cd5e2923d0x","S292768797f3d40eca33548cee8b9f3c73","Un ensemble de 4 bracelets à porter seuls ou superposés : perles noires et touches dorées pour un style minimaliste."],
+ ["bracelet-homme-cuir-tresse-noir-magnetique","Bracelet Homme Cuir Tressé Noir – Fermoir Magnétique en Acier","h","bracelets",24.90,"Sff30d8d311b14a4e8aaaa16a589d8c1cv","S831de50f77d146b9a6d7bfbd7ab5c6925","Un bracelet en cuir tressé noir, sobre et élégant, fermé par un fermoir magnétique en acier inoxydable facile à mettre d'une main."],
+ ["bracelet-homme-cuir-tresse-vintage","Bracelet Homme en Cuir Tressé Vintage – Fait Main, Style Rétro","h","bracelets",24.90,"Sd93be862b0cf4b4ea8c023b195ab954eY","Sc80e405b267c4e78a9f8cbe02d9b833fb","Un bracelet en cuir tressé à la main, au style vintage, avec un motif gravé sur la plaque centrale."],
+ ["bracelet-maille-cubaine-dore-zircons","Bracelet Maille Cubaine Doré Serti de Zircons – Acier Inoxydable 316L","h","bracelets",27.90,"Se08404c7a5464888b030b65b3ef9b426D","S79aceb9a06e0435aa3ddf67ed676152dQ","Une maille cubaine dorée entièrement sertie de zircons, pour un effet brillant assumé."],
+ ["bracelet-homme-pierre-de-lave-bois","Bracelet Homme Pierre de Lave et Perles de Bois – 8 mm, Élastique","h","bracelets",19.90,"S5bf4c752355543f7bef2a219390ba625N","S52811ad4462649cab380478f64e2fdfeW","Un bracelet naturel en perles de pierre de lave et de bois, au style bohème."],
+ ["bracelet-homme-cuir-multirang-perles","Bracelet Homme Cuir Multirang et Perles – Lave ou Lapis-Lazuli, 20 cm","h","bracelets",24.90,"S23d82fb4646444edadef6a8252e4db80f","Sd6efd44ad09b4eb195da1089c0ca7720M","Un bracelet multirang qui associe cuir et perles de pierre.",{name:"Pierre",values:["Pierre de lave","Lapis-lazuli"]}],
+ ["bracelet-maille-cubaine-homme-acier","Bracelet Maille Cubaine Homme – Acier Inoxydable, 5, 7 ou 9 mm","h","bracelets",22.90,"Sc02dd8fee01b4ed2850f0fa32ac995286","Sd97c468c61cb48179fda9a47fd9fbda8G","La maille cubaine, un incontournable du bijou masculin.",{name:"Largeur",values:["5 mm","7 mm","9 mm"]}],
+ ["bracelet-homme-obsidienne-hematite-oeil-de-tigre","Bracelet Homme Perles Obsidienne, Hématite et Œil de Tigre – Pierres Naturelles","h","bracelets",22.90,"See12c9053363476a9943847f5ee22d61y","Sc84ddb15f17b473d9ae8f5ed77844000z","Un bracelet en perles d'obsidienne noire, d'hématite et d'œil de tigre, monté sur élastique.",{name:"Taille des perles",values:["6 mm","8 mm","10 mm"]}],
+ ["collier-homme-perles-pierre-noire-oeil-de-tigre","Collier Homme en Perles de Pierre Noire et Œil de Tigre – Pendentif Géométrique","h","colliers",24.90,"S2813890c94ae4d3fbeab212cdfbc0854L","S300b2d5489f148b0aa5c933f180e3416Y","Un collier ras du cou en perles de pierre noire rehaussées d'œil de tigre, avec un pendentif géométrique sobre."],
+ ["bracelet-homme-cuir-tresse-multicouche","Bracelet Homme en Cuir Tressé Multicouche – Finitions Métal, 21 cm","h","bracelets",24.90,"Se87eb0845af147cca2027c041698b2aci","S30c46f8376704c869b549083b36c6895e","Un bracelet homme multicouche au style vintage, en cuir tressé avec des finitions métal."]
+];
+
+const img = (name, w = 700) => name.startsWith("http") ? name + (name.includes("?") ? "&" : "?") + "width=" + w : CDN + name + ".webp?width=" + w;
+const fmt = n => n.toFixed(2).replace(".", ",") + " €";
+
+function split(title) {
+  const [a, ...b] = title.split(" – ");
+  return { name: a.trim(), sub: b.join(" – ").replace(/,?\s*(Femme|Homme)$/i, "").trim() };
+}
+function build(r, order) {
+  const s = split(r[1]);
+  const opt = r[8];
+  return {
+    handle: r[0], title: r[1], name: s.name, sub: s.sub, g: r[2], cat: r[3], price: r[4], compare: null,
+    images: [r[5], r[6]].filter(Boolean), desc: r[7], order,
+    options: opt ? [opt] : [],
+    variants: opt ? opt.values.map(v => ({ id: null, title: v, price: r[4], available: true, options: [v] }))
+                  : [{ id: null, title: "Default Title", price: r[4], available: true, options: [] }]
+  };
+}
+let PRODUCTS = RAW.map(build);
+const byHandle = h => PRODUCTS.find(p => p.handle === h);
+
+/* Déduit la catégorie d'un produit ajouté plus tard sur Shopify */
+function guessCat(tags, title) {
+  const t = (tags.join(" ") + " " + title).toLowerCase();
+  if (/parure|ensemble/.test(t)) return "parures";
+  if (/boucles|créole|creole/.test(t)) return "boucles";
+  if (/bague/.test(t)) return "bagues";
+  if (/bracelet|jonc/.test(t)) return "bracelets";
+  return "colliers";
+}
+const NEW_DAYS = 21;
+
+/* ================= Synchronisation avec la boutique ================= */
+async function syncShop() {
+  try {
+    const get = u => fetch(SHOP + u, { mode: "cors" }).then(r => { if (!r.ok) throw 0; return r.json(); });
+    const [all, fem, hom] = await Promise.all([
+      get("/products.json?limit=250"),
+      get("/collections/bijoux-femme/products.json?limit=250"),
+      get("/collections/bijoux-homme/products.json?limit=250")
+    ]);
+    const F = new Set(fem.products.map(p => p.handle)), H = new Set(hom.products.map(p => p.handle));
+    const next = all.products.map((sp, i) => {
+      const old = byHandle(sp.handle);
+      const tags = sp.tags || [];
+      const g = H.has(sp.handle) || tags.includes("Homme") ? "h" : F.has(sp.handle) || tags.includes("Femme") ? "f" : (old ? old.g : (/homme/i.test(sp.title) ? "h" : "f"));
+      const s = split(sp.title);
+      const v0 = sp.variants[0] || {};
+      const prices = sp.variants.map(v => +v.price);
+      const opts = (sp.options || []).filter(o => !(o.values.length === 1 && /Default Title/.test(o.values[0])));
+      const tmp = document.createElement("div"); tmp.innerHTML = sp.body_html || "";
+      const text = tmp.textContent.replace(/\s+/g, " ").trim();
+      return {
+        handle: sp.handle, title: sp.title, name: s.name, sub: s.sub, g,
+        cat: old ? old.cat : guessCat(tags, sp.title),
+        price: Math.min(...prices), compare: v0.compare_at_price && +v0.compare_at_price > +v0.price ? +v0.compare_at_price : null,
+        images: sp.images.length ? sp.images.map(m => m.src.split("?")[0]) : (old ? old.images : []),
+        desc: old ? old.desc : (text.split(/(?<=[.!])\s/).slice(0, 2).join(" ") || ""),
+        order: old ? old.order : i,
+        isNew: !old && sp.created_at && (Date.now() - new Date(sp.created_at)) / 864e5 < NEW_DAYS,
+        options: opts.map(o => ({ name: o.name, values: o.values })),
+        variants: sp.variants.map(v => ({ id: v.id, title: v.title, price: +v.price, available: v.available !== false,
+                                         options: [v.option1, v.option2, v.option3].filter(x => x && x !== "Default Title") }))
+      };
+    });
+    if (next.length) { PRODUCTS = next; window.LUNORE_LIVE = true; renderAll(); }
+  } catch (e) { /* hors-ligne ou boutique inaccessible : on garde le catalogue intégré */ }
+}
+</script>
+<script>
+/* ================= LUNORÉ — interface ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const catOf = k => CATS.find(c => c.key === k) || CATS[0];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const moonSVG = '<svg viewBox="-50 -50 100 100"><path d="M10-40a40 40 0 1 0 30 66A32 32 0 1 1 10-40z" fill="#C8B993"/></svg>';
+
+const state = { g: "all", cat: "all", price: "all", sort: "featured", mat: null, shown: 12 };
+const PAGE = 12;
+
+/* ---------- Phase de lune (logo, hero, pied de page) ---------- */
+function moonPhase(d = new Date()) {
+  const syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14);
+  return (((d - ref) / 864e5) % syn + syn) % syn / syn; // 0 = nouvelle, .5 = pleine
+}
+function phasePath(p, r = 46) {
+  const k = Math.cos(p * 2 * Math.PI) * r; // demi-axe du terminateur
+  const waxing = p < .5;
+  const sweepOuter = waxing ? 1 : 0;
+  const crescent = p < .25 || p > .75;
+  const sweepInner = crescent ? (waxing ? 0 : 1) : (waxing ? 1 : 0);
+  return `M0 ${-r} A${r} ${r} 0 0 ${sweepOuter} 0 ${r} A${Math.abs(k)} ${r} 0 0 ${sweepInner} 0 ${-r}Z`;
+}
+function paintMoon() {
+  const p = moonPhase();
+  const lit = Math.max(.08, Math.min(.92, p)); // jamais totalement noire pour le logo
+  $$(".phase").forEach(el => el.setAttribute("d", phasePath(lit)));
+  $$(".phase-hero").forEach(el => el.setAttribute("d", phasePath(.18)));
+  const days = Math.round((1 - p) * 29.53) % 30;
+  const names = ["Nouvelle lune", "Premier croissant", "Premier quartier", "Lune gibbeuse", "Pleine lune", "Lune gibbeuse", "Dernier quartier", "Dernier croissant"];
+  const shown = (1 - Math.cos(p * 2 * Math.PI)) / 2; // part éclairée réelle
+  $$(".phase-real").forEach(el => el.setAttribute("d", phasePath(p)));
+  if ($("#tonight-name")) { $("#tonight-name").textContent = names[Math.round(p * 8) % 8].toLowerCase(); $("#tonight-pct").textContent = Math.round(shown * 100) + " %"; }
+  $("#moon-txt").innerHTML = `${names[Math.round(p * 8) % 8]}<br><small>Nouvelle lune dans ${days || 29} j</small>`;
+}
+
+/* ---------- Ciel étoilé discret ---------- */
+function stars() { /* le ciel est dessiné par le canvas #night (voir plus bas) */ }
+
+/* ---------- Compteurs ---------- */
+function count(filter) { return PRODUCTS.filter(filter).length; }
+function inGender(p, g = state.g) { return g === "all" || p.g === g; }
+
+/* ---------- Bandeau ---------- */
+function renderMarquee() {
+  const items = ["Expédié depuis la France en 2 à 7 jours", "Retours sous 14 jours", "Paiement sécurisé", "Idées cadeaux à moins de 35 €",
+                 `${count(p => p.g === "f")} bijoux femme`, `${count(p => p.g === "h")} bijoux homme`];
+  const one = items.map(t => `<span>${t}</span><i>☾</i>`).join("");
+  $("#marquee").innerHTML = one + one;
+}
+
+/* ---------- Univers Femme / Homme ---------- */
+function renderWorlds() {
+  const W = [
+    { g: "f", title: "Bijoux <em>Femme</em>", text: "Créoles pavées, colliers point de lumière, bagues serties et parures prêtes à offrir.", hero: "creoles-dorees-pavees-zircons-femme" },
+    { g: "h", title: "Bijoux <em>Homme</em>", text: "Mailles cubaines, cuirs tressés, pierres naturelles et colliers superposés.", hero: "bracelet-homme-cuir-tresse-multicouche" }
+  ];
+  $("#worlds").innerHTML = W.map(w => {
+    const list = PRODUCTS.filter(p => p.g === w.g);
+    const hero = byHandle(w.hero) || list[0];
+    const prices = list.map(p => p.price);
+    const cats = CATS.map(c => ({ ...c, n: list.filter(p => p.cat === c.key).length })).filter(c => c.n).sort((a, b) => b.n - a.n);
+    return `<article class="world reveal">
+      <a class="world__media" href="#boutique" data-go="${w.g}">
+        ${hero && hero.images[0] ? `<img src="${img(hero.images[0], 900)}" alt="${esc(hero.name)}" loading="lazy" onerror="this.remove()">` : ""}
+        <span class="world__count">${list.length} pièces</span>
+      </a>
+      <div class="world__body">
+        <h3>${w.title}</h3>
+        <p>${w.text}</p>
+        <div class="bar" aria-hidden="true">${cats.map(c => `<span style="flex:${c.n}"></span>`).join("")}</div>
+        <ul class="ranges">${cats.map(c => `<li><button type="button" data-go="${w.g}" data-cat="${c.key}">${c.label}<b>${c.n}</b></button></li>`).join("")}</ul>
+        <div class="world__foot">
+          <span class="world__price">De ${fmt(Math.min(...prices))} à ${fmt(Math.max(...prices))}</span>
+          <a class="link" href="#boutique" data-go="${w.g}">Voir les ${list.length} bijoux</a>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+  observe();
+}
+
+/* ---------- Filtres ---------- */
+function renderFilters() {
+  $("#seg").innerHTML = Object.entries(GENDERS).map(([k, l]) =>
+    `<button type="button" data-g="${k}" aria-pressed="${state.g === k}">${l}<small>${count(p => inGender(p, k))}</small></button>`).join("");
+  const base = PRODUCTS.filter(p => inGender(p));
+  $("#cats").innerHTML =
+    `<button type="button" class="chip" data-c="all" aria-pressed="${state.cat === "all"}">Tout<small>${base.length}</small></button>` +
+    CATS.map(c => { const n = base.filter(p => p.cat === c.key).length;
+      return `<button type="button" class="chip" data-c="${c.key}" aria-pressed="${state.cat === c.key}" ${n ? "" : "disabled"}>${c.label}<small>${n}</small></button>`; }).join("") +
+    (state.mat ? `<button type="button" class="chip chip--x" data-mat-clear>${MATS.find(m => m.key === state.mat).label} ×</button>` : "");
+  $("#price").value = state.price; $("#sort").value = state.sort;
+}
+
+function filtered() {
+  let list = PRODUCTS.filter(p => inGender(p)
+    && (state.cat === "all" || p.cat === state.cat)
+    && (state.price === "all" || p.price < +state.price)
+    && (!state.mat || MATS.find(m => m.key === state.mat).test(p)));
+  const s = state.sort;
+  if (s === "asc") list.sort((a, b) => a.price - b.price);
+  else if (s === "desc") list.sort((a, b) => b.price - a.price);
+  else if (s === "name") list.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+  else {
+    list.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0) || a.order - b.order);
+    if (state.g === "all") { // alterne femme / homme pour une vitrine équilibrée
+      const f = list.filter(p => p.g === "f"), h = list.filter(p => p.g === "h"), out = [];
+      while (f.length || h.length) { if (f.length) out.push(f.shift()); if (h.length) out.push(h.shift()); }
+      list = out;
+    }
+  }
+  return list;
+}
+
+function cardHTML(p, i = 0, compact = false) {
+  const badge = p.isNew ? "Nouveau" : p.compare ? "Promo" : (p.variants.length > 1 ? `${p.variants.length} options` : "");
+  const a = p.images[0], b = p.images[1];
+  return `<article class="card" data-h="${p.handle}" style="animation-delay:${Math.min(i, 11) * 40}ms" tabindex="0" aria-label="${esc(p.name)}, ${fmt(p.price)}">
+    <div class="card__media">
+      <div class="fallback">${moonSVG}</div>
+      ${a ? `<img src="${img(a)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">` : ""}
+      ${b && !compact ? `<img class="alt" src="${img(b)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+      ${badge && !compact ? `<span class="card__badge">${badge}</span>` : ""}
+      ${compact ? "" : `<button class="card__add" type="button" data-quick="${p.handle}">${p.variants.length > 1 ? "Choisir" : "Ajouter au panier"}</button>`}
+    </div>
+    <div class="card__meta">
+      <span class="card__kicker">${GENDERS[p.g]} · ${catOf(p.cat).one}</span>
+      <span class="card__name">${esc(p.name)}</span>
+      ${compact ? "" : `<span class="card__sub">${esc(p.sub)}</span>`}
+      <span class="card__price">${p.variants.length > 1 && new Set(p.variants.map(v => v.price)).size > 1 ? "Dès " : ""}${fmt(p.price)}${p.compare ? `<s>${fmt(p.compare)}</s>` : ""}</span>
+    </div>
+  </article>`;
+}
+
+function renderGrid() {
+  const list = filtered();
+  const shown = list.slice(0, state.shown);
+  const label = [state.g !== "all" ? "bijoux " + GENDERS[state.g].toLowerCase() : "bijoux", state.cat !== "all" ? "· " + catOf(state.cat).label.toLowerCase() : ""].join(" ");
+  $("#result").innerHTML = `<strong>${list.length}</strong> ${label}`;
+  $("#grid").innerHTML = shown.length ? shown.map((p, i) => cardHTML(p, i)).join("")
+    : `<div class="empty"><b>Aucun bijou ici… pour l’instant.</b>Essayez un autre budget ou une autre catégorie.</div>`;
+  $("#more").innerHTML = list.length > shown.length
+    ? `<p>${shown.length} sur ${list.length} bijoux</p><div class="track"><span style="width:${shown.length / list.length * 100}%"></span></div><button class="btn btn--line" type="button" id="load-more">Voir plus</button>`
+    : (list.length > PAGE ? `<p>Les ${list.length} bijoux sont affichés</p>` : "");
+}
+
+function setFilter(patch, scroll) {
+  Object.assign(state, patch, { shown: PAGE });
+  renderFilters(); renderGrid();
+  if (scroll) $("#boutique").scrollIntoView({ behavior: "smooth" });
+}
+
+/* ---------- Matières ---------- */
+const MATS = [
+  { key: "acier", label: "Acier inoxydable", text: "Ne noircit pas : parures 316L, mailles cubaines, chaînes et croix.", test: p => /acier/i.test(p.title) },
+  { key: "argent", label: "Plaqué argent 925", text: "Perle fine, solitaire, créoles et parure cœur, pour les pièces délicates.", test: p => /925/.test(p.title) },
+  { key: "zircon", label: "Zircons & cristaux", text: "Le point de lumière : pavés, sertis, irisés.", test: p => /zircon|cristal|cristaux/i.test(p.title) },
+  { key: "pierre", label: "Pierres naturelles", text: "Œil de tigre, obsidienne, hématite, lave, lapis-lazuli.", test: p => /tigre|obsidienne|lave|lapis|pierre/i.test(p.title) },
+  { key: "cuir", label: "Cuir & corde tressés", text: "Bracelets tressés, multirangs et style marin.", test: p => /cuir|corde/i.test(p.title) }
+];
+function renderMats() {
+  $("#mats").innerHTML = MATS.map(m => `<button type="button" class="mat reveal" data-mat="${m.key}">
+    <strong>${count(m.test)}</strong><h3>${m.label}</h3><p>${m.text}</p><span>Voir les bijoux →</span></button>`).join("");
+  observe();
+}
+
+/* ---------- Idées cadeaux ---------- */
+const GQ = {
+  who: [["f", "Pour elle"], ["h", "Pour lui"], ["all", "Peu importe"]],
+  style: [["or", "Doré"], ["argent", "Argenté"], ["nature", "Pierres & cuir"], ["all", "Surprenez-moi"]],
+  budget: [["20", "Moins de 20 €"], ["25", "Moins de 25 €"], ["35", "Moins de 35 €"]]
+};
+const gift = { who: "f", style: "or", budget: "35" };
+const styleOf = p => {
+  const t = p.title.toLowerCase();
+  if (/cuir|corde|tigre|lave|obsidienne|lapis|bois|pierre/.test(t)) return "nature";
+  if (/doré|dorée|dorés|dorées|or et|cubaine dor/.test(t)) return "or";
+  return "argent";
+};
+function renderGiftQ() {
+  $$("[data-q]").forEach(box => {
+    if (!GQ[box.dataset.q]) return;
+    box.innerHTML = GQ[box.dataset.q].map(([v, l]) => `<button type="button" class="chip" data-gq="${box.dataset.q}" data-v="${v}" aria-pressed="${gift[box.dataset.q] === v}">${l}</button>`).join("");
+  });
+}
+function renderGift() {
+  const ok = (p, strict) => (gift.who === "all" || p.g === gift.who) && p.price < +gift.budget && (!strict || gift.style === "all" || styleOf(p) === gift.style);
+  let list = PRODUCTS.filter(p => ok(p, true)), note = "";
+  if (list.length < 3) {
+    const extra = PRODUCTS.filter(p => ok(p, false) && !list.includes(p));
+    if (extra.length && list.length < 3) note = list.length ? "Complété par des bijoux d’un autre style, dans le même budget." : "Rien dans ce style à ce budget : voici nos plus proches suggestions.";
+    list = list.concat(extra);
+  }
+  // un mélange de catégories, en privilégiant les pièces à offrir (lots, parures)
+  const pick = [], used = new Set();
+  const ranked = list.slice().sort((a, b) => (/(lot|parure|ensemble)/i.test(b.name) ? 1 : 0) - (/(lot|parure|ensemble)/i.test(a.name) ? 1 : 0) || b.price - a.price);
+  for (const p of ranked) { if (pick.length < 3 && !used.has(p.cat)) { pick.push(p); used.add(p.cat); } }
+  for (const p of ranked) { if (pick.length < 3 && !pick.includes(p)) pick.push(p); }
+  $("#gift-res").innerHTML = pick.map((p, i) => cardHTML(p, i, true)).join("") || `<p class="empty">Aucun bijou à ce budget.</p>`;
+  const matching = PRODUCTS.filter(p => ok(p, true)).length;
+  $("#gift-note").textContent = note || `${matching} bijou${matching > 1 ? "x" : ""} correspond${matching > 1 ? "ent" : ""} à vos critères.`;
+}
+
+/* ---------- Pied de page ---------- */
+function renderFooter() {
+  ["f", "h"].forEach(g => {
+    $("#foot-" + g).innerHTML = CATS.map(c => ({ c, n: count(p => p.g === g && p.cat === c.key) })).filter(x => x.n)
+      .map(x => `<button type="button" data-go="${g}" data-cat="${x.c.key}">${x.c.label} (${x.n})</button>`).join("");
+  });
+}
+
+function renderHero() {
+  $$("[data-handle]").forEach(el => { const p = byHandle(el.dataset.handle); if (p && p.images[0]) el.src = img(p.images[0], 900); });
+  $('[data-stat="total"]').textContent = PRODUCTS.length;
+  $('[data-stat="min"]').textContent = fmt(Math.min(...PRODUCTS.map(p => p.price)));
+}
+
+function renderAll() {
+  renderHero(); renderMarquee(); renderWorlds(); renderFilters(); renderGrid(); renderMats(); renderGiftQ(); renderGift(); renderFooter(); renderCart();
+}
+
+/* ================= Aperçu produit ================= */
+let qv = null;
+function openQuick(handle) {
+  const p = byHandle(handle); if (!p) return;
+  qv = { p, sel: p.options.map(o => null), qty: 1, img: 0 };
+  $("#qv-cat").textContent = `${GENDERS[p.g]} · ${catOf(p.cat).one}`;
+  $("#qv-title").textContent = p.name;
+  $("#qv-sub").textContent = p.sub;
+  $("#qv-desc").textContent = p.desc;
+  $("#qv-link").href = `${SHOP}/products/${p.handle}`;
+  $("#qv-qty").textContent = 1;
+  $("#qv-thumbs").innerHTML = p.images.length > 1 ? p.images.slice(0, 8).map((m, i) =>
+    `<button type="button" data-img="${i}" aria-pressed="${i === 0}" aria-label="Photo ${i + 1}"><img src="${img(m, 160)}" alt="" loading="lazy" onerror="this.remove()"></button>`).join("") : "";
+  renderQV();
+  $("#modal").hidden = false; document.body.style.overflow = "hidden";
+  setTimeout(() => $(".x", $("#modal")).focus(), 50);
+}
+function currentVariant() {
+  const p = qv.p;
+  if (!p.options.length) return p.variants[0];
+  if (qv.sel.some(s => s == null)) return null;
+  return p.variants.find(v => v.options.every((o, i) => o === qv.sel[i])) || null;
+}
+function renderQV() {
+  const p = qv.p, v = currentVariant();
+  $("#qv-main").innerHTML = `<div class="fallback">${moonSVG}</div>` + (p.images[qv.img] ? `<img src="${img(p.images[qv.img], 1100)}" alt="${esc(p.name)}" onerror="this.remove()">` : "");
+  $$("#qv-thumbs button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.img === qv.img));
+  $("#qv-price").innerHTML = fmt(v ? v.price : p.price) + (p.compare ? ` <s style="color:var(--fg-3);font-size:.9rem">${fmt(p.compare)}</s>` : "");
+  $("#qv-options").innerHTML = p.options.map((o, i) => `<div style="display:grid;gap:10px">
+      <span style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2)">${esc(o.name)}${qv.sel[i] ? " · <b style='color:var(--fg);font-weight:500'>" + esc(qv.sel[i]) + "</b>" : ""}</span>
+      <div class="qv__opts">${o.values.map(val => {
+        const avail = p.variants.some(x => x.options[i] === val && x.available);
+        return `<button type="button" class="opt" data-oi="${i}" data-ov="${esc(val)}" aria-pressed="${qv.sel[i] === val}" ${avail ? "" : "disabled"}>${esc(val)}</button>`; }).join("")}</div>
+      ${/taille/i.test(o.name) && p.cat === "bagues" ? `<a href="#tailles" data-close class="qv__shop" style="font-size:.78rem">Trouver ma taille</a>` : ""}
+    </div>`).join("");
+  const add = $("#qv-add");
+  if (v && !v.available) { add.textContent = "Épuisé"; add.disabled = true; }
+  else { add.disabled = false; add.textContent = !v ? `Choisir : ${p.options.map(o => o.name.toLowerCase()).join(", ")}` : "Ajouter au panier"; }
+}
+function closeQuick() { $("#modal").hidden = true; document.body.style.overflow = ""; qv = null; }
+
+/* ================= Panier (en mémoire) ================= */
+const cart = [];
+function addToCart(p, v, qty = 1) {
+  const key = p.handle + "|" + v.title;
+  const line = cart.find(l => l.key === key);
+  if (line) line.qty += qty; else cart.push({ key, handle: p.handle, name: p.name, variant: v.title === "Default Title" ? "" : v.title, vid: v.id, price: v.price, image: p.images[0], qty });
+  renderCart();
+  const c = $("#cart-count"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); setTimeout(() => c.classList.remove("bump"), 300);
+  toast(`${p.name} ajouté au panier`);
+}
+function renderCart() {
+  const n = cart.reduce((s, l) => s + l.qty, 0), total = cart.reduce((s, l) => s + l.qty * l.price, 0);
+  $("#cart-count").textContent = n;
+  $("#total").textContent = fmt(total);
+  $("#checkout").disabled = !n; $("#checkout").style.opacity = n ? 1 : .4;
+  $("#items").innerHTML = cart.length ? cart.map((l, i) => `<li class="item">
+      ${l.image ? `<img src="${img(l.image, 200)}" alt="">` : `<span style="background:var(--surface)"></span>`}
+      <div><h4>${esc(l.name)}</h4>${l.variant ? `<small>${esc(l.variant)}</small>` : ""}
+        <div class="qty"><button type="button" data-ci="${i}" data-d="-1" aria-label="Retirer un">−</button><output>${l.qty}</output><button type="button" data-ci="${i}" data-d="1" aria-label="Ajouter un">+</button></div></div>
+      <div class="item__r"><span>${fmt(l.price * l.qty)}</span><button type="button" data-rm="${i}">Retirer</button></div>
+    </li>`).join("")
+    : `<li class="empty"><b>Votre panier est vide.</b>Nos ${PRODUCTS.length} bijoux vous attendent.</li>`;
+}
+function openCart() { $("#drawer").classList.add("is-open"); $("#drawer").setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; }
+function closeCart() { $("#drawer").classList.remove("is-open"); $("#drawer").setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
+function checkout() {
+  if (!cart.length) return;
+  // Avec le catalogue synchronisé, on envoie le panier directement au paiement Shopify.
+  if (cart.every(l => l.vid)) window.open(`${SHOP}/cart/${cart.map(l => l.vid + ":" + l.qty).join(",")}`, "_blank", "noopener");
+  else window.open(`${SHOP}/products/${cart[0].handle}`, "_blank", "noopener");
+}
+
+let tt;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2200); }
+
+/* ================= Taille de bague ================= */
+const LN_SIZES = [49, 52, 54, 57, 59];
+const US = { 44: 3, 47: 4, 49: 5, 52: 6, 54: 7, 57: 8, 59: 9, 62: 10, 64: 11, 67: 12 };
+function usSize(c) {
+  const ks = Object.keys(US).map(Number);
+  for (let i = 0; i < ks.length - 1; i++) if (c >= ks[i] && c <= ks[i + 1]) { const t = (c - ks[i]) / (ks[i + 1] - ks[i]); return Math.round((US[ks[i]] + t * (US[ks[i + 1]] - US[ks[i]])) * 2) / 2; }
+  return c < 44 ? 3 : 12;
+}
+function sizer() {
+  const c = +$("#range").value, d = c / Math.PI, r = 30 + (c - 44) * 2.6;
+  $("#ring").setAttribute("r", r); $("#diam").setAttribute("x1", -r); $("#diam").setAttribute("x2", r);
+  $("#r-diam").textContent = d.toFixed(1).replace(".", ",") + " mm";
+  $("#r-circ").textContent = c + " mm"; $("#r-fr").textContent = c;
+  $("#r-us").textContent = String(usSize(c)).replace(".", ",");
+  const near = LN_SIZES.reduce((a, b) => Math.abs(b - c) < Math.abs(a - c) ? b : a);
+  const up = LN_SIZES.find(s => s >= c);
+  $("#r-ln").textContent = near;
+  const adj = PRODUCTS.filter(p => p.cat === "bagues" && /ouverte|ajustable/i.test(p.title)).map(p => p.name);
+  $("#r-tip").innerHTML = (near === c ? `La Bague Solitaire existe en taille ${c}.` : `Entre deux tailles : prenez plutôt la ${up || near} pour la Bague Solitaire.`)
+    + (adj.length ? ` Les modèles ${adj.join(" et ")} s’ajustent à tous les doigts.` : "");
+}
+
+/* ================= Révélations au défilement ================= */
+let io;
+function observe() {
+  if (!("IntersectionObserver" in window)) { $$(".reveal").forEach(e => e.classList.add("in")); return; }
+  io = io || new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+  $$(".reveal:not(.in)").forEach(e => io.observe(e));
+}
+
+/* ================= Évènements ================= */
+document.addEventListener("click", e => {
+  const t = e.target.closest("button, a, .card"); if (!t) return;
+  const d = t.dataset;
+
+  if (d.quick) { e.stopPropagation(); const p = byHandle(d.quick);
+    if (p.variants.length === 1 && p.variants[0].available) addToCart(p, p.variants[0]); else openQuick(d.quick); return; }
+  if (t.classList.contains("card")) { openQuick(d.h); return; }
+  if (d.go) { e.preventDefault(); setFilter({ g: d.go, cat: d.cat || "all", mat: null }, true); }
+  else if (d.g) setFilter({ g: d.g, cat: "all" });
+  else if (d.c) setFilter({ cat: d.c });
+  else if ("matClear" in d) setFilter({ mat: null });
+  else if (d.mat) setFilter({ mat: d.mat, cat: "all", g: "all" }, true);
+  else if (t.id === "load-more") { state.shown += PAGE; renderGrid(); }
+  else if (d.gq) { gift[d.gq] = d.v; renderGiftQ(); renderGift(); }
+  else if (d.img) { qv.img = +d.img; renderQV(); }
+  else if (d.oi) { qv.sel[+d.oi] = d.ov; renderQV(); }
+  else if (d.q && qv) { qv.qty = Math.max(1, Math.min(10, qv.qty + +d.q)); $("#qv-qty").textContent = qv.qty; }
+  else if (t.id === "qv-add") { const v = currentVariant(); if (v) { addToCart(qv.p, v, qv.qty); closeQuick(); } }
+  else if (d.ci) { const l = cart[+d.ci]; l.qty += +d.d; if (l.qty < 1) cart.splice(+d.ci, 1); renderCart(); }
+  else if (d.rm) { cart.splice(+d.rm, 1); renderCart(); }
+  else if (t.id === "cart-open") openCart();
+  else if (t.id === "checkout") checkout();
+  else if (t.id === "burger") { $("#mnav").classList.add("is-open"); $("#mnav").setAttribute("aria-hidden", "false"); }
+
+  if ("close" in d) closeQuick();
+  if ("dclose" in d) closeCart();
+  if ("mnavClose" in d) { $("#mnav").classList.remove("is-open"); $("#mnav").setAttribute("aria-hidden", "true"); }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { if (qv) closeQuick(); closeCart(); $("#mnav").classList.remove("is-open"); }
+  if (e.key === "Enter" && e.target.classList && e.target.classList.contains("card")) openQuick(e.target.dataset.h);
+});
+$("#price").addEventListener("change", e => setFilter({ price: e.target.value }));
+$("#sort").addEventListener("change", e => setFilter({ sort: e.target.value }));
+$("#range").addEventListener("input", sizer);
+addEventListener("scroll", () => $("#nav").classList.toggle("is-scrolled", scrollY > 10), { passive: true });
+
+/* ================= Démarrage ================= */
+paintMoon(); stars(); renderAll(); sizer(); observe();
+syncShop();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ================= LUNORÉ — ciel de nuit =================
+   Un seul canvas fixe derrière toute la page :
+   · trois profondeurs d'étoiles qui scintillent et glissent en parallaxe (souris + défilement)
+   · étoiles filantes de temps en temps, et une à chaque clic dans le ciel du hero (« fais un vœu »)
+   · la Grande Ourse qui se trace dans le hero au chargement
+   · une traînée de poussière d'étoiles sous le curseur
+   Respecte prefers-reduced-motion : ciel fixe, sans filantes ni traînée. */
+(function () {
+  const cv = document.getElementById("night");
+  if (!cv || !cv.getContext) return;
+  const ctx = cv.getContext("2d");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = matchMedia("(pointer: fine)").matches;
+  const hero = document.querySelector(".hero"), art = document.querySelector(".hero__art");
+  let W = 0, H = 0, DPR = 1, stars = [], t0 = performance.now();
+  const mouse = { x: .5, y: .5, tx: .5, ty: .5 };
+  const shooting = [], dust = [];
+
+  const TINTS = ["255,255,255", "255,244,220", "214,226,255", "236,214,160"];
+  function seed() {
+    const n = Math.min(900, Math.round(W * H / 2200));
+    stars = Array.from({ length: n }, () => {
+      const depth = Math.random() ** 2.2;            // beaucoup d'étoiles lointaines, peu de proches
+      return {
+        x: Math.random() * W, y: Math.random() * H * 1.6,
+        r: .25 + depth * 1.45, depth,
+        a: .25 + Math.random() * .6,
+        tw: Math.random() * Math.PI * 2, sp: .6 + Math.random() * 2.2,
+        c: TINTS[Math.random() < .78 ? 0 : 1 + (Math.random() * 3 | 0)]
+      };
+    });
+  }
+  function resize() {
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    seed();
+  }
+
+  /* Grande Ourse : positions relatives (x, y) dans une boîte 1 × .45 */
+  const URSA = [[0, .06], [.16, .02], [.3, .06], [.44, .13], [.47, .33], [.7, .37], [.73, .13]];
+  const URSA_LINKS = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 3]];
+  const URSA_NAMES = ["Alkaid", "Mizar", "Alioth", "Megrez", "Phecda", "Merak", "Dubhe"];
+
+  function shoot(x, y, big) {
+    const ang = big ? .55 : .3 + Math.random() * .35;   // vers le bas, entre 17° et 37°
+    const dir = big ? (x < W / 2 ? 1 : -1) : (Math.random() < .5 ? 1 : -1);
+    shooting.push({
+      x, y, vx: Math.cos(ang) * dir * (big ? 13 : 9 + Math.random() * 6), vy: Math.sin(ang) * (big ? 13 : 9 + Math.random() * 6),
+      len: big ? 260 : 120 + Math.random() * 140, life: 1, decay: big ? .012 : .016 + Math.random() * .01
+    });
+    if (big) for (let i = 0; i < 26; i++) {
+      const a = Math.random() * Math.PI * 2, s = .6 + Math.random() * 2.6;
+      dust.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 1, decay: .012 + Math.random() * .02, r: .6 + Math.random() * 1.4 });
+    }
+  }
+
+  function heroBox() { const r = hero ? hero.getBoundingClientRect() : { top: 0, left: 0, width: W, height: H * .8 }; return r; }
+
+  function frame(now) {
+    const t = (now - t0) / 1000;
+    mouse.x += (mouse.tx - mouse.x) * .04; mouse.y += (mouse.ty - mouse.y) * .04;
+    ctx.clearRect(0, 0, W, H);
+
+    /* étoiles */
+    const sy = scrollY;
+    for (const s of stars) {
+      const px = s.x + (mouse.x - .5) * -36 * s.depth;
+      let py = (s.y - sy * (.04 + s.depth * .22) + (mouse.y - .5) * -22 * s.depth) % (H * 1.6);
+      if (py < 0) py += H * 1.6;
+      if (py > H + 4) continue;
+      const tw = reduce ? 1 : .55 + .45 * Math.sin(t * s.sp + s.tw);
+      const a = s.a * tw;
+      ctx.fillStyle = `rgba(${s.c},${a})`;
+      ctx.beginPath(); ctx.arc(px, py, s.r, 0, 6.283); ctx.fill();
+      if (s.r > 1.2) { // éclat en croix sur les plus brillantes
+        ctx.strokeStyle = `rgba(${s.c},${a * .35})`; ctx.lineWidth = .6;
+        ctx.beginPath(); ctx.moveTo(px - s.r * 4, py); ctx.lineTo(px + s.r * 4, py); ctx.moveTo(px, py - s.r * 4); ctx.lineTo(px, py + s.r * 4); ctx.stroke();
+      }
+    }
+
+    /* Grande Ourse dans le hero */
+    const hb = heroBox();
+    if (hb.bottom > 0) {
+      let bw = Math.min(360, hb.width * .32), bx = hb.left + hb.width * .42, by = hb.top + hb.height * .025;
+      if (W < 900 && art) { const a = art.getBoundingClientRect(); bw = a.width * .5; bx = a.left; by = a.top + a.height * .04; } // sur mobile : dans le ciel de l'illustration
+      const prog = reduce ? 1 : Math.min(1, Math.max(0, (t - 1.2) / 3.2));
+      const P = URSA.map(([x, y]) => [bx + x * bw + (mouse.x - .5) * -14, by + y * bw + (mouse.y - .5) * -10]);
+      ctx.lineWidth = .8; ctx.strokeStyle = "rgba(216,191,134,.38)";
+      URSA_LINKS.forEach(([a, b], i) => {
+        const k = Math.min(1, Math.max(0, prog * URSA_LINKS.length - i));
+        if (!k) return;
+        ctx.beginPath(); ctx.moveTo(P[a][0], P[a][1]);
+        ctx.lineTo(P[a][0] + (P[b][0] - P[a][0]) * k, P[a][1] + (P[b][1] - P[a][1]) * k); ctx.stroke();
+      });
+      P.forEach(([x, y], i) => {
+        const g = ctx.createRadialGradient(x, y, 0, x, y, 9);
+        g.addColorStop(0, "rgba(255,248,226,.95)"); g.addColorStop(1, "rgba(255,248,226,0)");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 9, 0, 6.283); ctx.fill();
+        ctx.fillStyle = "#fffaf0"; ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 6.283); ctx.fill();
+        if (fine && Math.hypot(mouse.tx * W - x, mouse.ty * H - y) < 18) {
+          ctx.fillStyle = "rgba(237,230,214,.8)"; ctx.font = "500 10px Inter, system-ui, sans-serif";
+          ctx.fillText(URSA_NAMES[i], x + 10, y - 8);
+        }
+      });
+      if (prog >= 1) {
+        ctx.fillStyle = "rgba(216,191,134,.55)"; ctx.font = "500 9px Inter, system-ui, sans-serif";
+        ctx.fillText("GRANDE OURSE", P[5][0] + 12, P[5][1] + 18);
+      }
+    }
+
+    /* étoiles filantes */
+    if (!reduce && Math.random() < .0045 && shooting.length < 2) shoot(Math.random() * W, Math.random() * H * .45, false);
+    for (let i = shooting.length - 1; i >= 0; i--) {
+      const s = shooting[i];
+      s.x += s.vx; s.y += s.vy; s.life -= s.decay;
+      if (s.life <= 0) { shooting.splice(i, 1); continue; }
+      const sp = Math.hypot(s.vx, s.vy), tx = s.x - s.vx / sp * s.len, ty = s.y - s.vy / sp * s.len;
+      const g = ctx.createLinearGradient(s.x, s.y, tx, ty);
+      g.addColorStop(0, `rgba(255,250,235,${s.life})`); g.addColorStop(.25, `rgba(236,214,160,${s.life * .5})`); g.addColorStop(1, "rgba(236,214,160,0)");
+      ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(tx, ty); ctx.stroke();
+      ctx.fillStyle = `rgba(255,255,255,${s.life})`; ctx.beginPath(); ctx.arc(s.x, s.y, 1.6, 0, 6.283); ctx.fill();
+    }
+
+    /* poussière d'étoiles */
+    for (let i = dust.length - 1; i >= 0; i--) {
+      const d = dust[i];
+      d.x += d.vx; d.y += d.vy; d.vy += .015; d.vx *= .98; d.life -= d.decay;
+      if (d.life <= 0) { dust.splice(i, 1); continue; }
+      ctx.fillStyle = `rgba(236,214,160,${d.life * .9})`;
+      ctx.beginPath(); ctx.arc(d.x, d.y, d.r * d.life, 0, 6.283); ctx.fill();
+    }
+
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
+  addEventListener("resize", resize);
+  addEventListener("pointermove", e => {
+    mouse.tx = e.clientX / W; mouse.ty = e.clientY / H;
+    if (fine && !reduce && dust.length < 90 && Math.random() < .55)
+      dust.push({ x: e.clientX, y: e.clientY, vx: (Math.random() - .5) * .6, vy: (Math.random() - .5) * .6, life: 1, decay: .025 + Math.random() * .02, r: .5 + Math.random() * 1.3 });
+  }, { passive: true });
+  if (hero) hero.addEventListener("click", e => {
+    if (e.target.closest("a,button")) return;
+    shoot(e.clientX, e.clientY, true);
+    window.dispatchEvent(new CustomEvent("lunore:wish"));
+  });
+  document.addEventListener("visibilitychange", () => { t0 = performance.now() - 5000; });
+
+  resize();
+  requestAnimationFrame(frame);
+  window.LunoreSky = { shoot };
+})();
+
+/* ================= Mouvements au défilement (GSAP ScrollTrigger) ================= */
+(function () {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* vœu : un petit mot quand on clique dans le ciel */
+  const WISHES = ["Vœu envoyé à la Grande Ourse ✦", "Une étoile filante rien que pour vous ✦", "Le vœu est parti, la lune s’en occupe ✦"];
+  let w = 0;
+  addEventListener("lunore:wish", () => toast(WISHES[w++ % WISHES.length]));
+  /* reflet doré qui suit la souris sur les cartes */
+  document.addEventListener("pointermove", e => {
+    const m = e.target.closest && e.target.closest(".card__media"); if (!m) return;
+    const r = m.getBoundingClientRect();
+    m.style.setProperty("--mx", (e.clientX - r.left) / r.width * 100 + "%");
+    m.style.setProperty("--my", (e.clientY - r.top) / r.height * 100 + "%");
+  }, { passive: true });
+  if (reduce || !window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const st = { trigger: ".hero", start: "top top", end: "bottom top", scrub: .6 };
+  gsap.to(".hero__moon", { yPercent: 55, rotate: -14, scale: .85, ease: "none", scrollTrigger: st });
+  gsap.to(".hero__halo", { yPercent: 40, opacity: .4, ease: "none", scrollTrigger: st });
+  gsap.to(".arch--a", { y: -70, ease: "none", scrollTrigger: st });
+  gsap.to(".arch--b", { y: 50, ease: "none", scrollTrigger: st });
+  gsap.to(".hero__seal", { y: -120, ease: "none", scrollTrigger: st });
+  gsap.from(".hero__art", { opacity: 0, scale: .94, duration: 1.6, ease: "expo.out", delay: .2 });
+  gsap.from(".tonight, .hero__cta, .hero__facts", { opacity: 0, y: 18, duration: 1.1, stagger: .1, ease: "expo.out", delay: .5 });
+})();
+</script>
 </body>
 </html>

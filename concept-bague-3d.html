@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lunoré — Bijoux Homme</title>
+<meta name="description" content="Lunoré, bijoux pour homme : chevalières, bagues, chaînes et bracelets en argent 925, vermeil or 18k et acier 316L. Gravure offerte.">
+<meta name="theme-color" content="#0b0d12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ============ Préchargement : une lunaison complète ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="loader__moon" viewBox="-50 -50 100 100"><circle r="44" class="moon-dark"/><path class="moon-lit" id="loader-phase" d=""/></svg>
+  <div class="loader__count"><span id="loader-num">00</span><small>%</small></div>
+  <div class="loader__word">Lunoré</div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ En-tête ============ -->
+<header class="nav" id="nav">
+  <a class="nav__logo" href="#top" aria-label="Lunoré, accueil">
+    <svg class="nav__phase" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="moon-dark"/><path class="moon-lit" id="nav-phase" d=""/></svg>
+    <span>Lunoré</span>
+  </a>
+  <nav class="nav__links" aria-label="Navigation principale">
+    <a href="#collection" data-magnetic>Collection</a>
+    <a href="#lignes" data-magnetic>Lignes</a>
+    <a href="#atelier" data-magnetic>Atelier</a>
+    <a href="#tailles" data-magnetic>Guide des tailles</a>
+  </nav>
+  <button class="nav__cart" id="cart-open" type="button" data-magnetic aria-label="Ouvrir le panier">
+    Panier <span class="nav__count" id="cart-count">0</span>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__canvas" id="hero-canvas" aria-label="Bague Lunoré en 3D, faites-la tourner"></div>
+    <div class="hero__inner">
+      <p class="eyebrow hero__eyebrow"><span class="dot"></span> Collection Homme · Automne–Hiver 2026</p>
+      <h1 class="hero__title" id="hero-title">
+        <span class="line"><span>Forgés</span></span>
+        <span class="line"><span><em>pour</em> la nuit.</span></span>
+      </h1>
+      <p class="hero__lead">Chevalières, chaînes et bracelets en argent 925, vermeil or 18k et acier 316L. Dessinés à Paris, gravés à la commande.</p>
+      <div class="hero__actions">
+        <a class="btn btn--light" href="#collection" data-magnetic><span>Découvrir la collection</span></a>
+        <a class="btn btn--ghost" href="#tailles" data-magnetic><span>Trouver ma taille</span></a>
+      </div>
+    </div>
+
+    <div class="hero__metal" role="group" aria-label="Métal de la bague 3D">
+      <span class="mono">Métal</span>
+      <button type="button" class="swatch is-active" data-hero-metal="argent" aria-pressed="true"><i style="background:linear-gradient(135deg,#f4f5f7,#9da3ae 55%,#e6e8ec)"></i>Argent</button>
+      <button type="button" class="swatch" data-hero-metal="or" aria-pressed="false"><i style="background:linear-gradient(135deg,#fbe7b5,#c99a45 55%,#f2d590)"></i>Or</button>
+      <button type="button" class="swatch" data-hero-metal="noir" aria-pressed="false"><i style="background:linear-gradient(135deg,#6b6f78,#1d1f25 55%,#4a4e57)"></i>Noir</button>
+    </div>
+
+    <dl class="hero__specs mono">
+      <div><dt>Titre</dt><dd>925 ‰</dd></div>
+      <div><dt>Bague Orbite</dt><dd>6 mm · 5,2 g</dd></div>
+      <div><dt>Gravure</dt><dd>Offerte</dd></div>
+    </dl>
+    <p class="hero__hint mono" aria-hidden="true">Glisse pour faire tourner ↔</p>
+  </section>
+
+  <!-- ============ Bandeau d'engagements ============ -->
+  <div class="marquee" aria-label="Nos engagements">
+    <div class="marquee__track">
+      <span>Livraison offerte dès 80 €</span><i>☾</i>
+      <span>Gravure offerte</span><i>☾</i>
+      <span>Garantie 2 ans</span><i>☾</i>
+      <span>Retours sous 30 jours</span><i>☾</i>
+      <span>Poinçon 925 sur chaque pièce argent</span><i>☾</i>
+      <span>Livraison offerte dès 80 €</span><i>☾</i>
+      <span>Gravure offerte</span><i>☾</i>
+      <span>Garantie 2 ans</span><i>☾</i>
+      <span>Retours sous 30 jours</span><i>☾</i>
+      <span>Poinçon 925 sur chaque pièce argent</span><i>☾</i>
+    </div>
+  </div>
+
+  <!-- ============ Collection ============ -->
+  <section class="section collection" id="collection" aria-labelledby="col-title">
+    <div class="section__head">
+      <p class="eyebrow">Bijoux homme · <span id="col-total">12</span> pièces</p>
+      <h2 class="section__title reveal" id="col-title">La collection</h2>
+    </div>
+
+    <div class="toolbar">
+      <div class="chips" id="filters" role="tablist" aria-label="Filtrer par catégorie"></div>
+      <label class="sort mono" for="sort">Trier
+        <select id="sort">
+          <option value="featured">Sélection</option>
+          <option value="asc">Prix croissant</option>
+          <option value="desc">Prix décroissant</option>
+          <option value="name">Nom A–Z</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </section>
+
+  <!-- ============ Les lignes (défilement horizontal) ============ -->
+  <section class="lines" id="lignes" aria-labelledby="lines-title">
+    <div class="lines__pin">
+      <div class="lines__intro">
+        <p class="eyebrow">Quatre lignes, quatre phases</p>
+        <h2 class="section__title" id="lines-title">Une lune<br><em>par caractère.</em></h2>
+        <p class="lines__lead">Chaque ligne suit une phase de la lune, de l’acier noir le plus discret au vermeil le plus franc.</p>
+      </div>
+      <div class="lines__track" id="lines-track"></div>
+    </div>
+  </section>
+
+  <!-- ============ Atelier ============ -->
+  <section class="section atelier" id="atelier" aria-labelledby="atelier-title">
+    <div class="atelier__grid">
+      <div class="atelier__copy">
+        <p class="eyebrow">L’atelier</p>
+        <h2 class="section__title reveal" id="atelier-title">Du croquis<br>au <em>poinçon.</em></h2>
+        <p>Chaque pièce passe par les mêmes quatre étapes, dans cet ordre. Rien n’est sous-traité à une chaîne de montage.</p>
+        <div class="stats">
+          <div><strong class="mono" data-count="925">0</strong><span>millièmes d’argent pur dans chaque pièce argent</span></div>
+          <div><strong class="mono" data-count="11" data-suffix=" h">0</strong><span>de travail en moyenne pour une chevalière</span></div>
+          <div><strong class="mono" data-count="30" data-suffix=" j">0</strong><span>pour changer d’avis, retour gratuit</span></div>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><span class="mono">I</span><div><h3>Dessin</h3><p>Croquis à la main, puis modélisation 3D au dixième de millimètre pour valider les volumes portés.</p></div></li>
+        <li><span class="mono">II</span><div><h3>Fonte à cire perdue</h3><p>Le modèle en cire est coulé en argent ou en acier. La cire fond, le métal prend exactement sa place.</p></div></li>
+        <li><span class="mono">III</span><div><h3>Polissage</h3><p>Brossé, martelé ou poli miroir, selon la ligne. Trois passages de pâte, du plus gros grain au plus fin.</p></div></li>
+        <li><span class="mono">IV</span><div><h3>Contrôle et poinçon</h3><p>Pesée, mesure de la taille et poinçon 925 frappé à l’intérieur de l’anneau. Puis gravure, si tu l’as demandée.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ Guide des tailles ============ -->
+  <section class="section sizes" id="tailles" aria-labelledby="sizes-title">
+    <div class="sizes__grid">
+      <div>
+        <p class="eyebrow">Guide des tailles</p>
+        <h2 class="section__title reveal" id="sizes-title">Trouve ta taille<br><em>en 30 secondes.</em></h2>
+        <ol class="sizes__how">
+          <li>Enroule une bande de papier autour de la base du doigt, en fin de journée.</li>
+          <li>Marque l’endroit où elle se rejoint et mesure la longueur en millimètres.</li>
+          <li>Reporte cette mesure ci-contre. La taille française est égale au tour de doigt.</li>
+        </ol>
+      </div>
+      <div class="sizer">
+        <div class="sizer__ring" aria-hidden="true">
+          <svg viewBox="-110 -110 220 220"><circle id="sizer-circle" r="60" class="sizer__circle"/><line id="sizer-diam" x1="-60" x2="60" y1="0" y2="0" class="sizer__diam"/></svg>
+          <div class="sizer__readout"><span class="mono" id="sizer-diam-val">18,1 mm</span><small>diamètre intérieur</small></div>
+        </div>
+        <label class="sizer__label mono" for="sizer-range">Tour de doigt : <strong id="sizer-circ-val">57 mm</strong></label>
+        <input type="range" id="sizer-range" min="44" max="76" step="1" value="57">
+        <dl class="sizer__out">
+          <div><dt>Taille FR</dt><dd class="mono" id="out-fr">57</dd></div>
+          <div><dt>Taille US</dt><dd class="mono" id="out-us">8</dd></div>
+          <div><dt>Taille UK</dt><dd class="mono" id="out-uk">P</dd></div>
+        </dl>
+        <p class="sizer__tip">Entre deux tailles ? Prends la plus grande pour un anneau large (6 mm et plus).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Newsletter ============ -->
+  <section class="section club" aria-labelledby="club-title">
+    <div class="club__inner">
+      <svg class="club__moon" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="moon-dark"/><path class="moon-lit" id="club-phase" d=""/></svg>
+      <h2 class="section__title" id="club-title">Le Cercle <em>Lunoré</em></h2>
+      <p>Les nouvelles pièces arrivent à chaque nouvelle lune. Inscris-toi pour les voir 48 h avant tout le monde, et reçois −10 % sur ta première commande.</p>
+      <form class="club__form" id="club-form" novalidate>
+        <label class="sr-only" for="club-email">Adresse e-mail</label>
+        <input id="club-email" type="email" placeholder="ton@email.com" autocomplete="email" required>
+        <button class="btn btn--light" type="submit"><span>M’inscrire</span></button>
+      </form>
+      <p class="club__msg mono" id="club-msg" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__brand">
+    <span class="footer__word">Lunoré</span>
+    <p>Bijoux pour homme, dessinés à Paris.</p>
+  </div>
+  <div class="footer__cols">
+    <div><h3>Boutique</h3><a href="#collection">Bagues</a><a href="#collection">Chevalières</a><a href="#collection">Chaînes</a><a href="#collection">Bracelets</a></div>
+    <div><h3>Aide</h3><a href="#tailles">Guide des tailles</a><a href="#atelier">Entretien de l’argent</a><a href="#top">Livraison & retours</a></div>
+    <div><h3>Prochaine collection</h3><p class="mono" id="next-moon">Nouvelle lune dans …</p></div>
+  </div>
+  <p class="footer__legal mono">© 2026 Lunoré · Paiement sécurisé · Livraison en France et en Europe</p>
+</footer>
+
+<!-- ============ Fiche produit (aperçu rapide) ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="qv-title">
+    <button class="modal__close" type="button" data-close aria-label="Fermer">×</button>
+    <div class="qv__media">
+      <div class="qv__visual" id="qv-visual"></div>
+      <div class="qv__engrave" id="qv-engrave" hidden></div>
+      <div class="qv__tabs" id="qv-tabs" hidden>
+        <button type="button" class="is-active" data-view="visual">Pièce</button>
+        <button type="button" data-view="engrave">Gravure</button>
+      </div>
+    </div>
+    <div class="qv__info">
+      <p class="eyebrow" id="qv-cat"></p>
+      <h2 id="qv-title"></h2>
+      <p class="qv__price mono" id="qv-price"></p>
+      <p class="qv__desc" id="qv-desc"></p>
+      <fieldset class="qv__field"><legend>Métal · <span id="qv-metal-label"></span></legend><div class="qv__metals" id="qv-metals"></div></fieldset>
+      <fieldset class="qv__field" id="qv-size-field"><legend id="qv-size-legend">Taille</legend><div class="qv__sizes" id="qv-sizes"></div></fieldset>
+      <div class="qv__field" id="qv-engrave-field" hidden>
+        <label for="qv-engrave-input">Gravure intérieure <small>(offerte, 22 caractères max.)</small></label>
+        <input id="qv-engrave-input" type="text" maxlength="22" placeholder="Ex. M.D · 14.02.2026">
+      </div>
+      <dl class="qv__specs mono" id="qv-specs"></dl>
+      <button class="btn btn--light btn--block" id="qv-add" type="button"><span>Ajouter au panier</span></button>
+      <p class="qv__error mono" id="qv-error" role="alert"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Panier ============ -->
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawer-title">
+  <div class="drawer__backdrop" data-drawer-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer__head">
+      <h2 id="drawer-title">Ton panier</h2>
+      <button type="button" class="modal__close" data-drawer-close aria-label="Fermer le panier">×</button>
+    </div>
+    <div class="ship">
+      <p class="mono" id="ship-text"></p>
+      <div class="ship__bar"><span id="ship-bar"></span></div>
+    </div>
+    <ul class="drawer__items" id="cart-items"></ul>
+    <div class="drawer__foot">
+      <div class="drawer__total"><span>Sous-total</span><strong class="mono" id="cart-total">0 €</strong></div>
+      <button class="btn btn--light btn--block" id="checkout" type="button"><span>Passer commande</span></button>
+      <p class="drawer__note mono" id="checkout-note">Taxes incluses. Livraison calculée à l’étape suivante.</p>
+    </div>
+  </div>
+</aside>
+
+<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/visuals.js"></script>
+<script src="assets/js/hero3d.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
