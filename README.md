@@ -1,10 +1,25 @@
-# Lunoré
+# Nightgild (anciennement Lunoré)
+
+Bijoux dorés et argentés pour femme et homme, à moins de 35 €. Boutique Shopify, produits fournis par DSers (AliExpress, expédition depuis la France).
+
+## Identité
+
+- Logo : croissant de lune creusé, avec une étoile dorée dans le creux, et le mot « Nightgild » en Bodoni Moda. Fichiers dans `assets/brand/` (SVG, PNG sur fond nuit, transparent clair, transparent encre, image de partage 1200 × 630).
+- Couleurs : encre de nuit `#0C1022`, bleu lapis `#1E2A5A`, or feuille `#D4AF5F`, or clair `#EBD49A`, ivoire `#F1EBDD`.
+- Typographies : Bodoni Moda (titres, logo) et Jost (texte), via Google Fonts.
+
+## Branchement Shopify
+
+- `SHOP` pointe sur le domaine permanent `vz42tv-wj.myshopify.com` (redirige vers le domaine principal).
+- `VAR` contient l'identifiant Shopify de chaque variante. Le bouton « Passer commande » ouvre `/cart/id:qté,...`, qui remplit le panier Shopify et mène au paiement, même si la relecture en direct de `/products.json` échoue.
+- Un produit ajouté plus tard sur Shopify apparaît quand la relecture en direct fonctionne ; pour qu'il soit aussi payable sans elle, ajouter sa ligne dans `RAW` et son identifiant dans `VAR`.
+- Le panier est gardé dans le navigateur (`localStorage`).
 
 ## Fichiers
 
 | Fichier | Contenu |
 |---|---|
-| `index.html` | **Version nuit** du site Lunoré (40 bijoux femme et homme, synchronisés avec la boutique Shopify) |
+| `index.html` | **Site Nightgild**, version nuit (40 bijoux femme et homme, synchronisés avec la boutique Shopify) |
 | `version-jour.html` | Version ivoire d'origine, gardée pour comparer |
 | `concept-bague-3d.html` | Concept homme avec bague 3D WebGL (voir plus bas) |
 

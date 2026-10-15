@@ -3,36 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Lunoré, la nuit</title>
-<meta name="description" content="Lunoré : bijoux fantaisie dorés et argentés pour femme et homme, colliers, créoles, bagues, bracelets et parures à moins de 35 €. Expédiés depuis la France en 2 à 7 jours.">
-<meta name="theme-color" content="#0B0F1C">
+<title>Nightgild : bijoux dorés et argentés à moins de 35 €</title>
+<meta name="description" content="Nightgild : bijoux dorés et argentés pour femme et homme. Colliers, créoles, bagues, bracelets et parures à moins de 35 €, expédiés depuis la France en 2 à 7 jours.">
+<meta name="theme-color" content="#0C1022">
+<link rel="icon" type="image/svg+xml" href="assets/brand/nightgild-mark.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nightgild">
+<meta property="og:title" content="Nightgild : bijoux dorés et argentés à moins de 35 €">
+<meta property="og:description" content="Colliers, créoles, bagues, bracelets et parures pour femme et homme, expédiés depuis la France en 2 à 7 jours.">
+<meta property="og:image" content="assets/brand/nightgild-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Nightgild","url":"https://lunore-shop.myshopify.com","logo":"assets/brand/nightgild-logo.png","description":"Bijoux dorés et argentés pour femme et homme, à moins de 35 €, expédiés depuis la France."}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.shopify.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Jost:wght@300;400;500;600&display=swap">
 <style>
-/* Lunoré — feuille de style
-   Version nuit : mêmes polices et même or champagne que la boutique, posés sur un ciel
-   étoilé animé (canvas #night). Le croissant de lune reste la signature. */
+/* Nightgild : feuille de style
+   La nuit dorée à la feuille. Encre de nuit et bleu lapis, or feuille pour la lumière,
+   Bodoni Moda (poinçon de bijoutier) et Jost (géométrie Art déco), sur le ciel étoilé animé (canvas #night). */
 :root{
   /* Nuit : ciel bleu d'encre, or champagne pour la lumière, texte clair de lune */
-  --bg:#0B0F1C;         /* fond, nuit profonde */
-  --bg-2:#10162A;       /* horizon */
-  --panel:#141A2E;      /* cartes */
-  --surface:#1A2138;    /* surfaces douces */
-  --surface-2:#273050;
-  --champagne:#C8B993;  /* bandeau d'annonce, inchangé */
-  --gold:#C9AE72;       /* accent décoratif */
-  --gold-ink:#DCC48E;   /* or lisible sur fond nuit */
+  --bg:#0C1022;         /* fond, nuit profonde */
+  --bg-2:#111733;       /* horizon */
+  --panel:#151C3A;      /* cartes */
+  --surface:#1B2347;    /* surfaces douces */
+  --surface-2:#1E2A5A;
+  --champagne:#D4AF5F;  /* or feuille : bandeau, sélection */
+  --gold:#D4AF5F;       /* accent décoratif */
+  --gold-ink:#EBD49A;   /* or lisible sur fond nuit */
   --glow:rgba(236,214,160,.38);
-  --on-gold:#1B1A18;    /* texte posé sur l'or */
-  --fg:#EEE8DA;
-  --fg-2:#AEB0BC;
-  --fg-3:#7E8396;
+  --on-gold:#14110A;    /* texte posé sur l'or */
+  --fg:#F1EBDD;
+  --fg-2:#B2B5C7;
+  --fg-3:#8A90AA;
   --line:rgba(238,232,218,.11);
   --line-2:rgba(238,232,218,.22);
-  --display:"Cormorant","Cormorant Garamond",Georgia,serif;
-  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Bodoni Moda","Didot",Georgia,serif;
+  --body:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
   --gutter:clamp(16px,4vw,56px);
   --max:1320px;
   --ease:cubic-bezier(.2,.7,.1,1);
@@ -76,7 +84,6 @@ em{font-style:italic}
 .nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
 .nav__links a:hover::after{transform:scaleX(1)}
 .logo{display:flex;flex-direction:column;align-items:center;line-height:1}
-.logo__moon{width:18px;height:18px;margin-bottom:3px}
 .logo__word{font-family:var(--display);font-size:1.9rem;letter-spacing:.2em;font-weight:500;padding-left:.2em}
 .nav__right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
 .nav__cart{display:flex;align-items:center;gap:8px;font-size:.84rem}
@@ -420,6 +427,40 @@ main,.marquee{position:relative;z-index:1}
 @keyframes hint{50%{color:var(--gold-ink)}}
 @media (max-width:900px){.hero__halo{width:70%;top:-14%;right:-10%}.wish{display:none}}
 @media (prefers-reduced-motion:reduce){.hero__halo{animation:none}}
+
+/* ================= Nightgild : identité =================
+   Bodoni Moda pour les titres et le logo, Jost pour le texte. Une seule dorure animée :
+   la deuxième ligne du titre se couvre d'or au chargement, comme une feuille posée. */
+.logo{flex-direction:row;gap:10px}
+.logo__mark{width:30px;height:30px;flex:none;filter:drop-shadow(0 0 10px rgba(212,175,95,.35))}
+.logo__word{font-size:1.7rem;font-weight:500;letter-spacing:.03em;padding-left:0}
+@media (max-width:900px){.logo__mark{width:24px;height:24px}.logo__word{font-size:1.3rem}}
+
+.title,.hero__title{letter-spacing:-.02em}
+.hero__title{font-weight:400;line-height:1.02;font-size:clamp(2.5rem,5.2vw,4.6rem)}
+@media (max-width:900px){.hero__facts{gap:18px 26px}.hero__facts strong{font-size:1.45rem}}
+.title em,.hero__title em{color:inherit;text-shadow:none;font-weight:400}
+.hero__title .ln span.gild{
+  background:linear-gradient(100deg,#EBD49A 0%,#D4AF5F 12%,#F6E4AE 22%,#B8923F 32%,#E3C67F 40%,var(--fg) 56%,var(--fg) 100%);
+  background-size:260% 100%;background-position:0 0;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:rise 1.1s var(--ease) .12s forwards,gild 2.6s cubic-bezier(.5,0,.2,1) 1.15s both}
+@keyframes gild{from{background-position:100% 0}to{background-position:0 0}}
+
+/* Libellés en casse normale : plus lisibles, moins « gabarit » */
+.eyebrow{text-transform:none;letter-spacing:0;font-family:var(--display);font-style:italic;font-size:1.05rem;font-weight:400;color:var(--gold-ink)}
+.eyebrow::before{width:28px;background:linear-gradient(90deg,transparent,var(--gold))}
+.btn,.link,.card__add,.seg button{text-transform:none;letter-spacing:.02em;font-size:.95rem}
+.announce{text-transform:none;letter-spacing:.03em;font-size:.82rem}
+.card__kicker,.card__badge,.world__count,.arch__tag,.q legend,.sizer__out dt,.mat span,.wish,.select{text-transform:none;letter-spacing:.01em}
+.card__kicker{font-size:.8rem}.card__badge,.world__count,.arch__tag{font-size:.8rem}
+.q legend,.sizer__out dt{font-size:.85rem}
+.footer h3{text-transform:none;letter-spacing:0;font-family:var(--display);font-style:italic;font-weight:400;font-size:1.1rem;color:var(--gold-ink)}
+.mat span{font-size:.85rem}
+
+.footer__brand{display:flex;align-items:center;gap:clamp(12px,2vw,22px)}
+.footer__mark{width:clamp(44px,7vw,80px);height:clamp(44px,7vw,80px);flex:none}
+.footer__word{letter-spacing:.01em;font-size:clamp(2.4rem,5.2vw,4.1rem)}
+@media (prefers-reduced-motion:reduce){.hero__title .ln span.gild{animation:none;transform:none}}
 </style>
 </head>
 <body>
@@ -429,6 +470,14 @@ main,.marquee{position:relative;z-index:1}
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#E9D9AE"/><stop offset=".5" stop-color="#B49A62"/><stop offset="1" stop-color="#E2CC94"/>
     </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F3DE9F"/><stop offset=".45" stop-color="#D4AF5F"/><stop offset=".7" stop-color="#A9843A"/><stop offset="1" stop-color="#EBD49A"/>
+    </linearGradient>
+    <mask id="ng-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40"><rect width="40" height="40" fill="#fff"/><circle cx="26.5" cy="15" r="12.6" fill="#000"/></mask>
+    <symbol id="ng-mark" viewBox="0 0 40 40">
+      <circle cx="19" cy="21" r="16" fill="url(#leaf)" mask="url(#ng-cut)"/>
+      <path d="M28.2 9.6l1.25 4.3 4.3 1.25-4.3 1.25-1.25 4.3-1.25-4.3-4.3-1.25 4.3-1.25z" fill="url(#leaf)"/>
+    </symbol>
     <radialGradient id="moonfill" cx=".38" cy=".35" r=".75">
       <stop offset="0" stop-color="#F3E6C2"/><stop offset=".6" stop-color="#D6BE86"/><stop offset="1" stop-color="#B9995B"/>
     </radialGradient>
@@ -446,9 +495,9 @@ main,.marquee{position:relative;z-index:1}
       <a href="#cadeaux">Idées cadeaux</a>
       <a href="#tailles">Guide des tailles</a>
     </nav>
-    <a class="logo" href="#top" aria-label="Lunoré, accueil">
-      <svg class="logo__moon" viewBox="-50 -50 100 100" aria-hidden="true"><path class="phase" fill="url(#moonfill)"/><circle r="46" fill="none" stroke="#B49A62" stroke-width="3" opacity=".5"/></svg>
-      <span class="logo__word">LUNORÉ</span>
+    <a class="logo" href="#top" aria-label="Nightgild, accueil">
+      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><use href="#ng-mark"/></svg>
+      <span class="logo__word">Nightgild</span>
     </a>
     <div class="nav__right">
       <button class="nav__cart" id="cart-open" type="button" aria-label="Ouvrir le panier"><span class="txt">Panier</span> <span class="nav__count" id="cart-count">0</span></button>
@@ -472,13 +521,13 @@ main,.marquee{position:relative;z-index:1}
     <div class="hero__sky" id="sky" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div>
-        <p class="eyebrow">Bijoux femme &amp; homme · Expédiés depuis la France</p>
+        <p class="eyebrow">Bijoux femme et homme, expédiés depuis la France</p>
         <h1 class="hero__title" id="hero-title">
-          <span class="ln"><span>Des bijoux</span></span>
-          <span class="ln"><span>qui brillent <em>comme</em></span></span>
-          <span class="ln"><span><em>une nuit étoilée.</em></span></span>
+          <span class="ln"><span>La nuit,</span></span>
+          <span class="ln"><span class="gild">dorée à la feuille.</span></span>
+          <span class="ln"><span><em>Moins de 35 €.</em></span></span>
         </h1>
-        <p class="hero__lead">Créoles pavées, parures dorées, mailles cubaines et bracelets en pierres naturelles : chaque bijou Lunoré est choisi pour son éclat et son petit prix. À offrir, ou à garder pour soi.</p>
+        <p class="hero__lead">Créoles pavées, parures dorées, mailles cubaines et pierres naturelles. Nightgild choisit des bijoux femme et homme qui brillent sans coûter cher, à offrir ou à garder pour soi.</p>
         <div class="hero__cta">
           <a class="btn btn--dark" href="#boutique" data-go="femme">Bijoux femme</a>
           <a class="btn btn--line" href="#boutique" data-go="homme">Bijoux homme</a>
@@ -505,12 +554,12 @@ main,.marquee{position:relative;z-index:1}
         <svg class="hero__seal" viewBox="0 0 120 120">
           <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
           <circle cx="60" cy="60" r="58" fill="#141A2E" stroke="rgba(220,196,142,.35)"/>
-          <text><textPath href="#circ">Idées cadeaux · moins de 35 € · </textPath></text>
-          <path d="M60 46a14 14 0 1 0 10 24 11 11 0 1 1 -10 -24z" fill="url(#moonfill)"/>
+          <text><textPath href="#circ">Nightgild ✦ idées cadeaux ✦ moins de 35 € ✦ </textPath></text>
+          <svg x="44" y="44" width="32" height="32" viewBox="0 0 40 40"><use href="#ng-mark"/></svg>
         </svg>
       </div>
     </div>
-    <p class="wish" aria-hidden="true">✦ Clique dans le ciel pour faire un vœu</p>
+    <p class="wish" aria-hidden="true">Cliquez dans le ciel pour faire un vœu</p>
   </section>
 
   <div class="marquee" aria-label="Nos engagements">
@@ -628,7 +677,7 @@ main,.marquee{position:relative;z-index:1}
         <dl class="sizer__out">
           <div><dt>Taille FR</dt><dd id="r-fr">54</dd></div>
           <div><dt>Taille US</dt><dd id="r-us">7</dd></div>
-          <div><dt>Chez Lunoré</dt><dd id="r-ln">54</dd></div>
+          <div><dt>Chez Nightgild</dt><dd id="r-ln">54</dd></div>
         </dl>
         <p class="sizer__tip" id="r-tip"></p>
       </div>
@@ -667,8 +716,8 @@ main,.marquee{position:relative;z-index:1}
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <div class="footer__word">LUNORÉ</div>
-        <p>Bijoux fantaisie dorés et argentés pour femme et homme, expédiés depuis la France.</p>
+        <div class="footer__brand"><svg class="footer__mark" viewBox="0 0 40 40" aria-hidden="true"><use href="#ng-mark"/></svg><div class="footer__word">Nightgild</div></div>
+        <p>Bijoux dorés et argentés pour femme et homme, à moins de 35 €, expédiés depuis la France.</p>
       </div>
       <div class="footer__col"><h3>Femme</h3><div id="foot-f"></div></div>
       <div class="footer__col"><h3>Homme</h3><div id="foot-h"></div></div>
@@ -679,7 +728,7 @@ main,.marquee{position:relative;z-index:1}
         <a href="#tailles">Guide des tailles</a><a href="#faq">Livraison &amp; retours</a>
       </div>
     </div>
-    <div class="footer__legal"><span>© 2026 Lunoré</span><span>Paiement sécurisé · Carte bancaire &amp; PayPal</span></div>
+    <div class="footer__legal"><span>© 2026 Nightgild</span><span>Paiement sécurisé · Carte bancaire &amp; PayPal</span></div>
   </div>
 </footer>
 
@@ -719,7 +768,7 @@ main,.marquee{position:relative;z-index:1}
     <div class="drawer__foot">
       <div class="drawer__total"><span>Sous-total</span><strong id="total">0,00 €</strong></div>
       <button class="btn btn--dark btn--block" id="checkout" type="button">Passer commande</button>
-      <p class="drawer__note">Paiement sécurisé sur la boutique Lunoré. Livraison calculée à l’étape suivante.</p>
+      <p class="drawer__note">Paiement sécurisé par Shopify. Livraison calculée à l’étape suivante.</p>
     </div>
   </div>
 </aside>
@@ -727,7 +776,7 @@ main,.marquee{position:relative;z-index:1}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ================= LUNORÉ — catalogue =================
+/* ================= NIGHTGILD : catalogue =================
    Copie du catalogue Shopify (octobre 2026) : 40 bijoux, 20 femme / 20 homme.
    Au chargement, la page relit la boutique en direct (/products.json) pour mettre à jour
    prix, photos, variantes et nouveaux produits : les compteurs suivent tout seuls.
@@ -796,15 +845,63 @@ function split(title) {
   const [a, ...b] = title.split(" – ");
   return { name: a.trim(), sub: b.join(" – ").replace(/,?\s*(Femme|Homme)$/i, "").trim() };
 }
+
+/* Identifiants des variantes Shopify (relevés le 15/10/2026 dans l'admin, stock géré par DSers).
+   Avec eux, le panier part au paiement Shopify même si la lecture en direct de la boutique échoue
+   (site hébergé ailleurs que sur Shopify, CORS, hors-ligne). Nombre = article sans option. */
+const VAR = {
+ "parure-collier-bracelet-torsades-or-argent":55723375755606,
+ "parure-collier-bracelet-croises-acier-316l":55723375690070,
+ "creoles-dorees-pavees-zircons-femme":55723376247126,
+ "lot-3-paires-boucles-oreilles-dorees-etoile-de-mer":55723376279894,
+ "bracelet-homme-cuir-tresse-multicouche":55723376410966,
+ "collier-homme-perles-pierre-noire-oeil-de-tigre":55735064428886,
+ "creoles-fines-zircons-plaque-argent-925":55735064494422,
+ "bracelet-homme-obsidienne-hematite-oeil-de-tigre":["Taille des perles",{"6 mm":55735064887638,"8 mm":55735064854870,"10 mm":55735064953174}],
+ "bracelet-maille-cubaine-homme-acier":["Largeur",{"5 mm":55735064658262,"7 mm":55735064789334,"9 mm":55735064723798}],
+ "bracelet-homme-cuir-multirang-perles":["Pierre",{"Pierre de lave":55735065051478,"Lapis-lazuli":55735065084246}],
+ "bracelet-homme-pierre-de-lave-bois":55735065149782,
+ "bracelet-maille-cubaine-dore-zircons":55735065280854,
+ "bracelet-homme-cuir-tresse-vintage":55735065411926,
+ "bracelet-homme-cuir-tresse-noir-magnetique":55735065477462,
+ "lot-4-bracelets-homme-perles-noires-dore":55735065542998,
+ "collier-croix-zircons-chaine-acier":55735065608534,
+ "lot-2-colliers-homme-croix-acier":55735065706838,
+ "lot-2-colliers-homme-pendentif-pointe":55735065837910,
+ "collier-croix-crucifix-dore-homme":55735066001750,
+ "parure-homme-collier-bracelet-maille-figaro":55735066100054,
+ "ensemble-homme-chaines-bracelet-acier":55735066263894,
+ "bracelet-homme-boheme-corde-tressee-vert":55735066198358,
+ "bracelet-homme-corde-tressee-marin":55735066362198,
+ "creoles-homme-runes-vikings-acier-noir":55735066427734,
+ "bracelet-homme-mantra-oeil-de-tigre":["Pierre",{"Œil de tigre":55735066493270,"Œil de tigre rouge":55735066558806}],
+ "bague-solitaire-zircons-plaque-argent-925":["Taille",{"49 (US 5)":55735073571158,"52 (US 6)":55735073702230,"54 (US 7)":55735073603926,"57 (US 8)":55735073833302,"59 (US 9)":55735073734998}],
+ "bague-ajustable-maille-torsadee-doree-zircons":55735073898838,
+ "bague-ouverte-doree-vague-acier":55735074128214,
+ "lot-6-bagues-dorees-serties-femme":55735074160982,
+ "collier-coeur-ocean-cristal-irise":55735074292054,
+ "collier-medaille-lune-etoile-doree":55735074357590,
+ "collier-coeur-dore-minimaliste":55735074488662,
+ "collier-perle-fine-plaque-argent-925":55735074718038,
+ "collier-point-de-lumiere-zircon":["Coloris",{"Argenté":55735074816342,"Doré":55735074881878}],
+ "creoles-serties-cristaux-argent":55735075209558,
+ "boucles-oreilles-creoles-epaisses-dorees":55735075242326,
+ "boucles-oreilles-creoles-ovales-dorees":55735075406166,
+ "parure-coeur-collier-boucles-zircons":55735075602774,
+ "bracelet-jonc-manchette-dore-zircons":55735075701078,
+ "lot-7-bracelets-joncs-dores-femme":55735075766614
+};
 function build(r, order) {
   const s = split(r[1]);
-  const opt = r[8];
+  const known = VAR[r[0]];
+  const opt = Array.isArray(known) ? { name: known[0], values: Object.keys(known[1]) } : r[8];
+  const idOf = v => Array.isArray(known) ? known[1][v] || null : null;
   return {
     handle: r[0], title: r[1], name: s.name, sub: s.sub, g: r[2], cat: r[3], price: r[4], compare: null,
     images: [r[5], r[6]].filter(Boolean), desc: r[7], order,
     options: opt ? [opt] : [],
-    variants: opt ? opt.values.map(v => ({ id: null, title: v, price: r[4], available: true, options: [v] }))
-                  : [{ id: null, title: "Default Title", price: r[4], available: true, options: [] }]
+    variants: opt ? opt.values.map(v => ({ id: idOf(v), title: v, price: r[4], available: true, options: [v] }))
+                  : [{ id: typeof known === "number" ? known : null, title: "Default Title", price: r[4], available: true, options: [] }]
   };
 }
 let PRODUCTS = RAW.map(build);
@@ -854,17 +951,17 @@ async function syncShop() {
                                          options: [v.option1, v.option2, v.option3].filter(x => x && x !== "Default Title") }))
       };
     });
-    if (next.length) { PRODUCTS = next; window.LUNORE_LIVE = true; renderAll(); }
+    if (next.length) { PRODUCTS = next; window.NIGHTGILD_LIVE = true; renderAll(); }
   } catch (e) { /* hors-ligne ou boutique inaccessible : on garde le catalogue intégré */ }
 }
 </script>
 <script>
-/* ================= LUNORÉ — interface ================= */
+/* ================= NIGHTGILD : interface ================= */
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const catOf = k => CATS.find(c => c.key === k) || CATS[0];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const moonSVG = '<svg viewBox="-50 -50 100 100"><path d="M10-40a40 40 0 1 0 30 66A32 32 0 1 1 10-40z" fill="#C8B993"/></svg>';
+const moonSVG = '<svg viewBox="0 0 40 40"><use href="#ng-mark"/></svg>'; // logo Nightgild en attendant la photo
 
 const state = { g: "all", cat: "all", price: "all", sort: "featured", mat: null, shown: 12 };
 const PAGE = 12;
@@ -1022,7 +1119,7 @@ const MATS = [
 ];
 function renderMats() {
   $("#mats").innerHTML = MATS.map(m => `<button type="button" class="mat reveal" data-mat="${m.key}">
-    <strong>${count(m.test)}</strong><h3>${m.label}</h3><p>${m.text}</p><span>Voir les bijoux →</span></button>`).join("");
+    <strong>${count(m.test)}</strong><h3>${m.label}</h3><p>${m.text}</p><span>Voir les bijoux</span></button>`).join("");
   observe();
 }
 
@@ -1123,7 +1220,9 @@ function renderQV() {
 function closeQuick() { $("#modal").hidden = true; document.body.style.overflow = ""; qv = null; }
 
 /* ================= Panier (en mémoire) ================= */
-const cart = [];
+const CART_KEY = "nightgild-cart";
+const cart = (() => { try { const c = JSON.parse(localStorage.getItem(CART_KEY) || "[]"); return Array.isArray(c) ? c : []; } catch (e) { return []; } })();
+function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} }
 function addToCart(p, v, qty = 1) {
   const key = p.handle + "|" + v.title;
   const line = cart.find(l => l.key === key);
@@ -1133,6 +1232,8 @@ function addToCart(p, v, qty = 1) {
   toast(`${p.name} ajouté au panier`);
 }
 function renderCart() {
+  saveCart();
+  cart.forEach(l => { if (!l.vid) { const p = byHandle(l.handle); const v = p && p.variants.find(x => (x.title === "Default Title" ? "" : x.title) === l.variant); if (v && v.id) l.vid = v.id; } });
   const n = cart.reduce((s, l) => s + l.qty, 0), total = cart.reduce((s, l) => s + l.qty * l.price, 0);
   $("#cart-count").textContent = n;
   $("#total").textContent = fmt(total);
@@ -1149,9 +1250,11 @@ function openCart() { $("#drawer").classList.add("is-open"); $("#drawer").setAtt
 function closeCart() { $("#drawer").classList.remove("is-open"); $("#drawer").setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
 function checkout() {
   if (!cart.length) return;
-  // Avec le catalogue synchronisé, on envoie le panier directement au paiement Shopify.
-  if (cart.every(l => l.vid)) window.open(`${SHOP}/cart/${cart.map(l => l.vid + ":" + l.qty).join(",")}`, "_blank", "noopener");
-  else window.open(`${SHOP}/products/${cart[0].handle}`, "_blank", "noopener");
+  // Lien panier Shopify (/cart/id:qté,...) : il remplit le panier de la boutique et ouvre le paiement.
+  const ok = cart.filter(l => l.vid), missing = cart.filter(l => !l.vid);
+  if (ok.length) window.open(`${SHOP}/cart/${ok.map(l => l.vid + ":" + l.qty).join(",")}`, "_blank", "noopener");
+  else window.open(`${SHOP}/products/${missing[0].handle}`, "_blank", "noopener");
+  if (ok.length && missing.length) toast(`${missing.map(l => l.name).join(", ")} : à ajouter depuis sa fiche sur la boutique.`);
 }
 
 let tt;
@@ -1232,7 +1335,7 @@ syncShop();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-/* ================= LUNORÉ — ciel de nuit =================
+/* ================= NIGHTGILD : ciel de nuit =================
    Un seul canvas fixe derrière toute la page :
    · trois profondeurs d'étoiles qui scintillent et glissent en parallaxe (souris + défilement)
    · étoiles filantes de temps en temps, et une à chaque clic dans le ciel du hero (« fais un vœu »)
@@ -1341,7 +1444,7 @@ syncShop();
       });
       if (prog >= 1) {
         ctx.fillStyle = "rgba(216,191,134,.55)"; ctx.font = "500 9px Inter, system-ui, sans-serif";
-        ctx.fillText("GRANDE OURSE", P[5][0] + 12, P[5][1] + 18);
+        ctx.fillText("Grande Ourse", P[5][0] + 12, P[5][1] + 18);
       }
     }
 
@@ -1380,13 +1483,13 @@ syncShop();
   if (hero) hero.addEventListener("click", e => {
     if (e.target.closest("a,button")) return;
     shoot(e.clientX, e.clientY, true);
-    window.dispatchEvent(new CustomEvent("lunore:wish"));
+    window.dispatchEvent(new CustomEvent("nightgild:wish"));
   });
   document.addEventListener("visibilitychange", () => { t0 = performance.now() - 5000; });
 
   resize();
   requestAnimationFrame(frame);
-  window.LunoreSky = { shoot };
+  window.NightgildSky = { shoot };
 })();
 
 /* ================= Mouvements au défilement (GSAP ScrollTrigger) ================= */
@@ -1395,7 +1498,7 @@ syncShop();
   /* vœu : un petit mot quand on clique dans le ciel */
   const WISHES = ["Vœu envoyé à la Grande Ourse ✦", "Une étoile filante rien que pour vous ✦", "Le vœu est parti, la lune s’en occupe ✦"];
   let w = 0;
-  addEventListener("lunore:wish", () => toast(WISHES[w++ % WISHES.length]));
+  addEventListener("nightgild:wish", () => toast(WISHES[w++ % WISHES.length]));
   /* reflet doré qui suit la souris sur les cartes */
   document.addEventListener("pointermove", e => {
     const m = e.target.closest && e.target.closest(".card__media"); if (!m) return;
