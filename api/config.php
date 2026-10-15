@@ -15,6 +15,6 @@ return [
 
     // Livraison en euros : 0 = offerte. Au-delà de 'livraison_offerte_des' (0 = jamais), elle devient gratuite.
     // Garder les mêmes valeurs que SHIPPING dans index.html.
-    'livraison' => 0.00,
-    'livraison_offerte_des' => 0.00,
+    'livraison' => 3.90,
+    'livraison_offerte_des' => 30.00,
 ];
