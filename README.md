@@ -4,7 +4,7 @@ Bijoux dorés et argentés pour femme et homme, à moins de 35 €. Site statiqu
 
 ## Identité
 
-- Logo : croissant de lune creusé, avec une étoile dorée dans le creux, et le mot « Nightgild » en Bodoni Moda. Fichiers dans `assets/brand/` (SVG, PNG sur fond nuit, transparent clair, transparent encre, image de partage 1200 × 630).
+- Logo : « NIGHTGILD » en capitales Bodoni Moda très espacées, un filet fin au-dessus et « BIJOUX » entre deux filets. Monogramme « N » entre deux filets pour l'icône d'onglet et les réseaux. Fichiers dans `assets/brand/` : `nightgild-logo.svg` (or), `nightgild-logo-encre.svg`, PNG sur fond nuit, transparent clair, transparent encre, `nightgild-mark.svg/.png` (monogramme) et image de partage 1200 × 630. Les lettres sont vectorisées : aucune police n'est nécessaire pour afficher le logo.
 - Couleurs : encre de nuit `#0C1022`, bleu lapis `#1E2A5A`, or feuille `#D4AF5F`, or clair `#EBD49A`, ivoire `#F1EBDD`.
 - Typographies : Bodoni Moda (titres, logo) et Jost (texte), via Google Fonts.
 
