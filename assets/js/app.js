@@ -368,8 +368,8 @@
     if (c.dataset.goto) $(c.dataset.goto).scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
   });
   $("#checkout").addEventListener("click", () => {
-    $("#checkout-note").textContent = "Version de démonstration : ce bouton se branchera sur le paiement Shopify.";
-    toast("Démo : le paiement se branche sur Shopify Checkout");
+    $("#checkout-note").textContent = "Version de démonstration : ce bouton se branchera sur le paiement PayPal.";
+    toast("Démo : le paiement se branche sur PayPal");
   });
   renderCart();
 

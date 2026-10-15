@@ -1,6 +1,6 @@
-# Nightgild (anciennement Lunoré)
+# Nightgild
 
-Bijoux dorés et argentés pour femme et homme, à moins de 35 €. Boutique Shopify, produits fournis par DSers (AliExpress, expédition depuis la France).
+Bijoux dorés et argentés pour femme et homme, à moins de 35 €. Site statique hébergé chez Hostinger, paiement PayPal (compte PayPal ou carte bancaire). Aucune dépendance à une plateforme e-commerce.
 
 ## Identité
 
@@ -8,66 +8,54 @@ Bijoux dorés et argentés pour femme et homme, à moins de 35 €. Boutique Sho
 - Couleurs : encre de nuit `#0C1022`, bleu lapis `#1E2A5A`, or feuille `#D4AF5F`, or clair `#EBD49A`, ivoire `#F1EBDD`.
 - Typographies : Bodoni Moda (titres, logo) et Jost (texte), via Google Fonts.
 
-## Branchement Shopify
-
-- `SHOP` pointe sur le domaine permanent `vz42tv-wj.myshopify.com` (redirige vers le domaine principal).
-- `VAR` contient l'identifiant Shopify de chaque variante. Le bouton « Passer commande » ouvre `/cart/id:qté,...`, qui remplit le panier Shopify et mène au paiement, même si la relecture en direct de `/products.json` échoue.
-- Un produit ajouté plus tard sur Shopify apparaît quand la relecture en direct fonctionne ; pour qu'il soit aussi payable sans elle, ajouter sa ligne dans `RAW` et son identifiant dans `VAR`.
-- Le panier est gardé dans le navigateur (`localStorage`).
-
 ## Fichiers
 
 | Fichier | Contenu |
 |---|---|
-| `index.html` | **Site Nightgild**, version nuit (40 bijoux femme et homme, synchronisés avec la boutique Shopify) |
-| `version-jour.html` | Version ivoire d'origine, gardée pour comparer |
-| `concept-bague-3d.html` | Concept homme avec bague 3D WebGL (voir plus bas) |
+| `index.html` | Le site Nightgild : catalogue de 40 bijoux (tableau `RAW`), filtres, idées cadeaux, guide des tailles, panier, boutons PayPal |
+| `assets/produits/` | Photos des bijoux (`<nom>.webp`, noms repris de `RAW`) |
+| `assets/brand/` | Logo et image de partage |
+| `api/commande.php` | Crée la commande chez PayPal avec les prix du serveur, encaisse, enregistre et t'envoie la commande par email |
+| `api/catalogue.php` | Prix de référence (généré depuis `RAW`) |
+| `api/config.php` | Identifiants PayPal, email de réception, frais de livraison |
+| `api/commandes/` | Commandes enregistrées (une fiche JSON par commande, non lisible depuis le web) |
+| `outils/recuperer-photos.mjs` | À lancer une fois pour copier les photos dans `assets/produits/`, puis à supprimer |
+| `concept-bague-3d.html` | Concept homme avec bague 3D WebGL |
 
-### Version nuit (`index.html`)
+## Mise en ligne chez Hostinger
 
-Un seul fichier, sans build. Même contenu, même catalogue et même panier que la version jour, posés sur un ciel animé :
+1. **Photos** (une seule fois) : dans le dossier du site, `node outils/recuperer-photos.mjs`. Il doit annoncer 80 photos copiées.
+2. **PayPal** : sur developer.paypal.com, *Apps & Credentials*, créer une application. Copier le *Client ID* et la *Secret key* (onglet Sandbox pour tester, Live pour vendre).
+3. **Configurer** :
+   - `index.html` : `PAYPAL.clientId` = le Client ID (il est public) ; `SHIPPING` = mêmes frais que le serveur.
+   - `api/config.php` : `mode`, `client_id`, `client_secret`, `email_commandes`, `email_expediteur`, `livraison`, `livraison_offerte_des`.
+   - Conseillé : enregistrer ce fichier sous le nom `nightgild-config.php` **à côté** du dossier `public_html` (hors web) ; il remplace alors `api/config.php`.
+4. **Envoyer** : hPanel > Fichiers > Gestionnaire de fichiers > `public_html`, puis déposer `index.html`, `assets/`, `api/` (ou un .zip à extraire dans `public_html`). `index.html` doit être directement dans `public_html`.
+5. **Tester en Sandbox** avec un compte acheteur fictif (developer.paypal.com > Sandbox accounts), vérifier l'email de commande, puis passer `mode` à `live` avec les identifiants Live.
 
-- **Ciel étoilé en canvas** fixe derrière toute la page : trois profondeurs d'étoiles qui scintillent
-  et glissent en parallaxe avec la souris et le défilement.
-- **Étoiles filantes** de temps en temps, et une à chaque clic dans le ciel du hero (« faire un vœu »).
-- **La Grande Ourse** qui se trace au chargement ; le nom de chaque étoile apparaît au survol.
-- **Poussière d'étoiles** qui suit le curseur.
-- **Lune réelle** : « Ce soir : premier croissant · lune éclairée à 7 % » est calculé à partir de la date du jour.
-- Lune et arches en parallaxe au défilement avec GSAP ScrollTrigger.
-- `prefers-reduced-motion` respecté : ciel fixe, sans filantes ni traînée.
+## Ajouter ou modifier un bijou
+
+1. Une ligne dans `RAW` (`index.html`) : référence, titre, genre `f`/`h`, catégorie, prix, deux noms de photo, description, options éventuelles.
+2. Les deux photos en `.webp` dans `assets/produits/`.
+3. La même référence, le même prix et les mêmes options dans `api/catalogue.php` : le serveur refuse tout article ou prix qu'il ne connaît pas.
+
+## Après une commande
+
+L'email « Commande NG-XXXXXX payée » contient les articles, le montant encaissé et l'adresse de livraison. Passer alors la commande chez le fournisseur avec cette adresse. Le remboursement éventuel se fait depuis le compte PayPal.
+
+## Lancer en local
+
+```bash
+php -S localhost:8000      # site + api/commande.php
+```
 
 ---
 
 ## Concept bague 3D (`concept-bague-3d.html`)
 
-Concept de vitrine homme : un site statique (HTML/CSS/JS, aucune étape de build)
-pensé comme une vitrine de savoir-faire front-end.
+Concept de vitrine homme : un site statique (HTML/CSS/JS, aucune étape de build) pensé comme une vitrine de savoir-faire front-end.
 
-## Ce qu'il y a dedans
-
-- **Bague 3D en WebGL** (Three.js) : anneau « confort » modélisé par révolution d'un profil,
-  métal physique avec reflets studio (PMREM), rotation à la souris / au doigt, changement de métal en direct.
-  Repli SVG automatique si WebGL n'est pas disponible.
-- **Visuels produits générés en SVG** (`assets/js/visuals.js`) : chaque bijou est dessiné selon sa forme
-  et son métal, donc changer argent / or / noir sur une carte redessine la pièce sans aucune image.
-- **Collection** filtrable et triable, cartes avec inclinaison 3D et reflet qui suit la souris.
-- **Fiche produit** : choix du métal, de la taille, et **aperçu de gravure en direct** qui suit la courbe de l'anneau.
-- **Panier** persistant (localStorage), barre de progression vers la livraison offerte.
-- **Section « Lignes »** en défilement horizontal épinglé (GSAP ScrollTrigger), une phase de lune par ligne.
-- **Guide des tailles** interactif : tour de doigt → taille FR, US, UK et diamètre.
-- **Lune réelle** : le logo affiche la progression de lecture en phase lunaire ; la newsletter montre la phase
-  du jour et le pied de page la date de la prochaine nouvelle lune.
-- Accessibilité : navigation clavier, `prefers-reduced-motion` respecté, contenu visible sans JavaScript d'animation.
-
-## Lancer en local
-
-```bash
-npx serve .        # ou : python3 -m http.server
-```
-
-## Brancher sur Shopify
-
-Les produits sont dans `assets/js/catalog.js` (données de démonstration).
-Pour passer en production : remplacer ce fichier par un appel à la Storefront API
-(ou à `/products.json` de la boutique), et brancher le bouton « Passer commande »
-sur `cart/add` + `/checkout`. La structure peut aussi être portée en sections Liquid d'un thème Online Store 2.0.
+- **Bague 3D en WebGL** (Three.js) : anneau « confort » modélisé par révolution d'un profil, métal physique avec reflets studio (PMREM), rotation à la souris / au doigt, changement de métal en direct. Repli SVG automatique si WebGL n'est pas disponible.
+- **Visuels produits générés en SVG** (`assets/js/visuals.js`) : chaque bijou est dessiné selon sa forme et son métal.
+- **Collection** filtrable et triable, **fiche produit** avec aperçu de gravure en direct, **panier** persistant, **guide des tailles** interactif.
+- Les produits sont des données de démonstration dans `assets/js/catalog.js`.

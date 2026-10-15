@@ -1,5 +1,5 @@
 /* LUNOR — catalogue
-   Données de démonstration : remplace-les par tes vrais produits Shopify
+   Données de démonstration : remplace-les par tes vrais produits
    (ou branche-les sur /products.json / Storefront API, voir README). */
 
 window.LUNOR_METALS = {

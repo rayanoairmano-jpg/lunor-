@@ -1,0 +1,2 @@
+Les photos des bijoux (fichiers .webp) vont ici.
+Lancer une fois : node outils/recuperer-photos.mjs

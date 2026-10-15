@@ -13,10 +13,9 @@
 <meta property="og:description" content="Colliers, créoles, bagues, bracelets et parures pour femme et homme, expédiés depuis la France en 2 à 7 jours.">
 <meta property="og:image" content="assets/brand/nightgild-og.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Nightgild","url":"https://lunore-shop.myshopify.com","logo":"assets/brand/nightgild-logo.png","description":"Bijoux dorés et argentés pour femme et homme, à moins de 35 €, expédiés depuis la France."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Nightgild","logo":"assets/brand/nightgild-logo.png","description":"Bijoux dorés et argentés pour femme et homme, à moins de 35 €, expédiés depuis la France."}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.shopify.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Jost:wght@300;400;500;600&display=swap">
 <style>
 /* Nightgild : feuille de style
@@ -371,6 +370,10 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .drawer__total{display:flex;justify-content:space-between;font-size:1rem}
 .drawer__total strong{font-weight:500}
 .drawer__note{font-size:.76rem;color:var(--fg-3);margin:0;text-align:center}
+.drawer__note.is-err{color:var(--gold-ink)}
+.drawer__ship{display:flex;justify-content:space-between;font-size:.86rem;color:var(--fg-2)}
+.paypal{min-height:48px;position:relative;z-index:1}
+.items .thanks b{color:var(--gold-ink)}
 
 .toast{position:fixed;left:50%;bottom:24px;z-index:100;transform:translate(-50%,20px);opacity:0;background:var(--fg);color:var(--bg);padding:12px 20px;font-size:.84rem;transition:opacity .3s,transform .4s var(--ease);pointer-events:none;max-width:calc(100% - 32px)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -698,7 +701,7 @@ main,.marquee{position:relative;z-index:1}
         <div>
           <p class="eyebrow">Questions fréquentes</p>
           <h2 class="title reveal" id="faq-title">Avant de <em>commander</em></h2>
-          <p class="lead">Une autre question ? Notre service client vous répond depuis la page Contact de la boutique.</p>
+          <p class="lead">Une autre question ? Répondez à l’email de confirmation de votre commande : nous vous répondons sous 48 heures.</p>
         </div>
         <div>
           <details open><summary>Quels sont les délais de livraison ?</summary><p>Nos bijoux sont expédiés depuis la France et livrés en 2 à 7 jours ouvrés. Un numéro de suivi vous est communiqué dès l’expédition.</p></details>
@@ -752,7 +755,6 @@ main,.marquee{position:relative;z-index:1}
         <div class="qty"><button type="button" data-q="-1" aria-label="Retirer un">−</button><output id="qv-qty">1</output><button type="button" data-q="1" aria-label="Ajouter un">+</button></div>
         <button class="btn btn--dark" id="qv-add" type="button">Ajouter au panier</button>
       </div>
-      <a class="qv__shop" id="qv-link" target="_blank" rel="noopener">Voir la fiche complète sur la boutique</a>
       <ul class="qv__list"><li>Expédié depuis la France en 2 à 7 jours</li><li>Retours sous 14 jours</li><li>Paiement sécurisé, carte ou PayPal</li></ul>
     </div>
   </div>
@@ -766,9 +768,10 @@ main,.marquee{position:relative;z-index:1}
     <div class="gauge" id="gauge">Expédié depuis la France · livré en 2 à 7 jours ouvrés</div>
     <ul class="items" id="items"></ul>
     <div class="drawer__foot">
-      <div class="drawer__total"><span>Sous-total</span><strong id="total">0,00 €</strong></div>
-      <button class="btn btn--dark btn--block" id="checkout" type="button">Passer commande</button>
-      <p class="drawer__note">Paiement sécurisé par Shopify. Livraison calculée à l’étape suivante.</p>
+      <div class="drawer__total"><span>Total</span><strong id="total">0,00 €</strong></div>
+      <div class="drawer__ship"><span>Livraison</span><span id="ship"></span></div>
+      <div id="pp-buttons" class="paypal"></div>
+      <p class="drawer__note" id="pay-note">Paiement sécurisé par PayPal : avec un compte PayPal ou directement par carte bancaire.</p>
     </div>
   </div>
 </aside>
@@ -777,12 +780,16 @@ main,.marquee{position:relative;z-index:1}
 
 <script>
 /* ================= NIGHTGILD : catalogue =================
-   Copie du catalogue Shopify (octobre 2026) : 40 bijoux, 20 femme / 20 homme.
-   Au chargement, la page relit la boutique en direct (/products.json) pour mettre à jour
-   prix, photos, variantes et nouveaux produits : les compteurs suivent tout seuls.
-   Si un domaine personnalisé est branché sur la boutique, remplacer SHOP ci-dessous. */
-const SHOP = "https://vz42tv-wj.myshopify.com";
-const CDN = "https://cdn.shopify.com/s/files/1/1053/3466/9654/files/";
+   40 bijoux, 20 femme / 20 homme. Le site ne dépend d'aucune plateforme : les photos sont dans
+   assets/produits/ et les prix font foi côté serveur dans api/catalogue.php (à garder identiques).
+   Pour ajouter un bijou : une ligne ici, ses deux photos dans assets/produits/, une ligne dans api/catalogue.php. */
+const PHOTOS = "assets/produits/";
+
+/* Paiement PayPal (boutons officiels + api/commande.php sur l'hébergement).
+   clientId : identifiant public de l'application PayPal (developer.paypal.com > Apps & Credentials).
+   Les frais de livraison sont calculés par le serveur ; ces valeurs servent seulement à l'affichage. */
+const PAYPAL = { clientId: "REMPLACER_PAR_TON_CLIENT_ID_PAYPAL", currency: "EUR" };
+const SHIPPING = { fee: 0, freeFrom: 0 };
 
 const CATS = [
   { key: "colliers",  label: "Colliers",           one: "Collier" },
@@ -793,7 +800,7 @@ const CATS = [
 ];
 const GENDERS = { all: "Tout", f: "Femme", h: "Homme" };
 
-/* [handle, titre Shopify, genre, catégorie, prix, photo 1, photo 2, description, options] */
+/* [référence, titre, genre, catégorie, prix, photo 1, photo 2, description, options] */
 const RAW = [
  ["lot-7-bracelets-joncs-dores-femme","Lot de 7 Bracelets Joncs Dorés Ciselés – Femme","f","bracelets",27.90,"Sbca1d4b032594ef3b22efa011ebf6276n","S7702f592cdcd49d0bacb667c7489ef4cf","Un ensemble de 7 joncs dorés aux motifs ciselés différents, à superposer pour un effet accumulation."],
  ["bracelet-jonc-manchette-dore-zircons","Bracelet Jonc Manchette Doré Géométrique Serti de Zircons – Femme","f","bracelets",29.90,"S9aafe0d7dac44a57b8c2b821f4d5219an","Se9b2c74744c94af0bef9a83995d6c114r","Un jonc manchette doré ouvert, terminé par deux pierres géométriques serties de zircons."],
@@ -801,7 +808,7 @@ const RAW = [
  ["boucles-oreilles-creoles-ovales-dorees","Boucles d'Oreilles Créoles Ovales Dorées Lisses – Femme","f","boucles",22.90,"S268e9377d62647cdb8b9f8b3abfaf163w","S01c538c7e2094fdeb5130478134f77d23","Des créoles ovales au fini lisse et brillant. Un basique chic qui se porte du matin au soir."],
  ["boucles-oreilles-creoles-epaisses-dorees","Boucles d'Oreilles Créoles Épaisses Dorées – Femme","f","boucles",22.90,"Sa4c8bdb25ce2477fbfd0cf091260ea63A","S044e726a655f4179bbdfbfc8b475cfc34","Des créoles épaisses et bombées à la finition dorée, tendance et faciles à porter."],
  ["creoles-serties-cristaux-argent","Créoles Serties de Cristaux – Couleur Argent, Femme","f","boucles",22.90,"S7fae3ed8f2b24a1d8ce3f4e659e1a71ay","Sa1a790094abf40f7afc8ab2c547834fc7","Des créoles argentées serties de cristaux sur toute la face avant."],
- ["collier-point-de-lumiere-zircon","Collier Point de Lumière Zircon – Acier Inoxydable, Doré ou Argenté","f","colliers",19.90,"Sb172555db5a543a286d6ac9cc9e30e6cF","S5b61d698e1a24eb392f7399d1321d09a1","Un zircon solitaire sur une chaîne fine : le point de lumière, bijou délicat et intemporel."],
+ ["collier-point-de-lumiere-zircon","Collier Point de Lumière Zircon – Acier Inoxydable, Doré ou Argenté","f","colliers",19.90,"Sb172555db5a543a286d6ac9cc9e30e6cF","S5b61d698e1a24eb392f7399d1321d09a1","Un zircon solitaire sur une chaîne fine : le point de lumière, bijou délicat et intemporel.",{name:"Coloris",values:["Argenté","Doré"]}],
  ["collier-perle-fine-plaque-argent-925","Collier Perle Fine – Plaqué Argent 925, Femme","f","colliers",24.90,"S3e1701f522dd4810aade14675841c5d7s","Sa06f3e1a79874bbc9714c1d1567e08bal","Une perle unique qui semble flotter sur une chaîne serpent très fine."],
  ["collier-coeur-dore-minimaliste","Collier Cœur Doré Minimaliste – Femme","f","colliers",22.90,"S0f146bc4a5724c11a46f322e59d297b9L","S78be8a2d331a41878fbd2e1f7424c801n","Un petit cœur doré bombé sur une chaîne fine."],
  ["collier-medaille-lune-etoile-doree","Collier Médaille Lune et Étoile Dorée – Zircon Bleu, Femme","f","colliers",24.90,"Sd37b297b8a6e4f92b85ae77f00ea27d3b","Se16f857611f64f00a0585e1b72000631k","Une médaille dorée gravée d'un croissant de lune et d'une étoile, rehaussée d'un zircon bleu."],
@@ -838,7 +845,7 @@ const RAW = [
  ["bracelet-homme-cuir-tresse-multicouche","Bracelet Homme en Cuir Tressé Multicouche – Finitions Métal, 21 cm","h","bracelets",24.90,"Se87eb0845af147cca2027c041698b2aci","S30c46f8376704c869b549083b36c6895e","Un bracelet homme multicouche au style vintage, en cuir tressé avec des finitions métal."]
 ];
 
-const img = (name, w = 700) => name.startsWith("http") ? name + (name.includes("?") ? "&" : "?") + "width=" + w : CDN + name + ".webp?width=" + w;
+const img = name => PHOTOS + name + ".webp";
 const fmt = n => n.toFixed(2).replace(".", ",") + " €";
 
 function split(title) {
@@ -846,114 +853,21 @@ function split(title) {
   return { name: a.trim(), sub: b.join(" – ").replace(/,?\s*(Femme|Homme)$/i, "").trim() };
 }
 
-/* Identifiants des variantes Shopify (relevés le 15/10/2026 dans l'admin, stock géré par DSers).
-   Avec eux, le panier part au paiement Shopify même si la lecture en direct de la boutique échoue
-   (site hébergé ailleurs que sur Shopify, CORS, hors-ligne). Nombre = article sans option. */
-const VAR = {
- "parure-collier-bracelet-torsades-or-argent":55723375755606,
- "parure-collier-bracelet-croises-acier-316l":55723375690070,
- "creoles-dorees-pavees-zircons-femme":55723376247126,
- "lot-3-paires-boucles-oreilles-dorees-etoile-de-mer":55723376279894,
- "bracelet-homme-cuir-tresse-multicouche":55723376410966,
- "collier-homme-perles-pierre-noire-oeil-de-tigre":55735064428886,
- "creoles-fines-zircons-plaque-argent-925":55735064494422,
- "bracelet-homme-obsidienne-hematite-oeil-de-tigre":["Taille des perles",{"6 mm":55735064887638,"8 mm":55735064854870,"10 mm":55735064953174}],
- "bracelet-maille-cubaine-homme-acier":["Largeur",{"5 mm":55735064658262,"7 mm":55735064789334,"9 mm":55735064723798}],
- "bracelet-homme-cuir-multirang-perles":["Pierre",{"Pierre de lave":55735065051478,"Lapis-lazuli":55735065084246}],
- "bracelet-homme-pierre-de-lave-bois":55735065149782,
- "bracelet-maille-cubaine-dore-zircons":55735065280854,
- "bracelet-homme-cuir-tresse-vintage":55735065411926,
- "bracelet-homme-cuir-tresse-noir-magnetique":55735065477462,
- "lot-4-bracelets-homme-perles-noires-dore":55735065542998,
- "collier-croix-zircons-chaine-acier":55735065608534,
- "lot-2-colliers-homme-croix-acier":55735065706838,
- "lot-2-colliers-homme-pendentif-pointe":55735065837910,
- "collier-croix-crucifix-dore-homme":55735066001750,
- "parure-homme-collier-bracelet-maille-figaro":55735066100054,
- "ensemble-homme-chaines-bracelet-acier":55735066263894,
- "bracelet-homme-boheme-corde-tressee-vert":55735066198358,
- "bracelet-homme-corde-tressee-marin":55735066362198,
- "creoles-homme-runes-vikings-acier-noir":55735066427734,
- "bracelet-homme-mantra-oeil-de-tigre":["Pierre",{"Œil de tigre":55735066493270,"Œil de tigre rouge":55735066558806}],
- "bague-solitaire-zircons-plaque-argent-925":["Taille",{"49 (US 5)":55735073571158,"52 (US 6)":55735073702230,"54 (US 7)":55735073603926,"57 (US 8)":55735073833302,"59 (US 9)":55735073734998}],
- "bague-ajustable-maille-torsadee-doree-zircons":55735073898838,
- "bague-ouverte-doree-vague-acier":55735074128214,
- "lot-6-bagues-dorees-serties-femme":55735074160982,
- "collier-coeur-ocean-cristal-irise":55735074292054,
- "collier-medaille-lune-etoile-doree":55735074357590,
- "collier-coeur-dore-minimaliste":55735074488662,
- "collier-perle-fine-plaque-argent-925":55735074718038,
- "collier-point-de-lumiere-zircon":["Coloris",{"Argenté":55735074816342,"Doré":55735074881878}],
- "creoles-serties-cristaux-argent":55735075209558,
- "boucles-oreilles-creoles-epaisses-dorees":55735075242326,
- "boucles-oreilles-creoles-ovales-dorees":55735075406166,
- "parure-coeur-collier-boucles-zircons":55735075602774,
- "bracelet-jonc-manchette-dore-zircons":55735075701078,
- "lot-7-bracelets-joncs-dores-femme":55735075766614
-};
 function build(r, order) {
   const s = split(r[1]);
-  const known = VAR[r[0]];
-  const opt = Array.isArray(known) ? { name: known[0], values: Object.keys(known[1]) } : r[8];
-  const idOf = v => Array.isArray(known) ? known[1][v] || null : null;
+  const opt = r[8];
   return {
     handle: r[0], title: r[1], name: s.name, sub: s.sub, g: r[2], cat: r[3], price: r[4], compare: null,
     images: [r[5], r[6]].filter(Boolean), desc: r[7], order,
     options: opt ? [opt] : [],
-    variants: opt ? opt.values.map(v => ({ id: idOf(v), title: v, price: r[4], available: true, options: [v] }))
-                  : [{ id: typeof known === "number" ? known : null, title: "Default Title", price: r[4], available: true, options: [] }]
+    variants: opt ? opt.values.map(v => ({ title: v, price: r[4], available: true, options: [v] }))
+                  : [{ title: "Default Title", price: r[4], available: true, options: [] }]
   };
 }
 let PRODUCTS = RAW.map(build);
 const byHandle = h => PRODUCTS.find(p => p.handle === h);
 
-/* Déduit la catégorie d'un produit ajouté plus tard sur Shopify */
-function guessCat(tags, title) {
-  const t = (tags.join(" ") + " " + title).toLowerCase();
-  if (/parure|ensemble/.test(t)) return "parures";
-  if (/boucles|créole|creole/.test(t)) return "boucles";
-  if (/bague/.test(t)) return "bagues";
-  if (/bracelet|jonc/.test(t)) return "bracelets";
-  return "colliers";
-}
-const NEW_DAYS = 21;
 
-/* ================= Synchronisation avec la boutique ================= */
-async function syncShop() {
-  try {
-    const get = u => fetch(SHOP + u, { mode: "cors" }).then(r => { if (!r.ok) throw 0; return r.json(); });
-    const [all, fem, hom] = await Promise.all([
-      get("/products.json?limit=250"),
-      get("/collections/bijoux-femme/products.json?limit=250"),
-      get("/collections/bijoux-homme/products.json?limit=250")
-    ]);
-    const F = new Set(fem.products.map(p => p.handle)), H = new Set(hom.products.map(p => p.handle));
-    const next = all.products.map((sp, i) => {
-      const old = byHandle(sp.handle);
-      const tags = sp.tags || [];
-      const g = H.has(sp.handle) || tags.includes("Homme") ? "h" : F.has(sp.handle) || tags.includes("Femme") ? "f" : (old ? old.g : (/homme/i.test(sp.title) ? "h" : "f"));
-      const s = split(sp.title);
-      const v0 = sp.variants[0] || {};
-      const prices = sp.variants.map(v => +v.price);
-      const opts = (sp.options || []).filter(o => !(o.values.length === 1 && /Default Title/.test(o.values[0])));
-      const tmp = document.createElement("div"); tmp.innerHTML = sp.body_html || "";
-      const text = tmp.textContent.replace(/\s+/g, " ").trim();
-      return {
-        handle: sp.handle, title: sp.title, name: s.name, sub: s.sub, g,
-        cat: old ? old.cat : guessCat(tags, sp.title),
-        price: Math.min(...prices), compare: v0.compare_at_price && +v0.compare_at_price > +v0.price ? +v0.compare_at_price : null,
-        images: sp.images.length ? sp.images.map(m => m.src.split("?")[0]) : (old ? old.images : []),
-        desc: old ? old.desc : (text.split(/(?<=[.!])\s/).slice(0, 2).join(" ") || ""),
-        order: old ? old.order : i,
-        isNew: !old && sp.created_at && (Date.now() - new Date(sp.created_at)) / 864e5 < NEW_DAYS,
-        options: opts.map(o => ({ name: o.name, values: o.values })),
-        variants: sp.variants.map(v => ({ id: v.id, title: v.title, price: +v.price, available: v.available !== false,
-                                         options: [v.option1, v.option2, v.option3].filter(x => x && x !== "Default Title") }))
-      };
-    });
-    if (next.length) { PRODUCTS = next; window.NIGHTGILD_LIVE = true; renderAll(); }
-  } catch (e) { /* hors-ligne ou boutique inaccessible : on garde le catalogue intégré */ }
-}
 </script>
 <script>
 /* ================= NIGHTGILD : interface ================= */
@@ -1020,7 +934,7 @@ function renderWorlds() {
     const cats = CATS.map(c => ({ ...c, n: list.filter(p => p.cat === c.key).length })).filter(c => c.n).sort((a, b) => b.n - a.n);
     return `<article class="world reveal">
       <a class="world__media" href="#boutique" data-go="${w.g}">
-        ${hero && hero.images[0] ? `<img src="${img(hero.images[0], 900)}" alt="${esc(hero.name)}" loading="lazy" onerror="this.remove()">` : ""}
+        ${hero && hero.images[0] ? `<img src="${img(hero.images[0])}" alt="${esc(hero.name)}" loading="lazy" onerror="this.remove()">` : ""}
         <span class="world__count">${list.length} pièces</span>
       </a>
       <div class="world__body">
@@ -1169,7 +1083,7 @@ function renderFooter() {
 }
 
 function renderHero() {
-  $$("[data-handle]").forEach(el => { const p = byHandle(el.dataset.handle); if (p && p.images[0]) el.src = img(p.images[0], 900); });
+  $$("[data-handle]").forEach(el => { const p = byHandle(el.dataset.handle); if (p && p.images[0]) el.src = img(p.images[0]); });
   $('[data-stat="total"]').textContent = PRODUCTS.length;
   $('[data-stat="min"]').textContent = fmt(Math.min(...PRODUCTS.map(p => p.price)));
 }
@@ -1187,10 +1101,9 @@ function openQuick(handle) {
   $("#qv-title").textContent = p.name;
   $("#qv-sub").textContent = p.sub;
   $("#qv-desc").textContent = p.desc;
-  $("#qv-link").href = `${SHOP}/products/${p.handle}`;
   $("#qv-qty").textContent = 1;
   $("#qv-thumbs").innerHTML = p.images.length > 1 ? p.images.slice(0, 8).map((m, i) =>
-    `<button type="button" data-img="${i}" aria-pressed="${i === 0}" aria-label="Photo ${i + 1}"><img src="${img(m, 160)}" alt="" loading="lazy" onerror="this.remove()"></button>`).join("") : "";
+    `<button type="button" data-img="${i}" aria-pressed="${i === 0}" aria-label="Photo ${i + 1}"><img src="${img(m)}" alt="" loading="lazy" onerror="this.remove()"></button>`).join("") : "";
   renderQV();
   $("#modal").hidden = false; document.body.style.overflow = "hidden";
   setTimeout(() => $(".x", $("#modal")).focus(), 50);
@@ -1203,7 +1116,7 @@ function currentVariant() {
 }
 function renderQV() {
   const p = qv.p, v = currentVariant();
-  $("#qv-main").innerHTML = `<div class="fallback">${moonSVG}</div>` + (p.images[qv.img] ? `<img src="${img(p.images[qv.img], 1100)}" alt="${esc(p.name)}" onerror="this.remove()">` : "");
+  $("#qv-main").innerHTML = `<div class="fallback">${moonSVG}</div>` + (p.images[qv.img] ? `<img src="${img(p.images[qv.img])}" alt="${esc(p.name)}" onerror="this.remove()">` : "");
   $$("#qv-thumbs button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.img === qv.img));
   $("#qv-price").innerHTML = fmt(v ? v.price : p.price) + (p.compare ? ` <s style="color:var(--fg-3);font-size:.9rem">${fmt(p.compare)}</s>` : "");
   $("#qv-options").innerHTML = p.options.map((o, i) => `<div style="display:grid;gap:10px">
@@ -1219,42 +1132,87 @@ function renderQV() {
 }
 function closeQuick() { $("#modal").hidden = true; document.body.style.overflow = ""; qv = null; }
 
-/* ================= Panier (en mémoire) ================= */
+/* ================= Panier (gardé dans le navigateur) ================= */
 const CART_KEY = "nightgild-cart";
 const cart = (() => { try { const c = JSON.parse(localStorage.getItem(CART_KEY) || "[]"); return Array.isArray(c) ? c : []; } catch (e) { return []; } })();
 function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} }
 function addToCart(p, v, qty = 1) {
   const key = p.handle + "|" + v.title;
   const line = cart.find(l => l.key === key);
-  if (line) line.qty += qty; else cart.push({ key, handle: p.handle, name: p.name, variant: v.title === "Default Title" ? "" : v.title, vid: v.id, price: v.price, image: p.images[0], qty });
+  if (line) line.qty += qty; else cart.push({ key, handle: p.handle, name: p.name, variant: v.title === "Default Title" ? "" : v.title, price: v.price, image: p.images[0], qty });
   renderCart();
   const c = $("#cart-count"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); setTimeout(() => c.classList.remove("bump"), 300);
   toast(`${p.name} ajouté au panier`);
 }
 function renderCart() {
   saveCart();
-  cart.forEach(l => { if (!l.vid) { const p = byHandle(l.handle); const v = p && p.variants.find(x => (x.title === "Default Title" ? "" : x.title) === l.variant); if (v && v.id) l.vid = v.id; } });
-  const n = cart.reduce((s, l) => s + l.qty, 0), total = cart.reduce((s, l) => s + l.qty * l.price, 0);
+  const n = cart.reduce((s, l) => s + l.qty, 0), sub = cart.reduce((s, l) => s + l.qty * l.price, 0), ship = n ? shipFee(sub) : 0;
   $("#cart-count").textContent = n;
-  $("#total").textContent = fmt(total);
-  $("#checkout").disabled = !n; $("#checkout").style.opacity = n ? 1 : .4;
+  $("#total").textContent = fmt(sub + ship);
+  $("#ship").textContent = !n ? "–" : ship ? fmt(ship) : "Offerte";
+  $("#pp-buttons").hidden = !n;
   $("#items").innerHTML = cart.length ? cart.map((l, i) => `<li class="item">
-      ${l.image ? `<img src="${img(l.image, 200)}" alt="">` : `<span style="background:var(--surface)"></span>`}
+      ${l.image ? `<img src="${img(l.image)}" alt="">` : `<span style="background:var(--surface)"></span>`}
       <div><h4>${esc(l.name)}</h4>${l.variant ? `<small>${esc(l.variant)}</small>` : ""}
         <div class="qty"><button type="button" data-ci="${i}" data-d="-1" aria-label="Retirer un">−</button><output>${l.qty}</output><button type="button" data-ci="${i}" data-d="1" aria-label="Ajouter un">+</button></div></div>
       <div class="item__r"><span>${fmt(l.price * l.qty)}</span><button type="button" data-rm="${i}">Retirer</button></div>
     </li>`).join("")
     : `<li class="empty"><b>Votre panier est vide.</b>Nos ${PRODUCTS.length} bijoux vous attendent.</li>`;
 }
-function openCart() { $("#drawer").classList.add("is-open"); $("#drawer").setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; }
+function openCart() { drawPayPal(); $("#drawer").classList.add("is-open"); $("#drawer").setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; }
 function closeCart() { $("#drawer").classList.remove("is-open"); $("#drawer").setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
-function checkout() {
-  if (!cart.length) return;
-  // Lien panier Shopify (/cart/id:qté,...) : il remplit le panier de la boutique et ouvre le paiement.
-  const ok = cart.filter(l => l.vid), missing = cart.filter(l => !l.vid);
-  if (ok.length) window.open(`${SHOP}/cart/${ok.map(l => l.vid + ":" + l.qty).join(",")}`, "_blank", "noopener");
-  else window.open(`${SHOP}/products/${missing[0].handle}`, "_blank", "noopener");
-  if (ok.length && missing.length) toast(`${missing.map(l => l.name).join(", ")} : à ajouter depuis sa fiche sur la boutique.`);
+function shipFee(sub) { return SHIPPING.fee && !(SHIPPING.freeFrom && sub >= SHIPPING.freeFrom) ? SHIPPING.fee : 0; }
+
+/* ================= Paiement PayPal =================
+   Boutons officiels PayPal (compte PayPal ou carte bancaire). Le navigateur n'envoie que les
+   références et quantités : api/commande.php recalcule les prix, crée la commande chez PayPal,
+   puis encaisse le paiement et t'envoie la commande par email (adresse de livraison comprise). */
+let ppReady = null, ppDrawn = false;
+function loadPayPal() {
+  if (window.paypal && window.paypal.Buttons) return Promise.resolve();
+  if (/^REMPLACER/.test(PAYPAL.clientId) || !/^[\w-]{20,}$/.test(PAYPAL.clientId)) return Promise.reject(new Error("config"));
+  return ppReady = ppReady || new Promise((ok, ko) => {
+    const sc = document.createElement("script");
+    sc.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL.clientId)}&currency=${PAYPAL.currency}&intent=capture&components=buttons&locale=fr_FR`;
+    sc.onload = ok; sc.onerror = () => { ppReady = null; ko(new Error("sdk")); };
+    document.head.appendChild(sc);
+  });
+}
+const payNote = (t, err) => { const el = $("#pay-note"); el.textContent = t; el.classList.toggle("is-err", !!err); };
+async function api(action, body, id = "") {
+  const r = await fetch(`api/commande.php?action=${action}${id ? "&id=" + encodeURIComponent(id) : ""}`,
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+  let d = {}; try { d = await r.json(); } catch (e) {}
+  if (!r.ok && !d.erreur) d.erreur = "SERVEUR";
+  return d;
+}
+function drawPayPal() {
+  if (ppDrawn || !cart.length) return;
+  loadPayPal().then(() => {
+    if (ppDrawn) return; ppDrawn = true;
+    paypal.Buttons({
+      style: { layout: "vertical", color: "gold", shape: "rect", label: "pay", height: 48 },
+      async createOrder() {
+        payNote("Paiement sécurisé par PayPal : avec un compte PayPal ou directement par carte bancaire.");
+        const d = await api("creer", { panier: cart.map(l => ({ ref: l.handle, option: l.variant, qte: l.qty })) });
+        if (d.id) return d.id;
+        payNote(d.message || "La commande n’a pas pu être préparée. Réessayez dans un instant.", true);
+        throw new Error(d.erreur || "creer");
+      },
+      async onApprove(data, actions) {
+        const d = await api("capturer", {}, data.orderID);
+        if (d.erreur === "INSTRUMENT_DECLINED") return actions.restart();
+        if (d.statut !== "COMPLETED") { payNote(d.message || "Le paiement n’a pas abouti : aucun montant n’a été débité. Réessayez ou choisissez un autre moyen de paiement.", true); return; }
+        cart.length = 0; renderCart();
+        $("#items").innerHTML = `<li class="empty thanks"><b>Merci pour votre commande.</b>Commande n° ${esc(d.numero)} confirmée. Votre reçu PayPal arrive par email ; nous préparons l’envoi sous 48 heures.</li>`;
+        payNote("Paiement reçu.");
+      },
+      onCancel() { payNote("Paiement annulé : votre panier est toujours là."); },
+      onError() { payNote("Le paiement PayPal a rencontré un problème. Réessayez dans un instant.", true); }
+    }).render("#pp-buttons");
+  }).catch(e => payNote(e.message === "config"
+    ? "Paiement en ligne bientôt disponible : la boutique finalise sa configuration PayPal."
+    : "Le module de paiement PayPal ne se charge pas. Vérifiez votre connexion puis rouvrez le panier.", true));
 }
 
 let tt;
@@ -1312,7 +1270,6 @@ document.addEventListener("click", e => {
   else if (d.ci) { const l = cart[+d.ci]; l.qty += +d.d; if (l.qty < 1) cart.splice(+d.ci, 1); renderCart(); }
   else if (d.rm) { cart.splice(+d.rm, 1); renderCart(); }
   else if (t.id === "cart-open") openCart();
-  else if (t.id === "checkout") checkout();
   else if (t.id === "burger") { $("#mnav").classList.add("is-open"); $("#mnav").setAttribute("aria-hidden", "false"); }
 
   if ("close" in d) closeQuick();
@@ -1330,7 +1287,6 @@ addEventListener("scroll", () => $("#nav").classList.toggle("is-scrolled", scrol
 
 /* ================= Démarrage ================= */
 paintMoon(); stars(); renderAll(); sizer(); observe();
-syncShop();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>

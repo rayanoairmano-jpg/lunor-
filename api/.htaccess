@@ -1,0 +1,5 @@
+# Seul commande.php est appelable depuis le navigateur.
+Options -Indexes
+<FilesMatch "^(config|catalogue)\.php$">
+  Require all denied
+</FilesMatch>

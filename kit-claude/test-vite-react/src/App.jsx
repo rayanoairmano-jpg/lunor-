@@ -2,7 +2,7 @@ import './App.css'
 
 const services = [
   { titre: 'Sites vitrines', texte: 'Un site rapide, clair et facile à modifier, livré en deux semaines.' },
-  { titre: 'Boutiques en ligne', texte: 'Catalogue, panier et paiement branchés sur Shopify.' },
+  { titre: 'Boutiques en ligne', texte: 'Catalogue, panier et paiement en ligne sécurisé.' },
   { titre: 'Référencement', texte: 'Audit, mots-clés et suivi mensuel de vos positions sur Google.' },
 ]
 
