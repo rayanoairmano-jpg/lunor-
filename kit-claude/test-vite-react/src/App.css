@@ -1,0 +1,11 @@
+.entete { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
+.logo { font-weight: 700; letter-spacing: .02em; }
+.bouton { display: inline-block; padding: .7rem 1.2rem; border-radius: 999px; background: #1f3a5f; color: #fff; text-decoration: none; }
+.bouton:hover { background: #2c5282; }
+.hero { max-width: 44rem; margin: 4rem auto; padding: 0 1rem; text-align: center; }
+.hero h1 { font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.1; margin-bottom: 1rem; }
+.hero p { font-size: 1.15rem; color: #4a5568; margin-bottom: 2rem; }
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; max-width: 64rem; margin: 0 auto; padding: 0 1rem; }
+.services article { border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; }
+.contact { text-align: center; margin: 5rem auto; padding: 0 1rem; }
+footer { text-align: center; padding: 2rem; color: #718096; font-size: .9rem; }
