@@ -6,13 +6,15 @@
 <title>Nightgild : bijoux dorés et argentés à moins de 35 €</title>
 <meta name="description" content="Nightgild : bijoux dorés et argentés pour femme et homme. Colliers, créoles, bagues, bracelets et parures à moins de 35 €, expédiés depuis la France en 2 à 7 jours.">
 <meta name="theme-color" content="#0C1022">
+<link rel="canonical" href="https://nightgild.com/">
 <link rel="icon" type="image/svg+xml" href="assets/brand/nightgild-mark.svg">
 <link rel="apple-touch-icon" href="assets/brand/nightgild-mark.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nightgild">
 <meta property="og:title" content="Nightgild : bijoux dorés et argentés à moins de 35 €">
 <meta property="og:description" content="Colliers, créoles, bagues, bracelets et parures pour femme et homme, expédiés depuis la France en 2 à 7 jours.">
-<meta property="og:image" content="assets/brand/nightgild-og.png">
+<meta property="og:image" content="https://nightgild.com/assets/brand/nightgild-og.png">
+<meta property="og:url" content="https://nightgild.com/">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Nightgild","logo":"assets/brand/nightgild-logo.png","description":"Bijoux dorés et argentés pour femme et homme, à moins de 35 €, expédiés depuis la France."}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,7 +310,11 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .footer__col a:hover,.footer__col button:hover{color:var(--fg)}
 .footer__moon{display:flex;align-items:center;gap:12px;font-size:.88rem;color:var(--fg-2)}
 .footer__moon svg{width:34px;height:34px;flex:none}
-.footer__legal{border-top:1px solid var(--line-2);margin-top:48px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.76rem;color:var(--fg-3)}
+.footer__info{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.86rem}
+.footer__info a{color:var(--fg-2);padding:6px 0}
+.footer__info a:hover{color:var(--fg)}
+.lead a,.faq p a{color:var(--gold-ink);text-decoration:underline;text-underline-offset:3px}
+.footer__legal{border-top:1px solid var(--line-2);margin-top:24px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.76rem;color:var(--fg-3)}
 @media (max-width:900px){.footer__grid{grid-template-columns:1fr 1fr}.footer__grid>:first-child{grid-column:1/-1}}
 
 /* ---------- Aperçu produit ---------- */
@@ -695,11 +701,11 @@ main,.marquee{position:relative;z-index:1}
         <div>
           <p class="eyebrow">Questions fréquentes</p>
           <h2 class="title reveal" id="faq-title">Avant de <em>commander</em></h2>
-          <p class="lead">Une autre question ? Répondez à l’email de confirmation de votre commande : nous vous répondons sous 48 heures.</p>
+          <p class="lead">Une autre question ? Écrivez-nous à <a href="mailto:contact@nightgild.com">contact@nightgild.com</a> ou via le <a href="contact.html">formulaire de contact</a> : nous vous répondons sous 48 heures.</p>
         </div>
         <div>
           <details open><summary>Quels sont les délais de livraison ?</summary><p>Nos bijoux sont expédiés depuis la France et livrés en 2 à 7 jours ouvrés. Un numéro de suivi vous est communiqué dès l’expédition.</p></details>
-          <details><summary>Puis-je retourner un bijou ?</summary><p>Oui, vous disposez de 14 jours après réception pour changer d’avis.</p></details>
+          <details><summary>Puis-je retourner un bijou ?</summary><p>Oui, vous disposez de 14 jours après réception pour changer d’avis. Écrivez-nous à <a href="mailto:contact@nightgild.com">contact@nightgild.com</a> avec votre numéro de commande.</p></details>
           <details><summary>Quels moyens de paiement acceptez-vous ?</summary><p>Le paiement est sécurisé, par carte bancaire ou PayPal.</p></details>
           <details><summary>En quelles matières sont vos bijoux ?</summary><p>Selon les modèles : acier inoxydable 316L (qui ne noircit pas), plaqué argent 925, zircons et cristaux, pierres naturelles, cuir et corde tressés. Chaque fiche produit précise la matière et les conseils d’entretien.</p></details>
           <details><summary>Comment entretenir mes bijoux ?</summary><p>Évitez le contact avec l’eau, le parfum et les produits cosmétiques, et rangez chaque bijou à l’abri de l’humidité. Les conseils propres à chaque modèle figurent sur sa fiche.</p></details>
@@ -722,7 +728,7 @@ main,.marquee{position:relative;z-index:1}
         <h3>Ce soir</h3>
         <div class="footer__moon"><svg viewBox="-50 -50 100 100" aria-hidden="true"><circle r="46" fill="#273050"/><path class="phase" fill="url(#moonfill)"/></svg><span id="moon-txt"></span></div>
         <h3 style="margin-top:24px">Aide</h3>
-        <a href="#tailles">Guide des tailles</a><a href="#faq">Livraison &amp; retours</a>
+        <a href="#tailles">Guide des tailles</a><a href="#faq">Livraison &amp; retours</a><a href="contact.html">Contact</a><a href="mailto:contact@nightgild.com">contact@nightgild.com</a>
       </div>
     </div>
     <div class="footer__legal"><span>© 2026 Nightgild</span><span>Paiement sécurisé · Carte bancaire &amp; PayPal</span></div>
@@ -1250,7 +1256,7 @@ document.addEventListener("click", e => {
   if (d.quick) { e.stopPropagation(); const p = byHandle(d.quick);
     if (p.variants.length === 1 && p.variants[0].available) addToCart(p, p.variants[0]); else openQuick(d.quick); return; }
   if (t.classList.contains("card")) { openQuick(d.h); return; }
-  if (d.go) { e.preventDefault(); setFilter({ g: d.go, cat: d.cat || "all", mat: null }, true); }
+  if (d.go) { e.preventDefault(); const g = ({ femme: "f", homme: "h" })[d.go] || d.go; setFilter({ g: GENDERS[g] ? g : "all", cat: d.cat || "all", mat: null }, true); }
   else if (d.g) setFilter({ g: d.g, cat: "all" });
   else if (d.c) setFilter({ cat: d.c });
   else if ("matClear" in d) setFilter({ mat: null });

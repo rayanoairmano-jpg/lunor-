@@ -1,0 +1,44 @@
+# Nightgild : règles serveur (Hostinger)
+Options -Indexes
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS partout, et une seule adresse : https://nightgild.com (sans www)
+  # (sauf .well-known, utilisé pour renouveler le certificat SSL)
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://nightgild.com%{REQUEST_URI} [L,R=301]
+
+  # Fichiers de travail jamais publics : outils, notes, brouillons, dépôt Git
+  RewriteRule ^(kit-claude|outils|\.git)(/|$) - [R=404,L]
+  RewriteRule ^(README\.md|concept-bague-3d\.html|version-jour\.html)$ - [R=404,L]
+  RewriteRule \.(md|mjs|zip|xlsx|pdf|log|bak)$ - [R=404,L,NC]
+</IfModule>
+
+# Fichiers cachés (.gitignore, .htaccess…) interdits
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Mise en cache des images, polices, CSS et JS
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

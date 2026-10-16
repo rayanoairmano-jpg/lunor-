@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact | Nightgild</title>
+<meta name="description" content="Contacter Nightgild : une question sur un bijou, une commande ou un retour ? Réponse sous 48 heures.">
+<link rel="canonical" href="https://nightgild.com/contact.html">
+<meta name="theme-color" content="#0C1022">
+<link rel="icon" type="image/svg+xml" href="assets/brand/nightgild-mark.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<header class="top"><div class="in"><a class="brand" href="/">NIGHTGILD</a><a class="back" href="/">← Retour à la boutique</a></div></header>
+<main class="page">
+  <p class="eyebrow">Aide</p>
+  <h1>Nous contacter</h1>
+  <p>Une question sur un bijou, une commande ou un retour ? Écrivez-nous ci-dessous ou directement à <a href="mailto:contact@nightgild.com">contact@nightgild.com</a>. Nous répondons sous 48 heures ouvrées.</p>
+
+  <form id="contact" action="api/contact.php" method="post" novalidate>
+    <label>Votre nom<input name="nom" autocomplete="name" required maxlength="100"></label>
+    <label>Votre e-mail<input name="email" type="email" autocomplete="email" required maxlength="200"></label>
+    <label>Numéro de commande (facultatif)<input name="commande" placeholder="NG-XXXXXX" maxlength="20"></label>
+    <label>Sujet
+      <select name="sujet">
+        <option>Question sur un bijou</option>
+        <option>Suivi de commande</option>
+        <option>Retour ou remboursement</option>
+        <option>Autre demande</option>
+      </select>
+    </label>
+    <label>Votre message<textarea name="message" required maxlength="5000"></textarea></label>
+    <div class="hp" aria-hidden="true"><label>Ne pas remplir<input name="site" tabindex="-1" autocomplete="off"></label></div>
+    <p class="updated" style="margin:0">Vos données servent uniquement à répondre à votre demande.</p>
+    <button type="submit">Envoyer le message</button>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+  </form>
+</main>
+<footer class="foot"><div class="in"><span>© 2026 Nightgild</span><a href="/">Boutique</a><a href="contact.html">Contact</a><a href="mailto:contact@nightgild.com">contact@nightgild.com</a></div></footer>
+<script>
+(function () {
+  const f = document.getElementById("contact"), msg = document.getElementById("msg"), btn = f.querySelector("button");
+  const show = (ok, text) => { msg.className = "msg " + (ok ? "ok" : "err"); msg.textContent = text; };
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f));
+    if (!d.nom.trim() || !d.message.trim()) return show(false, "Merci d’indiquer votre nom et votre message.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return show(false, "Merci d’indiquer une adresse e-mail valide.");
+    btn.disabled = true; btn.textContent = "Envoi…";
+    try {
+      const r = await fetch(f.action, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.ok) { f.reset(); show(true, "Merci, votre message a bien été envoyé. Nous vous répondons sous 48 heures ouvrées."); }
+      else show(false, j.erreur || "L’envoi a échoué. Réessayez ou écrivez-nous à contact@nightgild.com.");
+    } catch (_) { show(false, "L’envoi a échoué. Réessayez ou écrivez-nous à contact@nightgild.com."); }
+    btn.disabled = false; btn.textContent = "Envoyer le message";
+  });
+})();
+</script>
+</body>
+</html>
