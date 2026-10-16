@@ -1,0 +1,46 @@
+/* Nightgild : pages d'information (mentions légales, CGV, confidentialité, livraison, contact, 404) */
+:root{--bg:#0C1022;--panel:#151C3A;--surface:#1B2347;--gold:#D4AF5F;--gold-ink:#EBD49A;--fg:#F1EBDD;--fg-2:#B2B5C7;--fg-3:#8A90AA;--line:rgba(238,232,218,.12);--serif:"Bodoni Moda",Didot,"Times New Roman",serif;--sans:"Jost",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 1.02rem/1.7 var(--sans);background-image:radial-gradient(1200px 600px at 80% -10%,#1E2A5A 0,transparent 60%)}
+a{color:var(--gold-ink);text-underline-offset:3px}
+a:hover{color:var(--fg)}
+.top{border-bottom:1px solid var(--line)}
+.top .in,.page,.foot .in{max-width:860px;margin:0 auto;padding:0 20px}
+.top .in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{font-family:var(--serif);letter-spacing:.42em;font-size:1.15rem;color:var(--fg);text-decoration:none}
+.back{font-size:.9rem;color:var(--fg-2)}
+.page{padding:56px 20px 72px}
+.eyebrow{font-family:var(--serif);font-style:italic;color:var(--gold-ink);margin:0 0 8px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:0 0 12px}
+h2{font-family:var(--serif);font-weight:400;font-size:1.45rem;margin:44px 0 10px;color:var(--fg)}
+h3{font-size:1rem;font-weight:600;margin:24px 0 6px}
+p,li{color:var(--fg-2)}
+strong{color:var(--fg);font-weight:500}
+.updated{font-size:.88rem;color:var(--fg-3)}
+.box{background:var(--panel);border:1px solid var(--line);padding:20px 22px;margin:20px 0}
+blockquote{margin:12px 0;padding:12px 18px;border-left:2px solid var(--gold);background:rgba(255,255,255,.03);font-size:.95rem}
+blockquote p{margin:.4em 0}
+mark.todo{background:#5a2a1e;color:#ffd9c7;padding:1px 6px;font-size:.92em}
+table{width:100%;border-collapse:collapse;font-size:.94rem;margin:12px 0}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--fg-2)}
+th{color:var(--fg);font-weight:500}
+.table-wrap{overflow-x:auto}
+form{display:grid;gap:16px;margin-top:24px}
+label{display:grid;gap:6px;font-size:.92rem;color:var(--fg)}
+input,textarea,select{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);padding:12px 14px;border-radius:0;width:100%}
+input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:160px;resize:vertical}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--fg-2)}
+.consent input{width:auto;margin-top:5px}
+button{font:inherit;cursor:pointer;background:var(--fg);color:var(--bg);border:0;padding:14px 22px;font-weight:500;justify-self:start}
+button:hover{background:var(--gold-ink)}
+button[disabled]{opacity:.6;cursor:wait}
+.msg{padding:14px 16px;border:1px solid var(--line);display:none}
+.msg.ok{display:block;border-color:#4f8a5b;background:rgba(79,138,91,.15);color:#d6f0db}
+.msg.err{display:block;border-color:#a3533f;background:rgba(163,83,63,.15);color:#ffd9c7}
+.foot{border-top:1px solid var(--line);padding:28px 0 40px;font-size:.86rem;color:var(--fg-3)}
+.foot .in{display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot a{color:var(--fg-2);text-decoration:none}
+.foot a:hover{color:var(--fg)}
